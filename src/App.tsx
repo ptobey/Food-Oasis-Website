@@ -1,13 +1,18 @@
-import './App.css';
-import Button from '@mui/material/Button';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LaunchPage from './LaunchPage';
+import MapPage from './MapPage';
+import RecipePage from './RecipePage';
 
-const App = () => {
+const App: React.FC = () => {
   return (
-    <div className="content">
-      <h1>Rsbuild with React!</h1>
-      <p>Start building amazing things with Rsbuild.</p>
-      <Button>MUI Test Button</Button>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LaunchPage/>} />
+        <Route path="/map" element={<MapPage />} />
+        <Route path="/recipes" element={<RecipePage />} />
+      </Routes>
+    </Router>
   );
 };
 
