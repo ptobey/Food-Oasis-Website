@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import { Container, Typography } from '@mui/material';
+import { Container, Paper, Typography } from '@mui/material';
 import axios from 'axios';
 
 type FarmersMarket = {
-  brief_des: String;
-  location_street: String
+  brief_desc: String;
+  location_street: String;
+  location_city: String;
 }
 
 const RecipePage: React.FC = () => {
@@ -34,7 +35,10 @@ const RecipePage: React.FC = () => {
    
     </Container>
     {result && result.length > 0 ? result.map((item, index) => (
-      <p key={index}>{item.location_street}</p>
+      <Paper elevation={20} sx={{padding:1, marginTop:2}}>
+       <p key={index}>{item.location_street}</p>
+       <p key={index}>{item.location_city}</p>
+      </Paper>
     )) : <p>Loading...</p>}
       </>;
 
