@@ -4,12 +4,13 @@ import axios from 'axios';
 
 const RecipePage: React.FC = () => {
 
- const url = 'https://www.usdalocalfoodportal.com/api/farmersmarket/?apikey=U0lsUI6Xi9&x=-84&y=42&state=fl'
+ const url = 'https://www.usdalocalfoodportal.com/api/farmersmarket/?apikey=U0lsUI6Xi9&state=fl'
  const [data, setData] = useState([])
+ const [result, setResult] = useState(null)
 
  
   const fetchInfo = () => {
-    return axios.get(url).then((res) => setData(res.data));
+    return axios.get(url).then((result) => setResult(result));
   };
 
   useEffect(() => {
@@ -25,24 +26,8 @@ const RecipePage: React.FC = () => {
       <Typography variant="h4">Searchable Recipe Finder</Typography>
       <Typography>
         This is where the recipe search functionality will be displayed.
-
-        <center>
-        {data.map((dataObj, index) => {
-          return (
-            <div
-              style={{
-                width: "15em",
-                backgroundColor: "#CD8FFD",
-                padding: 2,
-                borderRadius: 10,
-                marginBlock: 10,
-              }}
-            >
-              <p style={{ fontSize: 20, color: 'white' }}>{dataObj.listing_name}</p>
-            </div>
-          );
-        })}
-      </center>
+        <p>{result}</p>
+        
       </Typography>
 
    
