@@ -1,4 +1,3 @@
-//import "./styles.css";
 import axios from "axios";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
@@ -19,11 +18,6 @@ function MapPage() {
      fetchInfo();
    }, []);
 
-   useEffect(() => {
-    console.log(results ? results[0].location_y : "hi")
-    console.log(results ? results[0].location_x: "hello")
-  }, [results]);
-
   return (
     <MapContainer center={[28.5384, -81.3789]} zoom={13} style={{ height: '500px', width: '100%' }}>
       <TileLayer
@@ -36,7 +30,6 @@ function MapPage() {
       </Popup></Marker>
       
       )) : <p>Loading...</p>}
-
     </MapContainer>
   );
 

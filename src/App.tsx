@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LaunchPage from './LaunchPage';
 import MapPage from './MapPage';
 import RecipePage from './RecipePage';
-import AxiosApp from './axiosApp';
 
 const App: React.FC = () => {
   return (
