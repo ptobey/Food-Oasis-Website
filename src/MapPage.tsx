@@ -19,7 +19,7 @@ function MapPage() {
    }, []);
 
   return (
-    <MapContainer center={[28.5384, -81.3789]} zoom={13} style={{ height: '500px', width: '100%' }}>
+    <MapContainer center={[28.5384, -81.3789]} zoom={13} style={{ height: '100vh', width: '100vw', margin: -8  }}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
