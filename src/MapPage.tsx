@@ -2,10 +2,18 @@ import axios from "axios";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import RoomIcon from '@mui/icons-material/Room';
+import { Icon } from "leaflet";
 
 function MapPage() {
   const url = 'https://www.usdalocalfoodportal.com/api/farmersmarket/?apikey=U0lsUI6Xi9&state=fl'
   const [results, setResults] = useState(undefined as unknown as any[])
+
+  const customIcon = new Icon({
+    iconUrl: '/map-marker.png',
+    
+    iconSize: [38, 38] 
+  });
   
    const fetchInfo = () => {
      return axios.get(url).then((response: any) => {
@@ -25,7 +33,7 @@ function MapPage() {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
         {results ? results.map((result, index) => (
-        <Marker key={index} position={[result.location_y as number, result.location_x as number]}><Popup>
+        <Marker key={index} position={[result.location_y as number, result.location_x as number]} icon={customIcon}><Popup>
         <a href={result.media_website}>{result.media_website}</a>
       </Popup></Marker>
       
