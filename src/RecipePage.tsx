@@ -1,11 +1,38 @@
 import React, {useState, useEffect} from 'react';
 import { Container, Paper, Typography } from '@mui/material';
 import axios from 'axios';
+import { red } from '@mui/material/colors';
+import { Gradient } from '@mui/icons-material';
 
 type FarmersMarket = {
   brief_desc: String;
-  location_street: String;
+  contact_email: String;
+  contact_name: String;
+  contact_phone: String;
+  directory_name: String;
+  directory_type: String;
+  distance: Number;
+  listing_desc: String;
+  listing_id: Number;
+  listing_image: String;
+  listing_name: String;
+  location_address: String;
   location_city: String;
+  location_state: String;
+  location_street: String;
+  location_x: Number;
+  location_y: Number;
+  location_zipcode: Number;
+  media_blog: String;
+  media_facebook: String;
+  media_instagram: String;
+  media_pinterest: String;
+  media_twitter: String;
+  media_website: String;
+  media_youtube: String;
+  mydesc: String;
+  term: String;
+  update_time: String;
 }
 
 const RecipePage: React.FC = () => {
@@ -35,7 +62,10 @@ const RecipePage: React.FC = () => {
    
     </Container>
     {result && result.length > 0 ? result.map((item, index) => (
-      <Paper elevation={20} sx={{padding:1, marginTop:2}}>
+      <Paper elevation={25} sx={{padding:3, marginTop:2, color:"goldenrod" ,bgcolor:'aquamarine',boxShadow:20, fontWeight:'bold', fontsize:'20'
+
+
+      }}>
        <p key={index}>{item.location_street}</p>
        <p key={index}>{item.location_city}</p>
       </Paper>
