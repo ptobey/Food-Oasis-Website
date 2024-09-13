@@ -2,7 +2,6 @@ import axios from "axios";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import RoomIcon from '@mui/icons-material/Room';
 import { Icon } from "leaflet";
 
 function MapPage() {
@@ -11,7 +10,6 @@ function MapPage() {
 
   const customIcon = new Icon({
     iconUrl: '/map-marker.png',
-    
     iconSize: [38, 38] 
   });
   
@@ -40,7 +38,6 @@ function MapPage() {
       )) : <p>Loading...</p>}
     </MapContainer>
   );
-
 } 
 
 export default MapPage;
