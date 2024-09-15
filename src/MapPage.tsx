@@ -3,6 +3,7 @@ import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Icon } from "leaflet";
+import MarkerClusterGroup from "react-leaflet-cluster";
 
 function MapPage() {
   const url = 'https://www.usdalocalfoodportal.com/api/farmersmarket/?apikey=U0lsUI6Xi9&state=fl'
@@ -10,7 +11,7 @@ function MapPage() {
 
   const customIcon = new Icon({
     iconUrl: '/map-marker.png',
-    iconSize: [38, 38] 
+    iconSize: [38, 38] // size of icon
   });
   
    const fetchInfo = () => {
@@ -30,12 +31,14 @@ function MapPage() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
+      <MarkerClusterGroup>
         {results ? results.map((result, index) => (
-        <Marker key={index} position={[result.location_y as number, result.location_x as number]} icon={customIcon}><Popup>
-        <a href={result.media_website}>{result.media_website}</a>
-      </Popup></Marker>
+        <Marker key={index} position={[result.location_y as number, result.location_x as number]} icon={customIcon}>
+          <Popup><a href={result.media_website}>{result.media_website}</a></Popup>
+        </Marker>
       
       )) : <p>Loading...</p>}
+    </MarkerClusterGroup>
     </MapContainer>
   );
 } 
