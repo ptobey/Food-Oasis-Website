@@ -4,10 +4,11 @@
 *.log*
 
 # Dist
-node_modules
-dist/
+/node_modules
+/dist
 
 # IDE
 .vscode/*
 !.vscode/extensions.json
 .idea
+
