@@ -26,9 +26,6 @@ importers:
       git:
         specifier: ^0.1.5
         version: 0.1.5
-      pnpm:
-        specifier: ^9.10.0
-        version: 9.10.0
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -547,11 +544,6 @@ packages:
 
   picocolors@1.1.0:
     resolution: {integrity: sha512-TQ92mBOW0l3LeMeyLV6mzy/kWr8lkd/hp3mTg7wYK7zJhuBStmGMBG0BdeDZS/dZx1IukaX6Bk11zcln25o1Aw==}
-
-  pnpm@9.10.0:
-    resolution: {integrity: sha512-c6Ka+jag0JLs5Scd5Rd+y/gxjUVOzXATQxMbjrwMGpHEh9pGq3fI5ZbWrPFGHjWUztS+zt+JIbB0+9hlPtcFHA==}
-    engines: {node: '>=18.12'}
-    hasBin: true
 
   prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
@@ -1150,8 +1142,6 @@ snapshots:
   path-type@4.0.0: {}
 
   picocolors@1.1.0: {}
-
-  pnpm@9.10.0: {}
 
   prop-types@15.8.1:
     dependencies:
