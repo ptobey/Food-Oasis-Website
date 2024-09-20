@@ -37,11 +37,31 @@ function LocationMarker() {
   return null;
 }
 
+function Legend() {
+  const map = useMap();
+  useEffect(() => {
+    if (map) {
+      const legend = L.control({ position: "bottomright", background: "black"});
+
+      legend.onAdd = () => {
+        const div = L.DomUtil.create("div", "info legend");
+        div.innerHTML =
+          "<h4>This is the legend</h4>" +
+          "<b>two on add effects = two legends?</b>";
+        return div;
+      };
+
+      legend.addTo(map);
+    }
+  }, [map]);
+  return null;
+}
+
 function MapPage() {
   const url = 'https://www.usdalocalfoodportal.com/api/farmersmarket/?apikey=U0lsUI6Xi9&state=fl';
-  const [results, setResults] = useState<any[]>([]);
+  const [resultsFarmersMarket, setResults] = useState<any[]>([]);
 
-  const customIcon = new Icon({
+  const customIconFarmersMarket = new Icon({
     iconUrl: '/map-marker.png',
     iconSize: [38, 38],
   });
@@ -54,6 +74,13 @@ function MapPage() {
   }, []);
 
   return (
+    <div className='container'>
+      <div className="header">
+      <h2 className='heading'>Farmers Markets in Florida</h2>
+      <p className="text-muted">Blue circle is your approximate location.  Zoom out to see more locations.  Click marker for
+        additional locations</p></div>
+      <div className="">
+        <div className="">
     <MapContainer
       center={[28.5384, -81.3789]}
       zoom={13}
@@ -63,15 +90,16 @@ function MapPage() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      
+      <Legend />
+
       <LocationMarker />
 
       <MarkerClusterGroup chunkedLoading>
-        {results.map((result, index) => (
+        {resultsFarmersMarket.map((result, index) => (
           <Marker
             key={index}
             position={[result.location_y as number, result.location_x as number]}
-            icon={customIcon}
+            icon={customIconFarmersMarket}
           >
             <Popup>
               <a href={result.media_website}>{result.media_website}</a>
@@ -80,6 +108,9 @@ function MapPage() {
         ))}
       </MarkerClusterGroup>
     </MapContainer>
+              </div>
+          </div>
+      </div>
   );
 }
 
