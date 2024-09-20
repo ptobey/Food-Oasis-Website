@@ -5,8 +5,8 @@ const RecipePage = () => {
     const [accessToken, setAccessToken] = useState('');
 
     const getAccessToken = async () => {
-            axios.post("http://localhost:5000/api").then((response) => {
-                setAccessToken(response.data.access_token);
+            axios.post("http://localhost:5000/recipe-types/v2?format=json").then((response: any) => {
+                setAccessToken(response.data.recipe_types.recipe_type[0]);
             });
 
     };
