@@ -26,7 +26,7 @@ app.post('/**', (req, res) => {
       client_id: process.env.client_id,
       client_secret: process.env.client_secret,
       grant_type: 'client_credentials',
-      scope: 'basic',
+      scope: 'premier',
     }),
   };
 
@@ -34,23 +34,25 @@ app.post('/**', (req, res) => {
     if (error || response.statusCode !== 200) {
       return res.status(500).json({ type: 'error', message: error ? error.message : 'Unknown error' });
     }
+
     let token = JSON.parse(body).access_token;
+
     const apiOptions = {
-      url: API_URL+req.url,
+      url: API_URL + req.url,
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
       },
     };
+
     request(apiOptions, (error, response, body) => {
       if (error || response.statusCode !== 200) {
         return res.status(500).json({ type: 'error', message: error ? error.message : 'Unknown error' });
       }
+      
       res.json(JSON.parse(body));
   });
 });
 })
 
-// Start the server
-app.listen(5000, () => console.log(`listening on 5000`))
-
+app.listen(5000, () => console.log(`listening on 5000`));
