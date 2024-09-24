@@ -37,7 +37,7 @@ function LocationMarker() {
   return null;
 }
 
-function Legend() {
+ /* function Legend() {
   const map = useMap();
   useEffect(() => {
     if (map) {
@@ -55,7 +55,25 @@ function Legend() {
     }
   }, [map]);
   return null;
-}
+}*/
+const defaultMarker = L.marker([51.505, -0.09], {}).addTo(Map);
+
+const items =  {
+
+  "default marker" : defaultMarker,
+};
+
+const legend = L.Control.featureLegend(items, {
+  position: "bottomleft",
+  title: "Shapes",
+  symbolContainerSize: 24,
+  symbolScaling: "clamped",
+  maxSymbolSize: 24,
+  minSymbolSize: 2,
+  collapsed: true,
+  drawShadows: true,
+}).addTo(Map);
+
 
 function MapPage() {
   const url = 'https://www.usdalocalfoodportal.com/api/farmersmarket/?apikey=U0lsUI6Xi9&state=fl';
@@ -90,7 +108,8 @@ function MapPage() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      <Legend />
+      <legend />
+      
 
       <LocationMarker />
 

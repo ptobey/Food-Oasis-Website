@@ -32,6 +32,9 @@ importers:
       leaflet:
         specifier: ^1.9.4
         version: 1.9.4
+      leaflet-feature-legend:
+        specifier: ^1.0.0
+        version: 1.0.0
       leaflet.locatecontrol:
         specifier: ^0.81.1
         version: 0.81.1
@@ -567,6 +570,9 @@ packages:
 
   json-parse-even-better-errors@2.3.1:
     resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}
+
+  leaflet-feature-legend@1.0.0:
+    resolution: {integrity: sha512-bepjEOQNLvhPYLNZr6pKAEKrrdEPd8rHNk4ZfXc8BQfmt/oo2KuTgo5AXN6lNZe7Q3rVZBjkDkoQv8UoJFMRgg==}
 
   leaflet.locatecontrol@0.81.1:
     resolution: {integrity: sha512-ZtsdScGufPw330X3UIaGGjnfQ1NrhLySnlruWufIMnfzsHgQPz0+mSxsCQMVh7QgOBoefCGb/lioSejiaNx1EQ==}
@@ -1244,6 +1250,10 @@ snapshots:
   jsesc@2.5.2: {}
 
   json-parse-even-better-errors@2.3.1: {}
+
+  leaflet-feature-legend@1.0.0:
+    dependencies:
+      leaflet: 1.9.4
 
   leaflet.locatecontrol@0.81.1: {}
 
