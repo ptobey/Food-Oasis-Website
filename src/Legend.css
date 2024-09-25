@@ -1,0 +1,15 @@
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+  }
+
+ 
+  
+  .legend {
+    text-align: left;
+    line-height: 25px;
+    color: #000000;
+  }
+  

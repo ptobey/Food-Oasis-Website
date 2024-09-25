@@ -1,10 +1,12 @@
 import axios from "axios";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap} from "react-leaflet";
 import { Icon } from "leaflet";
 import L from "leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
+import "./Legend.css";
+
 
 function LocationMarker() {
   const map = useMap();
@@ -37,11 +39,11 @@ function LocationMarker() {
   return null;
 }
 
- /* function Legend() {
+  function Legend() {
   const map = useMap();
   useEffect(() => {
     if (map) {
-      const legend = L.control({ position: "bottomright", background: "black"});
+      const legend = L.control({ position: "bottomright"});
 
       legend.onAdd = () => {
         const div = L.DomUtil.create("div", "info legend");
@@ -55,8 +57,9 @@ function LocationMarker() {
     }
   }, [map]);
   return null;
-}*/
-const defaultMarker = L.marker([51.505, -0.09], {}).addTo(Map);
+}
+
+/*const defaultMarker = L.marker([51.505, -0.09], {}).addTo(Map);
 
 const items =  {
 
@@ -73,6 +76,9 @@ const legend = L.Control.featureLegend(items, {
   collapsed: true,
   drawShadows: true,
 }).addTo(Map);
+*/
+
+
 
 
 function MapPage() {
@@ -104,11 +110,15 @@ function MapPage() {
       zoom={13}
       style={{ height: '100vh', width: '100vw', margin: -8 }}
     >
+
+
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      <legend />
+      
+
+      
       
 
       <LocationMarker />
@@ -126,6 +136,7 @@ function MapPage() {
           </Marker>
         ))}
       </MarkerClusterGroup>
+      <Legend />
     </MapContainer>
               </div>
           </div>
