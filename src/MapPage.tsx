@@ -2,8 +2,8 @@ import axios from "axios";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap} from "react-leaflet";
-import { Icon } from "leaflet";
-import L from "leaflet";
+import { Icon} from "leaflet";
+import  L from "leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import "./Legend.css";
 
@@ -39,46 +39,31 @@ function LocationMarker() {
   return null;
 }
 
+
+
+
   function Legend() {
   const map = useMap();
   useEffect(() => {
     if (map) {
-      const legend = L.control({ position: "bottomright"});
+      const legend = L.control.attribution({ position: "bottomright"});
 
       legend.onAdd = () => {
         const div = L.DomUtil.create("div", "info legend");
+        
         div.innerHTML =
           "<h4>This is the legend</h4>" +
           "<b>two on add effects = two legends?</b>";
         return div;
+        
+
       };
 
       legend.addTo(map);
     }
-  }, [map]);
+  } , [map]);
   return null;
 }
-
-/*const defaultMarker = L.marker([51.505, -0.09], {}).addTo(Map);
-
-const items =  {
-
-  "default marker" : defaultMarker,
-};
-
-const legend = L.Control.featureLegend(items, {
-  position: "bottomleft",
-  title: "Shapes",
-  symbolContainerSize: 24,
-  symbolScaling: "clamped",
-  maxSymbolSize: 24,
-  minSymbolSize: 2,
-  collapsed: true,
-  drawShadows: true,
-}).addTo(Map);
-*/
-
-
 
 
 function MapPage() {
@@ -110,6 +95,7 @@ function MapPage() {
       zoom={13}
       style={{ height: '100vh', width: '100vw', margin: -8 }}
     >
+      
 
 
       <TileLayer
@@ -136,7 +122,9 @@ function MapPage() {
           </Marker>
         ))}
       </MarkerClusterGroup>
-      <Legend />
+
+      <Legend/>
+
     </MapContainer>
               </div>
           </div>
