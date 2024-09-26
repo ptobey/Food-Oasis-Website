@@ -1,7 +1,7 @@
 import axios from "axios";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap, LayersControl } from "react-leaflet";
 import { Icon } from "leaflet";
 import L from "leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
@@ -41,7 +41,7 @@ function Legend() {
   const map = useMap();
   useEffect(() => {
     if (map) {
-      const legend = L.control({ position: "bottomright", background: "black"});
+      const legend = L.control.attribution({ position: "bottomright"});
 
       legend.onAdd = () => {
         const div = L.DomUtil.create("div", "info legend");
@@ -78,13 +78,13 @@ function MapPage() {
       <div className="header">
       <h2 className='heading'>Farmers Markets in Florida</h2>
       <p className="text-muted">Blue circle is your approximate location.  Zoom out to see more locations.  Click marker for
-        additional locations</p></div>
+        additional information.</p></div>
       <div className="">
         <div className="">
     <MapContainer
       center={[28.5384, -81.3789]}
       zoom={13}
-      style={{ height: '100vh', width: '100vw', margin: -8 }}
+      style={{ height: '89vh', width: '100vw', margin: -8 }}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -94,6 +94,9 @@ function MapPage() {
 
       <LocationMarker />
 
+      
+      <LayersControl position="topright">
+        <LayersControl.Overlay name="Farmers Market">
       <MarkerClusterGroup chunkedLoading>
         {resultsFarmersMarket.map((result, index) => (
           <Marker
@@ -107,6 +110,8 @@ function MapPage() {
           </Marker>
         ))}
       </MarkerClusterGroup>
+      </LayersControl.Overlay>
+      </LayersControl>
     </MapContainer>
               </div>
           </div>
