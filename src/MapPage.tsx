@@ -2,9 +2,10 @@ import axios from "axios";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap, LayersControl } from "react-leaflet";
-import { Icon } from "leaflet";
+import { Icon, map } from "leaflet";
 import L from "leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
+import React from "react";
 
 function LocationMarker() {
   const map = useMap();
@@ -40,21 +41,42 @@ function LocationMarker() {
 function Legend() {
   const map = useMap();
   useEffect(() => {
+    let legend: L.Control.Attribution | undefined; // Store the legend reference
+
     if (map) {
-      const legend = L.control.attribution({ position: "bottomright"});
+      // Check if a legend already exists, if so, don't create a new one
+      if (!legend) {
+        legend = L.control.attribution({ position: "bottomright" });
 
-      legend.onAdd = () => {
-        const div = L.DomUtil.create("div", "info legend");
-        div.innerHTML =
-          "<h4>This is the legend</h4>" +
-          "<b>two on add effects = two legends?</b>";
-        return div;
-      };
+        legend.onAdd = () => {
+          const div = L.DomUtil.create("div", "info legend");
+          div.innerHTML =
+            "<h4>This is the legend</h4>" +
+            "<b>how do we add the icons here?</b>";
+          return div;
+        };
 
-      legend.addTo(map);
+        legend.addTo(map);
+      }
     }
+
+    // Cleanup: Remove the legend when the component unmounts
+    return () => {
+      if (legend) {
+        map.removeControl(legend);
+      }
+    };
   }, [map]);
+
   return null;
+}
+
+function MapLegendControl({ map }){
+  return(
+    <div className='leaflet-bottom leaflet-right leaflet-control leaflet-bar map-legend'>
+      <button> let s do a bigger TEST to see what happens</button>
+    </div>
+  )
 }
 
 function MapPage() {
@@ -90,13 +112,13 @@ function MapPage() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
+      <MapLegendControl map={map} />
       <Legend />
 
       <LocationMarker />
-
       
-      <LayersControl position="topright">
-        <LayersControl.Overlay name="Farmers Market">
+      <LayersControl position="topright" collapsed={false}>
+        <LayersControl.Overlay checked name="Farmers Market">
       <MarkerClusterGroup chunkedLoading>
         {resultsFarmersMarket.map((result, index) => (
           <Marker
