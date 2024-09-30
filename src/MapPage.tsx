@@ -1,11 +1,12 @@
 import axios from "axios";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap, LayersControl } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap, LayersControl, LayerGroup } from "react-leaflet";
 import { Icon, map } from "leaflet";
 import L from "leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
-import React from "react";
+import './MapPage.css';
+import React from 'react';
 
 function LocationMarker() {
   const map = useMap();
@@ -119,6 +120,7 @@ function MapPage() {
       
       <LayersControl position="topright" collapsed={false}>
         <LayersControl.Overlay checked name="Farmers Market">
+          <LayerGroup>
       <MarkerClusterGroup chunkedLoading>
         {resultsFarmersMarket.map((result, index) => (
           <Marker
@@ -132,6 +134,7 @@ function MapPage() {
           </Marker>
         ))}
       </MarkerClusterGroup>
+      </LayerGroup>
       </LayersControl.Overlay>
       </LayersControl>
     </MapContainer>

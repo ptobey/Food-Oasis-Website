@@ -1,0 +1,29 @@
+.leaflet-control-layers {
+  background-color: rgb(143, 8, 19);
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}
+
+.leaflet-control-layers-list {
+  font-family: Arial, sans-serif;
+}
+
+.leaflet-control-layers-overlays label {
+  margin-bottom: 5px;
+  display: block;
+}
+
+.leaflet-control-layers-overlays input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.leaflet-control-layers-overlays span {
+  font-size: 14px;
+}
+
+.leaflet-control-layers-expanded {
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+}
