@@ -39,47 +39,6 @@ function LocationMarker() {
   return null;
 }
 
-function Legend() {
-  const map = useMap();
-  useEffect(() => {
-    let legend: L.Control.Attribution | undefined; // Store the legend reference
-
-    if (map) {
-      // Check if a legend already exists, if so, don't create a new one
-      if (!legend) {
-        legend = L.control.attribution({ position: "bottomright" });
-
-        legend.onAdd = () => {
-          const div = L.DomUtil.create("div", "info legend");
-          div.innerHTML =
-            "<h4>This is the legend</h4>" +
-            "<b>how do we add the icons here?</b>";
-          return div;
-        };
-
-        legend.addTo(map);
-      }
-    }
-
-    // Cleanup: Remove the legend when the component unmounts
-    return () => {
-      if (legend) {
-        map.removeControl(legend);
-      }
-    };
-  }, [map]);
-
-  return null;
-}
-
-function MapLegendControl({ map }){
-  return(
-    <div className='leaflet-bottom leaflet-right leaflet-control leaflet-bar map-legend'>
-      <button> let s do a bigger TEST to see what happens</button>
-    </div>
-  )
-}
-
 function MapPage() {
   const url = 'https://www.usdalocalfoodportal.com/api/farmersmarket/?apikey=U0lsUI6Xi9&state=fl';
   const [resultsFarmersMarket, setResults] = useState<any[]>([]);
@@ -112,13 +71,12 @@ function MapPage() {
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      />
-      <MapLegendControl map={map} />
-      <Legend />
-
-      <LocationMarker />
+      />  
       
-      <LayersControl position="topright" collapsed={false}>
+      <LocationMarker />
+    <div className="layers-control-container">
+      <h3>Map Legend</h3>
+      <LayersControl position="bottomright" collapsed={false}>
         <LayersControl.Overlay checked name="Farmers Market">
           <LayerGroup>
       <MarkerClusterGroup chunkedLoading>
@@ -137,6 +95,7 @@ function MapPage() {
       </LayerGroup>
       </LayersControl.Overlay>
       </LayersControl>
+      </div>  
     </MapContainer>
               </div>
           </div>
