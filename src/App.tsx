@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LaunchPage from './LaunchPage';
 import MapPage from './MapPage';
-import RecipePage from './RecipePage';
+import RecipePage from './RecipeSearchPage';
 import RecipeDetailPage from './RecipeDetailPage';
 
 const App: React.FC = () => {
