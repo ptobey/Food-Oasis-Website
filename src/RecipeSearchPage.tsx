@@ -59,11 +59,46 @@ const RecipeSearchPage = () => {
     };
 
     useEffect(() => {
+        const savedFilters = localStorage.getItem('recipeFilters');
+        if (savedFilters) {
+            const { value, calories, protein, fat, carbs, proteinPreference, fatPreference, carbPreference, useCalorieFilter, useProteinFilter, useFatFilter, useCarbFilter } = JSON.parse(savedFilters);
+            setValue(value || '');
+            setCalories(calories);
+            setProtein(protein);
+            setFat(fat);
+            setCarbs(carbs);
+            setProteinPreference(proteinPreference)
+            setFatPreference(fatPreference)
+            setCarbPreference(carbPreference)
+            setUseCalorieFilter(useCalorieFilter);
+            setUseProteinFilter(useProteinFilter);
+            setUseFatFilter(useFatFilter);
+            setUseCarbFilter(useCarbFilter);
+            setCaloriePreference
+        }
+    }, []);
+
+    useEffect(() => {
         if (value || (useCalorieFilter && calories !== null) || 
             (useProteinFilter && protein !== null) || 
             (useFatFilter && fat !== null) || 
             (useCarbFilter && carbs !== null)) {
             getRecipes();
+            const savedFilters = {
+                value,
+                calories,
+                protein,
+                fat,
+                carbs,
+                proteinPreference,
+                fatPreference,
+                carbPreference,
+                useCalorieFilter,
+                useProteinFilter,
+                useFatFilter,
+                useCarbFilter,
+            };
+            localStorage.setItem('recipeFilters', JSON.stringify(savedFilters));
         }
         else {
             setRecipes([])
@@ -138,6 +173,7 @@ const RecipeSearchPage = () => {
                 label="Search for recipes"
                 variant="outlined"
                 fullWidth
+                value={value}
                 onChange={(event) => {
                     setValue(event.target.value.replace(/ /g, "%20"));
                     setPageNumber(1);
