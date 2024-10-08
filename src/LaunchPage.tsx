@@ -1,11 +1,21 @@
-import React from 'react';
-import { Button, Typography, Box } from '@mui/material';
+import React, { useState } from 'react';
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Box,
+  ButtonGroup,
+  BottomNavigation,
+  BottomNavigationAction,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight'; 
-
+import SpaIcon from '@mui/icons-material/Spa';
+import PhoneIcon from '@mui/icons-material/Phone';
+import GroupsIcon from '@mui/icons-material/Groups';
 
 const LaunchPage: React.FC = () => {
   const navigate = useNavigate();
+  const [value, setValue] = useState(0); 
 
   const handleMapClick = () => {
     navigate('/map');
@@ -25,10 +35,8 @@ const LaunchPage: React.FC = () => {
         height: '100vh',
         width: '100vw',
         display: 'flex',
-        flexDirection: 'column', // Align items in a column
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundImage: 'url(/backgroundTwo.jpeg)', // Background image path
+        flexDirection: 'column',
+        backgroundImage: 'url(/backgroundThree.jpeg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -37,96 +45,128 @@ const LaunchPage: React.FC = () => {
         padding: 0,
       }}
     >
-      {/* Top Center Position */}
-      <Box
+      {/* Header with Logo */}
+      <AppBar
+        position="fixed" 
         sx={{
-          position: 'absolute', 
-          top: 16, // Space from the top 
-          left: '50%', // Center horizontally
-          transform: 'translateX(-50%)', // Center logo exactly
+          bgcolor: 'rgba(0, 0, 0, 0.7)', // Transparent black background for header
+          padding: '16px 24px', // Make the header a bit thicker
           display: 'flex',
-          justifyContent: 'center',
-          zIndex: 1, 
-        }}
-      >
-        <img
-            src="/logo.png" // Path to logo
-            alt="logo"
-            style={{ height: '250px', width: 'auto', opacity: 0.8 }} 
-        />
-      </Box>
-
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
-          bgcolor: 'rgba(0, 0, 0, 0.6)', // Semi-transparent background for text
-          p: 4,
-          borderRadius: 2,
-          zIndex: 0, 
         }}
       >
-        
-        <Typography variant="h3" gutterBottom sx={{ color: '#FFFFFF' }}>
-          An Oasis to a Healthy Lifestyle
-        </Typography>
-        <Typography variant="h6" sx={{color: '#FFFFFF', mb: 2 }}  >
-          Choose an option below to get started:
-        </Typography>
-        <Box
+        <Toolbar
           sx={{
             display: 'flex',
-            flexDirection: 'column',
-            gap: 2,
+            flexDirection: 'column', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
             width: '100%',
           }}
         >
-          <Button
-            variant="contained"
+          {/* Centered Logo */}
+          <Box>
+            <img
+              src="/logo.png" 
+              alt="Logo"
+              style={{ height: '220px', width: 'auto', opacity: 0.8 }} 
+            />
+          </Box>
+
+          {/* Button Group centered below the logo */}
+          <ButtonGroup
+          variant="text"
+          aria-label="Basic button group"
+          sx={{
+            color: '#FFFFFF',
+            marginTop: '16px',
+            '& .MuiButton-root': {
+              transition: 'all 0.3s ease-in-out', 
+          },
+          '& .MuiButton-root:hover': {
+            backgroundColor: '#ffffff22', 
+            boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', 
+            color: '#FFFFAA', 
+        },
+      }}
+    >
+      <Button onClick={handleMapClick} sx={{ color: '#FFFFFF', fontSize: '20px' }}>
+        Local Fresh Markets
+      </Button>
+      <Button onClick={handleRecipeClick} sx={{ color: '#FFFFFF', fontSize: '20px' }}>
+        Discover Recipes
+      </Button>
+      <Button onClick={handleNewButtonClick} sx={{ color: '#FFFFFF', fontSize: '20px' }}>
+        Nutrition Guide
+      </Button>
+      </ButtonGroup>
+      </Toolbar>
+      </AppBar>
+
+      {/* Footer: BottomNavigation */}
+      <Box
+        sx={{
+          position: 'fixed', 
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: 2,
+          bgcolor: 'rgba(0, 0, 0, 0.6)', // transparent black background
+        }}
+      >
+        <BottomNavigation
+          showLabels
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+          sx={{
+            backgroundColor: 'transparent', 
+          }}
+        >
+          <BottomNavigationAction
+            label="Healthy Living"
+            icon={<SpaIcon />}
             sx={{
-              backgroundColor: '#000000', // Black background color
-              color: '#FFFFFF', // White text color
+              color: '#FFFFFF', // White color for both icon and label
+              '&.Mui-selected': {
+                color: '#FFFFFF', 
+              },
+              transition: 'all 0.3s ease-in-out', 
               '&:hover': {
-                backgroundColor: '#333333', // Darker shade of black for hover
+                backgroundColor: '#ffffff22', 
+                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', // glowshadow effect
+                color: '#FFFFAA', 
               },
             }}
-            onClick={handleMapClick}
-            endIcon={<KeyboardDoubleArrowRightIcon />}
-          >
-            Search Local Fresh Markets
-          </Button>
-          <Button
-            variant="contained"
+          />
+          <BottomNavigationAction
+            label="Contact Us (407) 123-4567"
+            icon={<PhoneIcon />}
             sx={{
-              backgroundColor: '#000000', // Black background color
-              color: '#FFFFFF', // White text color
+              color: '#FFFFFF',
+              transition: 'all 0.3s ease-in-out', 
               '&:hover': {
-                backgroundColor: '#333333', // Darker shade of black for hover
+                backgroundColor: '#ffffff22', 
+                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', //glow shadow effect
+                color: '#FFFFAA', 
               },
             }}
-            onClick={handleRecipeClick}
-            endIcon={<KeyboardDoubleArrowRightIcon />}
-          >
-            Discover Recipes
-          </Button>
-          <Button
-            variant="contained"
+          />
+          <BottomNavigationAction
+            label="About Us"
+            icon={<GroupsIcon />}
             sx={{
-              backgroundColor: '#000000', // Black background color
-              color: '#FFFFFF', // White text color
+              color: '#FFFFFF',
+              transition: 'all 0.3s ease-in-out', 
               '&:hover': {
-                backgroundColor: '#333333', // Darker shade of black for hover
+                backgroundColor: '#ffffff22', 
+                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', // glow shadow effect
+                color: '#FFFFAA', 
               },
             }}
-            onClick={handleNewButtonClick}
-            endIcon={<KeyboardDoubleArrowRightIcon />}
-          >
-            New Button
-          </Button>
-        </Box>
+          />
+        </BottomNavigation>
       </Box>
     </Box>
   );
