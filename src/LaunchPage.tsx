@@ -13,16 +13,17 @@ import SpaIcon from '@mui/icons-material/Spa';
 import PhoneIcon from '@mui/icons-material/Phone';
 import GroupsIcon from '@mui/icons-material/Groups';
 
+
 const LaunchPage: React.FC = () => {
   const navigate = useNavigate();
   const [value, setValue] = useState(0); 
 
   const handleMapClick = () => {
-    navigate('/map');
+    navigate("/map");
   };
 
   const handleRecipeClick = () => {
-    navigate('/recipes');
+    navigate("/recipes");
   };
 
   const handleNewButtonClick = () => {
@@ -173,6 +174,3 @@ const LaunchPage: React.FC = () => {
 };
 
 export default LaunchPage;
-
-
-
