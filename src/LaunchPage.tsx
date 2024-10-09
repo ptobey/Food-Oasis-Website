@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Typography, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
+
 const LaunchPage: React.FC = () => {
   const navigate = useNavigate();
 
@@ -11,6 +12,11 @@ const LaunchPage: React.FC = () => {
 
   const handleRecipeClick = () => {
     navigate("/recipes");
+    navigate("/recipes");
+  };
+
+  const handleNewButtonClick = () => {
+    navigate('/new-feature');
   };
 
   return (
