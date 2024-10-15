@@ -1,0 +1,45 @@
+.leaflet-control-layers {
+  background-color: rgb(8, 143, 17);
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}
+
+.leaflet-control-layers-list {
+  font-family: Arial, sans-serif;
+}
+
+.leaflet-control-layers-overlays label {
+  margin-bottom: 5px;
+  display: block;
+}
+
+.leaflet-control-layers-overlays input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.leaflet-control-layers-overlays span {
+  font-size: 14px;
+}
+
+.leaflet-control-layers-expanded {
+  padding: 15px;
+  background-color: rgba(137, 236, 92, 0.9);
+  border: 1px solid #ccc;
+}
+.layers-control-container {
+  position: absolute;
+  bottom: 138px;
+  right: 30px;
+  background: rgb(4, 143, 25);
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+  z-index: 1000;
+}
+
+.layers-control-container h3 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+}
