@@ -1,16 +1,33 @@
-import React from 'react';
-import { Button, Typography, Box } from '@mui/material';
+import React, { useState } from 'react';
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Box,
+  ButtonGroup,
+  BottomNavigation,
+  BottomNavigationAction,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import SpaIcon from '@mui/icons-material/Spa';
+import PhoneIcon from '@mui/icons-material/Phone';
+import GroupsIcon from '@mui/icons-material/Groups';
+
 
 const LaunchPage: React.FC = () => {
   const navigate = useNavigate();
+  const [value, setValue] = useState(0); 
 
   const handleMapClick = () => {
-    navigate('/map');
+    navigate("/map");
   };
 
   const handleRecipeClick = () => {
-    navigate('/recipes');
+    navigate("/recipes");
+  };
+
+  const handleNewButtonClick = () => {
+    navigate('/new-feature');
   };
 
   return (
@@ -19,58 +36,138 @@ const LaunchPage: React.FC = () => {
         height: '100vh',
         width: '100vw',
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundImage: 'url(/background.jpg)',
+        flexDirection: 'column',
+        backgroundImage: 'url(/backgroundThree.jpeg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         overflow: 'hidden',
-        margin: -1,
-        padding: -1,
+        margin: 0,
+        padding: 0,
       }}
     >
-      <Box
+      {/* Header with Logo */}
+      <AppBar
+        position="fixed" 
         sx={{
+          bgcolor: 'rgba(0, 0, 0, 0.7)', // Transparent black background for header
+          padding: '16px 24px', // Make the header a bit thicker
           display: 'flex',
-          flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
-          bgcolor: 'rgba(255, 255, 255, 0.8)', // semi-transparent background for text
-          p: 4,
-          borderRadius: 2,
         }}
       >
-        <Typography variant="h3" gutterBottom>
-          Welcome to the Food Finder!
-        </Typography>
-        <Typography variant="h6" paragraph>
-          Choose an option below to get started:
-        </Typography>
-        <Box
+        <Toolbar
           sx={{
             display: 'flex',
-            flexDirection: 'column',
-            gap: 2,
+            flexDirection: 'column', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
             width: '100%',
           }}
         >
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleMapClick}
-          >
-            View Nearby Food Suppliers
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={handleRecipeClick}
-          >
-            Find a Recipe
-          </Button>
-        </Box>
+          {/* Centered Logo */}
+          <Box>
+            <img
+              src="/logo.png" 
+              alt="Logo"
+              style={{ height: '220px', width: 'auto', opacity: 0.8 }} 
+            />
+          </Box>
+
+          {/* Button Group centered below the logo */}
+          <ButtonGroup
+          variant="text"
+          aria-label="Basic button group"
+          sx={{
+            color: '#FFFFFF',
+            marginTop: '16px',
+            '& .MuiButton-root': {
+              transition: 'all 0.3s ease-in-out', 
+          },
+          '& .MuiButton-root:hover': {
+            backgroundColor: '#ffffff22', 
+            boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', 
+            color: '#FFFFAA', 
+        },
+      }}
+    >
+      <Button onClick={handleMapClick} sx={{ color: '#FFFFFF', fontSize: '20px' }}>
+        Local Fresh Markets
+      </Button>
+      <Button onClick={handleRecipeClick} sx={{ color: '#FFFFFF', fontSize: '20px' }}>
+        Discover Recipes
+      </Button>
+      <Button onClick={handleNewButtonClick} sx={{ color: '#FFFFFF', fontSize: '20px' }}>
+        Nutrition Guide
+      </Button>
+      </ButtonGroup>
+      </Toolbar>
+      </AppBar>
+
+      {/* Footer: BottomNavigation */}
+      <Box
+        sx={{
+          position: 'fixed', 
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: 2,
+          bgcolor: 'rgba(0, 0, 0, 0.6)', // transparent black background
+        }}
+      >
+        <BottomNavigation
+          showLabels
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+          sx={{
+            backgroundColor: 'transparent', 
+          }}
+        >
+          <BottomNavigationAction
+            label="Healthy Living"
+            icon={<SpaIcon />}
+            sx={{
+              color: '#FFFFFF', // White color for both icon and label
+              '&.Mui-selected': {
+                color: '#FFFFFF', 
+              },
+              transition: 'all 0.3s ease-in-out', 
+              '&:hover': {
+                backgroundColor: '#ffffff22', 
+                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', // glowshadow effect
+                color: '#FFFFAA', 
+              },
+            }}
+          />
+          <BottomNavigationAction
+            label="Contact Us (407) 123-4567"
+            icon={<PhoneIcon />}
+            sx={{
+              color: '#FFFFFF',
+              transition: 'all 0.3s ease-in-out', 
+              '&:hover': {
+                backgroundColor: '#ffffff22', 
+                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', //glow shadow effect
+                color: '#FFFFAA', 
+              },
+            }}
+          />
+          <BottomNavigationAction
+            label="About Us"
+            icon={<GroupsIcon />}
+            sx={{
+              color: '#FFFFFF',
+              transition: 'all 0.3s ease-in-out', 
+              '&:hover': {
+                backgroundColor: '#ffffff22', 
+                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', // glow shadow effect
+                color: '#FFFFAA', 
+              },
+            }}
+          />
+        </BottomNavigation>
       </Box>
     </Box>
   );
