@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom"; // Import useNavigate
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   Typography,
@@ -10,99 +10,72 @@ import {
   Link,
   AppBar,
   Toolbar,
+  Box,
   ButtonGroup,
   Button,
-  Box,
-  CircularProgress,
+  Grid,
+  BottomNavigation,
+  BottomNavigationAction,
+  Divider,
 } from "@mui/material";
+import SpaIcon from "@mui/icons-material/Spa";
+import PhoneIcon from "@mui/icons-material/Phone";
+import GroupsIcon from "@mui/icons-material/Groups";
 
 const RecipeDetailPage = () => {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState(null as unknown as any);
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(""); // Error state
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [value, setValue] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchRecipe = async () => {
-      try {
-        const response = await axios.post(
-          `http://localhost:5000/recipe/v2?recipe_id=${recipeId}&format=json&page_number=0&max_results=10`
-        );
+    axios
+      .post(
+        `http://localhost:5000/recipe/v2?recipe_id=${recipeId}&format=json&page_number=0&max_results=10`
+      )
+      .then((response) => {
         setRecipe(response.data.recipe);
-      } catch (err) {
-        setError("Failed to fetch recipe details."); // Set error message
-      } finally {
-        setLoading(false); // Set loading to false after the request
-      }
-    };
-
-    fetchRecipe();
+      })
+      .catch((error) => {
+        console.error("Error fetching recipe data:", error);
+      });
   }, [recipeId]);
 
-  if (loading) {
-    return (
-      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-        <CircularProgress /> {/* Loader component */}
-      </Box>
-    );
-  }
-
-  if (error) {
-    return (
-      <Paper style={{ padding: '16px', margin: '16px', marginTop: '80px' }}>
-        <Typography variant="h6" color="error">
-          {error}
-        </Typography>
-      </Paper>
-    );
-  }
-
   const handleHomeClick = () => {
-    navigate("/"); 
+    navigate("/");
   };
 
   const handleMapClick = () => {
-    navigate("/map"); 
+    navigate("/map");
   };
 
   const handleRecipeClick = () => {
-    navigate("/recipes"); 
+    navigate("/recipes");
   };
 
   const handleNewButtonClick = () => {
-    navigate("/nutrition"); 
+    navigate("/nutrition-guide");
   };
 
-  return (
-    <>
-      {/* Header */}
-      <AppBar
-        position="fixed"
-        sx={{
-          bgcolor: 'rgba(0, 0, 0, 0.7)',
-          padding: '16px 24px',
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        <Toolbar
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%',
-          }}
-        >
+  if (!recipe) {
+    return <div>Loading...</div>;
+  }
 
-          {/* Button Group centered below the logo */}
+  return (
+    <div className="container" style={{ backgroundImage: 'url(/backgroundMap.jpg)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', minHeight: '129vh' }}>
+      <AppBar position="fixed" sx={{ bgcolor: 'rgba(0, 0, 0, 0.7)', padding: '16px 24px' }}>
+        <Toolbar sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box>
+            <img src="/newLogo.png" alt="Logo" style={{ height: '80px', width: 'auto', opacity: 0.85 }} />
+          </Box>
           <ButtonGroup
+            orientation="horizontal"
+            aria-label="horizontal button group"
             variant="text"
-            aria-label="Basic button group"
             sx={{
               color: '#FFFFFF',
-              marginTop: '16px',
+              marginLeft: '24px',
+              display: 'flex',
               '& .MuiButton-root': {
                 transition: 'all 0.3s ease-in-out',
               },
@@ -117,10 +90,10 @@ const RecipeDetailPage = () => {
               Home
             </Button>
             <Button onClick={handleMapClick} sx={{ color: '#FFFFFF', fontSize: '14px' }}>
-              Local Fresh Markets
+              Explore Map
             </Button>
             <Button onClick={handleRecipeClick} sx={{ color: '#FFFFFF', fontSize: '14px' }}>
-              Discover Recipes
+              Search Recipes
             </Button>
             <Button onClick={handleNewButtonClick} sx={{ color: '#FFFFFF', fontSize: '14px' }}>
               Nutrition Guide
@@ -129,58 +102,78 @@ const RecipeDetailPage = () => {
         </Toolbar>
       </AppBar>
 
-      {/* Main content below the header */}
-      <Paper style={{ padding: '16px', margin: '16px', marginTop: '80px' }}>
-        <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
-          <Typography variant="h4" style={{ marginBottom: '16px' }}>
+      <Paper style={{ padding: "16px", margin: "16px", marginTop: '115px', backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
+        <div style={{ alignItems: "center", display: "flex", flexDirection: "column" }}>
+          <Typography variant="h4" style={{ marginBottom: "16px" }}>
             {recipe.recipe_name}
           </Typography>
-          {(recipe.recipe_images && recipe.recipe_images.recipe_image) && (
+          <Typography variant="body1" style={{ marginBottom: "12px" }}>
+            {recipe.recipe_description}
+          </Typography>
+          {recipe.recipe_images && recipe.recipe_images.recipe_image && (
             <img
               src={recipe.recipe_images.recipe_image[0]}
               alt={recipe.recipe_name}
-              style={{ borderRadius: '8px', marginBottom: '16px' }}
+              style={{
+                borderRadius: "8px",
+                marginBottom: "16px",
+                width: "200px",
+              }}
             />
           )}
-          <Typography variant="body1" style={{ marginBottom: '12px' }}>
-            {recipe.recipe_description}
-          </Typography>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px', marginTop: '20px' }}>
-          <div>
-            <Typography variant="h5" style={{ marginBottom: '10px' }}>
-              Ingredients
-            </Typography>
-            <List>
-              {recipe.ingredients.ingredient.map((ingredient: any, index: any) => (
-                <ListItem key={index}>
-                  <ListItemText
-                    primary={`${ingredient.ingredient_description}`}
-                    secondary={<Link href={ingredient.ingredient_url} target="_blank">{ingredient.food_name}</Link>}
-                  />
-                </ListItem>
-              ))}
-            </List>
-          </div>
+   {/* Column Layout */}
+        <Grid
+          container
+          spacing={2}
+          style={{ marginTop: "80px", paddingLeft: "80px", paddingRight: "10px" }} 
+          justifyContent="space-between"
+        >
+          {/* Cooking Info Section */}
+          <Grid item xs={12} sm={6} md={3} style={{ paddingLeft: "10px" }}>
+            <Typography variant="h6">Cooking Info</Typography>
+            <Typography variant="body1">Cooking Time: {recipe.cooking_time_min} minutes</Typography>
+            <Typography variant="body1">Preparation Time: {recipe.preparation_time_min} minutes</Typography>
+            <Typography variant="body1">Servings: {recipe.number_of_servings}</Typography>
+          </Grid>
 
-          <div>
-            <Typography variant="h5" style={{ marginBottom: '10px' }}>
-              Directions
-            </Typography>
-            <List>
-              {recipe.directions.direction.map((direction: any, index: any) => (
-                <ListItem key={index}>
-                  <ListItemText primary={`${direction.direction_number}. ${direction.direction_description}`} />
-                </ListItem>
-              ))}
-            </List>
-          </div>
+          {/* Ingredients Section */}
+  <Grid item xs={12} sm={6} md={3} style={{ marginLeft: "-140px" }}> 
+    <Typography variant="h6">Ingredients</Typography>
+    <List>
+      {recipe.ingredients.ingredient.map((ingredient: any, index: any) => (
+        <ListItem key={index}>
+          <ListItemText
+            primary={ingredient.ingredient_description}
+            secondary={
+              <Link href={ingredient.ingredient_url} target="_blank">
+                {ingredient.food_name}
+              </Link>
+            }
+          />
+        </ListItem>
+      ))}
+    </List>
+  </Grid>
 
-          <div>
-            <Typography variant="h5" style={{ marginBottom: '10px' }}>
-              Nutrition Information (per serving)
-            </Typography>
+  {/* Directions Section */}
+  <Grid item xs={12} sm={6} md={3} style={{ marginLeft: "-110px" }}> 
+    <Typography variant="h6">Directions</Typography>
+    <List>
+      {recipe.directions.direction.map((direction: any, index: any) => (
+        <ListItem key={index}>
+          <ListItemText
+            primary={`${direction.direction_number}. ${direction.direction_description}`}
+          />
+        </ListItem>
+      ))}
+    </List>
+  </Grid>
+
+          {/* Nutrition Information Section */}
+          <Grid item xs={12} sm={6} md={3} style={{ marginTop: "-3px", paddingLeft: "50px" }}> 
+            <Typography variant="h6">Nutrition Information (per serving)</Typography>
             <List>
               <ListItem>
                 <ListItemText primary={`Calories: ${recipe.serving_sizes.serving.calories}`} />
@@ -222,17 +215,97 @@ const RecipeDetailPage = () => {
                 <ListItemText primary={`Vitamin C: ${recipe.serving_sizes.serving.vitamin_c} %`} />
               </ListItem>
             </List>
-          </div>
-        </div>
+          </Grid>
+        </Grid>
 
-        <Typography variant="h6" style={{ marginTop: '20px' }}>
-          **Enjoy your meal!**
-        </Typography>
+
+        {/* Credit Badge Section */}
+        <div style={{ textAlign: "right", marginTop: "20px" }}>
+          <a href="https://www.fatsecret.com">
+            <img
+              src="https://platform.fatsecret.com/api/static/images/powered_by_fatsecret.png"
+              srcSet="https://platform.fatsecret.com/api/static/images/powered_by_fatsecret_2x.png 2x, https://platform.fatsecret.com/api/static/images/powered_by_fatsecret_3x.png 3x"
+              alt="Powered by FatSecret"
+              style={{ width: "100px" }}
+            />
+          </a>
+        </div>
       </Paper>
-    </>
+
+      {/* Footer: BottomNavigation */}
+      <Box
+        sx={{
+          position: 'fixed', 
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: 2,
+          bgcolor: 'rgba(0, 0, 0, 0.6)', 
+        }}
+      >
+        <BottomNavigation
+          showLabels
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+          sx={{
+            backgroundColor: 'transparent', 
+          }}
+        >
+          <BottomNavigationAction
+            label="Healthy Living"
+            icon={<SpaIcon />}
+            sx={{
+              color: '#FFFFFF', 
+              '&.Mui-selected': {
+                color: '#FFFFFF', 
+              },
+              transition: 'all 0.3s ease-in-out', 
+              '&:hover': {
+                backgroundColor: '#ffffff22', 
+                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', 
+                color: '#FFFFAA', 
+              },
+            }}
+          />
+          <BottomNavigationAction
+            label="Contact Us gquirk@valenciacollege.edu"
+            icon={<PhoneIcon />}
+            sx={{
+              color: '#FFFFFF',
+              transition: 'all 0.3s ease-in-out', 
+              '&:hover': {
+                backgroundColor: '#ffffff22', 
+                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', 
+                color: '#FFFFAA', 
+              },
+            }}
+          />
+          <BottomNavigationAction
+            label="About Us"
+            icon={<GroupsIcon />}
+            sx={{
+              color: '#FFFFFF',
+              transition: 'all 0.3s ease-in-out', 
+              '&:hover': {
+                backgroundColor: '#ffffff22', 
+                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', 
+                color: '#FFFFAA', 
+              },
+            }}
+          />
+        </BottomNavigation>
+      </Box>
+    </div>
   );
 };
 
 export default RecipeDetailPage;
+
+
+
+
+
 
 
