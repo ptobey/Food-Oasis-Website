@@ -81,3 +81,5 @@ app.get('/getStoreDetails/:id', async (req, res) => {
 })
 
 app.listen(5000, () => console.log(`listening on 5000`));
+
+process.on('exit', () => client.end());

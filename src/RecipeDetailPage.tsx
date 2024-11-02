@@ -31,7 +31,7 @@ const RecipeDetailPage = () => {
   useEffect(() => {
     axios
       .post(
-        `http://localhost:5000/recipe/v2?recipe_id=${recipeId}&format=json&page_number=0&max_results=10`
+        `http://97.101.31.48:5000/recipe/v2?recipe_id=${recipeId}&format=json&page_number=0&max_results=10`
       )
       .then((response) => {
         setRecipe(response.data.recipe);
