@@ -120,6 +120,12 @@ function MapPage() {
     });
   }, []);
 
+  useEffect(() => {
+    axios.get("http://localhost:5000/").then((response: any) => {
+      console.log(response);
+    });
+  }, []);
+
   return (
     <div className="container">
       <div className="header">
