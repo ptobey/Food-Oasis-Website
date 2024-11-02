@@ -231,7 +231,7 @@ const RecipeSearchPage = () => {
         variant="h4"
         style={{ marginBottom: "16px", textAlign: "center" }}
       >
-        FatSecret Recipe Search
+        Search Recipes
       </Typography>
       <TextField
         id="outlined-basic"
