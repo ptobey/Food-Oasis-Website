@@ -74,7 +74,7 @@ function MapPage() {
   const dbUrl = "http://97.101.31.48:5000/getLocations";
   const dbUrlDetail = "http://97.101.31.48:5000/getStoreDetails/";
   const [resultsDB, setDBResults] = useState<any[]>([]);
-  const [drawerData, setDrawerData] = useState<any[]>([]);
+  const [drawerData, setDrawerData] = useState<any>({});
   const [selectedFarmersMarket, setSelectedFarmersMarket] = useState(-1);
   const isFarmersMarket = selectedFarmersMarket >= 0;
   const farmersMarketInfo = resultsFarmersMarket[selectedFarmersMarket];
