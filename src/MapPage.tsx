@@ -127,7 +127,7 @@ function MapPage() {
   });
 
   const customIconFarmersMarket = new Icon({
-    iconUrl: "/map-marker.png",
+    iconUrl: "/farmersmarket.png",
     iconSize: [38, 38],
   });
 
