@@ -20,6 +20,7 @@
 
 .leaflet-control-layers-overlays span {
   font-size: 14px;
+  color: blue;
 }
 
 .leaflet-control-layers-expanded {
@@ -29,7 +30,7 @@
 }
 .layers-control-container {
   position: absolute;
-  bottom: 138px;
+  bottom: 255px;
   right: 30px;
   background: rgb(4, 143, 25);
   padding: 10px;
@@ -43,3 +44,12 @@
   font-size: 16px;
   font-weight: bold;
 }
+
+
+.leaflet-popup-content-wrapper{
+
+color: rgb(0, 0, 0);
+  background-color: aqua;
+}
+
+

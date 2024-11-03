@@ -4,8 +4,23 @@ import LaunchPage from "./LaunchPage";
 import MapPage from "./MapPage";
 import RecipePage from "./RecipeSearchPage";
 import RecipeDetailPage from "./RecipeDetailPage";
+//import { getPublixData } from "./publix";
+//import { getWalmartData } from "./walmart";
+//import {getBravoData} from "./bravo"
+//import {getCostcoData} from "./costco";
+//import {getAldiData} from "./aldi";
+//import {getSproutsData} from "./sprouts";
+//import { getTargetData } from "./target";
 
 const App: React.FC = () => {
+ // getPublixData();
+ // getWalmartData();
+ // getBravoData();
+ // getCostcoData();
+ // getAldiData();
+ // getTargetData();
+ //getSproutsData();
+
   return (
     <Router>
       <Routes>
