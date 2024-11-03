@@ -1,6 +1,6 @@
 .layers-control-container {
     position: absolute;
-    bottom: 146px; 
+    bottom: 313px; 
     right: 17px;
     background: rgba(41, 41, 41, 0.8); 
     padding: 3px; 
@@ -58,7 +58,7 @@
 }
 
 .layers-control-container h3 {
-    margin: 0 0 3px 0; 
+    margin: 0 0 15px 0; 
     font-size: 15px; 
     font-weight: bold;
     color: #ffffff; 
