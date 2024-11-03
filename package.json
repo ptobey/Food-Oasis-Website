@@ -12,7 +12,6 @@
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^6.0.2",
     "@mui/material": "^6.0.2",
-    "@types/node": "^22.8.1",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.7.7",
     "git": "^0.1.5",
