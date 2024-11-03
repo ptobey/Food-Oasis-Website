@@ -13,13 +13,23 @@ import {
 } from "react-leaflet";
 import L, { Icon } from "leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
-import { AppBar, Toolbar, Box, ButtonGroup, Button, Tooltip, Typography, BottomNavigation, BottomNavigationAction } from '@mui/material';
-import InfoIcon from '@mui/icons-material/Info';
-import SpaIcon from '@mui/icons-material/Spa';
-import PhoneIcon from '@mui/icons-material/Phone';
-import GroupsIcon from '@mui/icons-material/Groups';
+import {
+  AppBar,
+  Toolbar,
+  Box,
+  Drawer,
+  ButtonGroup,
+  Button,
+  Tooltip,
+  Typography,
+  BottomNavigation,
+  BottomNavigationAction,
+} from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
+import SpaIcon from "@mui/icons-material/Spa";
+import PhoneIcon from "@mui/icons-material/Phone";
+import GroupsIcon from "@mui/icons-material/Groups";
 import "./MapPage.css";
-import { Drawer, Box, Typography } from '@mui/material';
 import React from "react";
 
 function LocationMarker() {
@@ -53,22 +63,21 @@ function LocationMarker() {
   return null;
 }
 
-
 function MapPage() {
-  const url = "https://www.usdalocalfoodportal.com/api/farmersmarket/?apikey=U0lsUI6Xi9&state=fl";
+  const url =
+    "https://www.usdalocalfoodportal.com/api/farmersmarket/?apikey=U0lsUI6Xi9&state=fl";
   const [resultsFarmersMarket, setResults] = useState<any[]>([]);
   const navigate = useNavigate();
-  const [value, setValue] = useState(0); 
+  const [value, setValue] = useState(0);
 
   //URLS++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  const dbUrl = "http://97.101.31.48:5000/getLocations"
-  const dbUrlDetail= "http://97.101.31.48:5000/getStoreDetails/"
+  const dbUrl = "http://97.101.31.48:5000/getLocations";
+  const dbUrlDetail = "http://97.101.31.48:5000/getStoreDetails/";
   const [resultsDB, setDBResults] = useState<any[]>([]);
   const [drawerData, setDrawerData] = useState<any[]>([]);
   const [selectedFarmersMarket, setSelectedFarmersMarket] = useState(-1);
   const isFarmersMarket = selectedFarmersMarket >= 0;
   const farmersMarketInfo = resultsFarmersMarket[selectedFarmersMarket];
-
 
   //Usefx-AXios++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   useEffect(() => {
@@ -83,21 +92,18 @@ function MapPage() {
     });
   }, []);
 
- 
-//Drawerrrs++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  //Drawerrrs++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleMarkerClickFarm = (listing_id: number) => {
-   setSelectedFarmersMarket(listing_id)
+    setSelectedFarmersMarket(listing_id);
     setDrawerOpen(true);
-   };
+  };
 
-
-  const handleMarkerClick = (id:string) => {
-    setSelectedFarmersMarket(-1)
+  const handleMarkerClick = (id: string) => {
+    setSelectedFarmersMarket(-1);
     axios.get(dbUrlDetail + id).then((response: any) => {
       setDrawerData(response.data[0]);
-     
     });
     setDrawerOpen(true);
   };
@@ -106,8 +112,7 @@ function MapPage() {
     setDrawerOpen(false);
   };
 
-
-//ikons++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  //ikons++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   const customIconAldi = new Icon({
     iconUrl: "/aldi.png",
@@ -150,22 +155,29 @@ function MapPage() {
   });
 
   //Filters++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  const publixData = resultsDB.filter(resultsDB=>resultsDB.type ==="Publix");
-  const aldiData = resultsDB.filter(resultsDB=>resultsDB.type ==="Aldi");
-  const walmartData = resultsDB.filter(resultsDB=>resultsDB.type ==="Walmart");
-  const costcoData = resultsDB.filter(resultsDB=>resultsDB.type ==="Costco");
-  const sproutsData = resultsDB.filter(resultsDB=>resultsDB.type ==="Sprouts");
-  const bravoData = resultsDB.filter(resultsDB=>resultsDB.type ==="Bravo");
-  const targetData = resultsDB.filter(resultsDB=>resultsDB.type ==="Target");
-
-
+  const publixData = resultsDB.filter(
+    (resultsDB) => resultsDB.type === "Publix"
+  );
+  const aldiData = resultsDB.filter((resultsDB) => resultsDB.type === "Aldi");
+  const walmartData = resultsDB.filter(
+    (resultsDB) => resultsDB.type === "Walmart"
+  );
+  const costcoData = resultsDB.filter(
+    (resultsDB) => resultsDB.type === "Costco"
+  );
+  const sproutsData = resultsDB.filter(
+    (resultsDB) => resultsDB.type === "Sprouts"
+  );
+  const bravoData = resultsDB.filter((resultsDB) => resultsDB.type === "Bravo");
+  const targetData = resultsDB.filter(
+    (resultsDB) => resultsDB.type === "Target"
+  );
 
   const handleHomeClick = () => navigate("/");
   const handleRecipeClick = () => navigate("/recipes");
   const handleNewButtonClick = () => navigate("/nutrition");
 
   return (
-
     <div className="container">
       <div className="header">
         <h2 className="heading">Farmers Markets in Florida</h2>
@@ -186,53 +198,47 @@ function MapPage() {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
 
-            
             <div className="layers-control-container">
               <h3>Map Legend</h3>
               <LayersControl position="bottomright" collapsed={false}>
-
-            {/*  Farmersmarket marker++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
+                {/*  Farmersmarket marker++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
 
                 <LayersControl.Overlay checked name="Farmers Market">
                   <LayerGroup>
                     <MarkerClusterGroup chunkedLoading>
                       {resultsFarmersMarket.map((result, index) => (
-
                         <Marker
                           key={index}
-                          eventHandlers={{ click: () => handleMarkerClickFarm (index)}}
-
+                          eventHandlers={{
+                            click: () => handleMarkerClickFarm(index),
+                          }}
                           position={[
                             result.location_y as number,
                             result.location_x as number,
-                            
                           ]}
                           icon={customIconFarmersMarket}
-                        >
-                        </Marker>
+                        ></Marker>
                       ))}
                     </MarkerClusterGroup>
                   </LayerGroup>
                 </LayersControl.Overlay>
 
-{/*  Chain store markers++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
+                {/*  Chain store markers++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
                 <LayersControl.Overlay checked name="Aldi">
                   <LayerGroup>
                     <MarkerClusterGroup chunkedLoading>
                       {aldiData.map((result, index) => (
                         <Marker
-                        key = {index}
-                        eventHandlers={{ click: () => handleMarkerClick (result.store_id)
-
-                         }}
+                          key={index}
+                          eventHandlers={{
+                            click: () => handleMarkerClick(result.store_id),
+                          }}
                           position={[
                             result.latitude as number,
                             result.longitude as number,
-
                           ]}
                           icon={customIconAldi}
-                        >
-                        </Marker>
+                        ></Marker>
                       ))}
                     </MarkerClusterGroup>
                   </LayerGroup>
@@ -243,16 +249,16 @@ function MapPage() {
                     <MarkerClusterGroup chunkedLoading>
                       {bravoData.map((result, index) => (
                         <Marker
-                        key = {index}
-                        eventHandlers={{ click: () => handleMarkerClick (result.store_id)}}
+                          key={index}
+                          eventHandlers={{
+                            click: () => handleMarkerClick(result.store_id),
+                          }}
                           position={[
                             result.latitude as number,
                             result.longitude as number,
-
                           ]}
                           icon={customIconBravo}
-                        >
-                        </Marker>
+                        ></Marker>
                       ))}
                     </MarkerClusterGroup>
                   </LayerGroup>
@@ -263,16 +269,16 @@ function MapPage() {
                     <MarkerClusterGroup chunkedLoading>
                       {costcoData.map((result, index) => (
                         <Marker
-                        key = {index}
-                        eventHandlers={{ click: () => handleMarkerClick (result.store_id)}}
+                          key={index}
+                          eventHandlers={{
+                            click: () => handleMarkerClick(result.store_id),
+                          }}
                           position={[
                             result.latitude as number,
                             result.longitude as number,
-
                           ]}
                           icon={customIconCostco}
-                        >
-                        </Marker>
+                        ></Marker>
                       ))}
                     </MarkerClusterGroup>
                   </LayerGroup>
@@ -283,17 +289,16 @@ function MapPage() {
                     <MarkerClusterGroup chunkedLoading>
                       {publixData.map((result, index) => (
                         <Marker
-                        key = {index}
-                        eventHandlers={{ click: () => handleMarkerClick (result.store_id)}}
+                          key={index}
+                          eventHandlers={{
+                            click: () => handleMarkerClick(result.store_id),
+                          }}
                           position={[
                             result.latitude as number,
                             result.longitude as number,
-
                           ]}
                           icon={customIconPublix}
-                        >
-                          
-                        </Marker>
+                        ></Marker>
                       ))}
                     </MarkerClusterGroup>
                   </LayerGroup>
@@ -304,17 +309,16 @@ function MapPage() {
                     <MarkerClusterGroup chunkedLoading>
                       {sproutsData.map((result, index) => (
                         <Marker
-                        key = {index}
-                        eventHandlers={{ click: () => handleMarkerClick (result.store_id)}}
-
+                          key={index}
+                          eventHandlers={{
+                            click: () => handleMarkerClick(result.store_id),
+                          }}
                           position={[
                             result.latitude as number,
                             result.longitude as number,
-
                           ]}
                           icon={customIconSprouts}
-                        >
-                        </Marker>
+                        ></Marker>
                       ))}
                     </MarkerClusterGroup>
                   </LayerGroup>
@@ -325,17 +329,16 @@ function MapPage() {
                     <MarkerClusterGroup chunkedLoading>
                       {targetData.map((result, index) => (
                         <Marker
-                        key = {index}
-                        eventHandlers={{ click: () => handleMarkerClick (result.store_id)}}
-
+                          key={index}
+                          eventHandlers={{
+                            click: () => handleMarkerClick(result.store_id),
+                          }}
                           position={[
                             result.latitude as number,
                             result.longitude as number,
-
                           ]}
                           icon={customIconTarget}
-                        >
-                        </Marker>
+                        ></Marker>
                       ))}
                     </MarkerClusterGroup>
                   </LayerGroup>
@@ -346,84 +349,115 @@ function MapPage() {
                     <MarkerClusterGroup chunkedLoading>
                       {walmartData.map((result, index) => (
                         <Marker
-                        key = {index}
-                        eventHandlers={{ click: () => handleMarkerClick (result.store_id)}}
+                          key={index}
+                          eventHandlers={{
+                            click: () => handleMarkerClick(result.store_id),
+                          }}
                           position={[
-
-                              result.latitude as number,
-                              result.longitude as number,
-
+                            result.latitude as number,
+                            result.longitude as number,
                           ]}
                           icon={customIconWalmart}
-                        >
-                               
-                        </Marker>
-                        
+                        ></Marker>
                       ))}
                     </MarkerClusterGroup>
                   </LayerGroup>
                 </LayersControl.Overlay>
-
               </LayersControl>
             </div>
           </MapContainer>
 
-
-
-      <Drawer anchor="left" open={drawerOpen} onClose={handleDrawerClose}>
-        <Box p={2} width="250px" >
-          <Typography variant="h5"> -Store Details- </Typography>
-          <Typography variant="h6"> {isFarmersMarket ? farmersMarketInfo.listing_name : drawerData.type} </Typography>
-          <Typography variant="body1">
-                     
-          {isFarmersMarket ? farmersMarketInfo.location_street : drawerData.street_address} <br />
-         {isFarmersMarket ? farmersMarketInfo.location_city : drawerData.city }{", "}
-         {isFarmersMarket ? farmersMarketInfo.location_state : drawerData.state }{", "}
-         {isFarmersMarket ? farmersMarketInfo.location_zipcode : drawerData.zip }<br />
-         {isFarmersMarket ? farmersMarketInfo.contact_phone : drawerData.phone_number} <br />
-
-
-         <Typography variant = "body2"> 
-
-         <a href={isFarmersMarket ? farmersMarketInfo.media_website : drawerData.website} target="_blank" rel="noopener noreferrer"> 
-          {isFarmersMarket ? farmersMarketInfo.media_website : drawerData.website} </a>  <br/>
-
-         {(!isFarmersMarket) && <img 
-         style={{width:200,height:200}}
-      src= {isFarmersMarket ? farmersMarketInfo.listing_image : drawerData.image_url}
-      alt={" Unable to load this image!"}
-      /> } <br /> <br />
-         
-
-         {isFarmersMarket ?  "Please call for market hours.":  <Typography variant = "h6">   {"-Hours-"} <br/> </Typography>} 
-         {(!isFarmersMarket && drawerData.hours ) && (() => {
-        const hours = JSON.parse(drawerData.hours);
-        return Object.keys(hours).map((day) => (
-          <React.Fragment key={day}>
-            {day}: {hours[day].open} - {hours[day].close} <br />
-          </React.Fragment>
-        ));
-      })()}
- 
-          </Typography> 
-          </Typography>
-        </Box>
-      </Drawer>
-
-
-
+          <Drawer anchor="left" open={drawerOpen} onClose={handleDrawerClose}>
+            <Box p={2} width="250px">
+              <Typography variant="h5"> -Store Details- </Typography>
+              <Typography variant="h6">
+                {" "}
+                {isFarmersMarket
+                  ? farmersMarketInfo.listing_name
+                  : drawerData.type}{" "}
+              </Typography>
+              <Typography variant="body1">
+                {isFarmersMarket
+                  ? farmersMarketInfo.location_street
+                  : drawerData.street_address}{" "}
+                <br />
+                {isFarmersMarket
+                  ? farmersMarketInfo.location_city
+                  : drawerData.city}
+                {", "}
+                {isFarmersMarket
+                  ? farmersMarketInfo.location_state
+                  : drawerData.state}
+                {", "}
+                {isFarmersMarket
+                  ? farmersMarketInfo.location_zipcode
+                  : drawerData.zip}
+                <br />
+                {isFarmersMarket
+                  ? farmersMarketInfo.contact_phone
+                  : drawerData.phone_number}{" "}
+                <br />
+                <Typography variant="body2">
+                  <a
+                    href={
+                      isFarmersMarket
+                        ? farmersMarketInfo.media_website
+                        : drawerData.website
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {isFarmersMarket
+                      ? farmersMarketInfo.media_website
+                      : drawerData.website}{" "}
+                  </a>{" "}
+                  <br />
+                  {!isFarmersMarket && (
+                    <img
+                      style={{ width: 200, height: 200 }}
+                      src={
+                        isFarmersMarket
+                          ? farmersMarketInfo.listing_image
+                          : drawerData.image_url
+                      }
+                      alt={" Unable to load this image!"}
+                    />
+                  )}{" "}
+                  <br /> <br />
+                  {isFarmersMarket ? (
+                    "Please call for market hours."
+                  ) : (
+                    <Typography variant="h6">
+                      {" "}
+                      {"-Hours-"} <br />{" "}
+                    </Typography>
+                  )}
+                  {!isFarmersMarket &&
+                    drawerData.hours &&
+                    (() => {
+                      const hours = JSON.parse(drawerData.hours);
+                      return Object.keys(hours).map((day) => (
+                        <React.Fragment key={day}>
+                          {day}: {hours[day].open} - {hours[day].close} <br />
+                        </React.Fragment>
+                      ));
+                    })()}
+                </Typography>
+              </Typography>
+            </Box>
+          </Drawer>
         </div>
       </div>
 
       {/* Footer: BottomNavigation */}
       <Box
         sx={{
-          position: 'fixed',
+          position: "fixed",
           bottom: 0,
           left: 0,
           right: 0,
-          zIndex: 3, 
-          bgcolor: 'rgba(0, 0, 0, 0.6)',
+          zIndex: 3,
+          bgcolor: "rgba(0, 0, 0, 0.6)",
         }}
       >
         <BottomNavigation
@@ -433,22 +467,22 @@ function MapPage() {
             setValue(newValue);
           }}
           sx={{
-            backgroundColor: 'transparent',
+            backgroundColor: "transparent",
           }}
         >
           <BottomNavigationAction
             label="Healthy Living"
             icon={<SpaIcon />}
             sx={{
-              color: '#FFFFFF',
-              '&.Mui-selected': {
-                color: '#FFFFFF',
+              color: "#FFFFFF",
+              "&.Mui-selected": {
+                color: "#FFFFFF",
               },
-              transition: 'all 0.3s ease-in-out',
-              '&:hover': {
-                backgroundColor: '#ffffff22',
-                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)',
-                color: '#FFFFAA',
+              transition: "all 0.3s ease-in-out",
+              "&:hover": {
+                backgroundColor: "#ffffff22",
+                boxShadow: "0 4px 8px rgba(255, 255, 255, 0.5)",
+                color: "#FFFFAA",
               },
             }}
           />
@@ -456,12 +490,12 @@ function MapPage() {
             label="Contact Us gquirk@valenciacollege.edu"
             icon={<PhoneIcon />}
             sx={{
-              color: '#FFFFFF',
-              transition: 'all 0.3s ease-in-out',
-              '&:hover': {
-                backgroundColor: '#ffffff22',
-                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)',
-                color: '#FFFFAA',
+              color: "#FFFFFF",
+              transition: "all 0.3s ease-in-out",
+              "&:hover": {
+                backgroundColor: "#ffffff22",
+                boxShadow: "0 4px 8px rgba(255, 255, 255, 0.5)",
+                color: "#FFFFAA",
               },
             }}
           />
@@ -469,12 +503,12 @@ function MapPage() {
             label="About Us"
             icon={<GroupsIcon />}
             sx={{
-              color: '#FFFFFF',
-              transition: 'all 0.3s ease-in-out',
-              '&:hover': {
-                backgroundColor: '#ffffff22',
-                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)',
-                color: '#FFFFAA',
+              color: "#FFFFFF",
+              transition: "all 0.3s ease-in-out",
+              "&:hover": {
+                backgroundColor: "#ffffff22",
+                boxShadow: "0 4px 8px rgba(255, 255, 255, 0.5)",
+                color: "#FFFFAA",
               },
             }}
           />
@@ -482,12 +516,6 @@ function MapPage() {
       </Box>
     </div>
   );
-
 }
 
 export default MapPage;
-
-
-
-
-
