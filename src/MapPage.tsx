@@ -1,5 +1,6 @@
 import axios from "axios";
 import "leaflet/dist/leaflet.css";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   MapContainer,
@@ -10,9 +11,13 @@ import {
   LayersControl,
   LayerGroup,
 } from "react-leaflet";
-import { Icon, map } from "leaflet";
-import L from "leaflet";
+import L, { Icon } from "leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
+import { AppBar, Toolbar, Box, ButtonGroup, Button, Tooltip, Typography, BottomNavigation, BottomNavigationAction } from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
+import SpaIcon from '@mui/icons-material/Spa';
+import PhoneIcon from '@mui/icons-material/Phone';
+import GroupsIcon from '@mui/icons-material/Groups';
 import "./MapPage.css";
 import { Drawer, Box, Typography } from '@mui/material';
 import React from "react";
@@ -48,10 +53,12 @@ function LocationMarker() {
   return null;
 }
 
+
 function MapPage() {
-  const url =
-    "https://www.usdalocalfoodportal.com/api/farmersmarket/?apikey=U0lsUI6Xi9&state=fl";
+  const url = "https://www.usdalocalfoodportal.com/api/farmersmarket/?apikey=U0lsUI6Xi9&state=fl";
   const [resultsFarmersMarket, setResults] = useState<any[]>([]);
+  const navigate = useNavigate();
+  const [value, setValue] = useState(0); 
 
   //URLS++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const dbUrl = "http://97.101.31.48:5000/getLocations"
@@ -153,7 +160,12 @@ function MapPage() {
 
 
 
+  const handleHomeClick = () => navigate("/");
+  const handleRecipeClick = () => navigate("/recipes");
+  const handleNewButtonClick = () => navigate("/nutrition");
+
   return (
+
     <div className="container">
       <div className="header">
         <h2 className="heading">Farmers Markets in Florida</h2>
@@ -402,9 +414,80 @@ function MapPage() {
 
         </div>
       </div>
+
+      {/* Footer: BottomNavigation */}
+      <Box
+        sx={{
+          position: 'fixed',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: 3, 
+          bgcolor: 'rgba(0, 0, 0, 0.6)',
+        }}
+      >
+        <BottomNavigation
+          showLabels
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+          sx={{
+            backgroundColor: 'transparent',
+          }}
+        >
+          <BottomNavigationAction
+            label="Healthy Living"
+            icon={<SpaIcon />}
+            sx={{
+              color: '#FFFFFF',
+              '&.Mui-selected': {
+                color: '#FFFFFF',
+              },
+              transition: 'all 0.3s ease-in-out',
+              '&:hover': {
+                backgroundColor: '#ffffff22',
+                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)',
+                color: '#FFFFAA',
+              },
+            }}
+          />
+          <BottomNavigationAction
+            label="Contact Us gquirk@valenciacollege.edu"
+            icon={<PhoneIcon />}
+            sx={{
+              color: '#FFFFFF',
+              transition: 'all 0.3s ease-in-out',
+              '&:hover': {
+                backgroundColor: '#ffffff22',
+                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)',
+                color: '#FFFFAA',
+              },
+            }}
+          />
+          <BottomNavigationAction
+            label="About Us"
+            icon={<GroupsIcon />}
+            sx={{
+              color: '#FFFFFF',
+              transition: 'all 0.3s ease-in-out',
+              '&:hover': {
+                backgroundColor: '#ffffff22',
+                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)',
+                color: '#FFFFAA',
+              },
+            }}
+          />
+        </BottomNavigation>
+      </Box>
     </div>
   );
 
 }
 
 export default MapPage;
+
+
+
+
+

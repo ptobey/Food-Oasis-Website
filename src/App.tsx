@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LaunchPage from "./LaunchPage";
 import MapPage from "./MapPage";
+import NutritionPage from "./NutritionPage";
 import RecipePage from "./RecipeSearchPage";
 import RecipeDetailPage from "./RecipeDetailPage";
 //import { getPublixData } from "./publix";
@@ -26,6 +27,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<LaunchPage />} />
         <Route path="/map" element={<MapPage />} />
+        <Route path="/nutrition" element={<NutritionPage />} />
         <Route path="/recipes" element={<RecipePage />} />
         <Route path="/recipe/:recipeId" element={<RecipeDetailPage />} />
       </Routes>
