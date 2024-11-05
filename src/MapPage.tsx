@@ -57,7 +57,7 @@ const MapLegend: React.FC<MapLegendProps> = ({ visibility, toggleLayer }) => {
         zIndex: 1000,
       }}
     >
-      <h3 style={{ margin: "0 0 10px 0", fontSize: "14px" }}>Map Legend</h3>
+      <Typography variant="h6">Map Legend</Typography>
       <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
         {Object.keys(visibility).map((layer) => (
           <li key={layer}>
@@ -66,7 +66,9 @@ const MapLegend: React.FC<MapLegendProps> = ({ visibility, toggleLayer }) => {
               checked={visibility[layer]}
               onChange={() => toggleLayer(layer)}
             />
-            <label style={{ marginLeft: "5px" }}>{layer}</label>
+            <Typography style={{ marginLeft: "5px", display: "inline" }}>
+              {layer}
+            </Typography>
           </li>
         ))}
       </ul>
