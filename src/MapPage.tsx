@@ -80,7 +80,7 @@ function MapPage() {
   const farmersMarketInfo = resultsFarmersMarket[selectedFarmersMarket];
 
   //Usefx-AXios++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  useEffect(() => {
+ useEffect(() => {
     axios.get(url).then((response: any) => {
       setResults(response.data.data);
     });

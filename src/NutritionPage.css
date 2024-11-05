@@ -1,0 +1,5 @@
+.shrink-container {
+    width: 100%;
+    transform: scale(0.8);
+    transform-origin: top left;
+}
