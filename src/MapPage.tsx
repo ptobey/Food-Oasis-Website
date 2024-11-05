@@ -36,13 +36,11 @@ type VisibilityState = {
   [layer: string]: boolean;
 };
 
-// Props for the MapLegend component
 interface MapLegendProps {
   visibility: VisibilityState;
   toggleLayer: (layer: string) => void;
 }
 
-// MapLegend component with type definitions
 const MapLegend: React.FC<MapLegendProps> = ({ visibility, toggleLayer }) => {
   return (
     <div
@@ -167,7 +165,7 @@ function MapPage() {
     setDrawerOpen(false);
   };
 
-  //ikons++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  //icons++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   const customIconAldi = new Icon({
     iconUrl: "/aldi.png",
