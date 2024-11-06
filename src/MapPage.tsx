@@ -32,6 +32,48 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import "./MapPage.css";
 import React from "react";
 
+type VisibilityState = {
+  [layer: string]: boolean;
+};
+
+interface MapLegendProps {
+  visibility: VisibilityState;
+  toggleLayer: (layer: string) => void;
+}
+
+const MapLegend: React.FC<MapLegendProps> = ({ visibility, toggleLayer }) => {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: "150px",
+        right: "50px",
+        backgroundColor: "white",
+        padding: "20px",
+        borderRadius: "8px",
+        boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
+        zIndex: 1000,
+      }}
+    >
+      <Typography variant="h6">Map Legend</Typography>
+      <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+        {Object.keys(visibility).map((layer) => (
+          <li key={layer}>
+            <input
+              type="checkbox"
+              checked={visibility[layer]}
+              onChange={() => toggleLayer(layer)}
+            />
+            <Typography style={{ marginLeft: "5px", display: "inline" }}>
+              {layer}
+            </Typography>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
 function LocationMarker() {
   const map = useMap();
 
@@ -78,6 +120,20 @@ function MapPage() {
   const [selectedFarmersMarket, setSelectedFarmersMarket] = useState(-1);
   const isFarmersMarket = selectedFarmersMarket >= 0;
   const farmersMarketInfo = resultsFarmersMarket[selectedFarmersMarket];
+  const [visibility, setVisibility] = useState<VisibilityState>({
+    Aldi: true,
+    Bravo: true,
+    Costco: true,
+    "Farmer's Market": true,
+    Publix: true,
+    Sprouts: true,
+    Target: true,
+    Walmart: true,
+  });
+
+  const toggleLayer = (layer: string) => {
+    setVisibility((prev) => ({ ...prev, [layer]: !prev[layer] }));
+  };
 
   //Usefx-AXios++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   useEffect(() => {
@@ -109,7 +165,7 @@ function MapPage() {
     setDrawerOpen(false);
   };
 
-  //ikons++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  //icons++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   const customIconAldi = new Icon({
     iconUrl: "/aldi.png",
@@ -187,6 +243,7 @@ function MapPage() {
         flexDirection: "column",
       }}
     >
+      <MapLegend visibility={visibility} toggleLayer={toggleLayer} />
       {/* Header: AppBar */}
       <AppBar
         position="fixed"
@@ -313,174 +370,142 @@ function MapPage() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
-
-          <div className="layers-control-container">
-            <h3>Map Legend</h3>
-            <LayersControl position="bottomright" collapsed={false}>
-              {/*  Farmersmarket marker++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
-
-              <LayersControl.Overlay checked name="Farmers Market">
-                <LayerGroup>
-                  <MarkerClusterGroup chunkedLoading>
-                    {resultsFarmersMarket.map((result, index) => (
-                      <Marker
-                        key={index}
-                        eventHandlers={{
-                          click: () => handleMarkerClickFarm(index),
-                        }}
-                        position={[
-                          result.location_y as number,
-                          result.location_x as number,
-                        ]}
-                        icon={customIconFarmersMarket}
-                      ></Marker>
-                    ))}
-                  </MarkerClusterGroup>
-                </LayerGroup>
-              </LayersControl.Overlay>
-
-              {/*  Chain store markers++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
-              <LayersControl.Overlay checked name="Aldi">
-                <LayerGroup>
-                  <MarkerClusterGroup chunkedLoading>
-                    {aldiData.map((result, index) => (
-                      <Marker
-                        key={index}
-                        eventHandlers={{
-                          click: () => handleMarkerClick(result.store_id),
-                        }}
-                        position={[
-                          result.latitude as number,
-                          result.longitude as number,
-                        ]}
-                        icon={customIconAldi}
-                      ></Marker>
-                    ))}
-                  </MarkerClusterGroup>
-                </LayerGroup>
-              </LayersControl.Overlay>
-
-              <LayersControl.Overlay checked name="Bravo">
-                <LayerGroup>
-                  <MarkerClusterGroup chunkedLoading>
-                    {bravoData.map((result, index) => (
-                      <Marker
-                        key={index}
-                        eventHandlers={{
-                          click: () => handleMarkerClick(result.store_id),
-                        }}
-                        position={[
-                          result.latitude as number,
-                          result.longitude as number,
-                        ]}
-                        icon={customIconBravo}
-                      ></Marker>
-                    ))}
-                  </MarkerClusterGroup>
-                </LayerGroup>
-              </LayersControl.Overlay>
-
-              <LayersControl.Overlay checked name="Costco">
-                <LayerGroup>
-                  <MarkerClusterGroup chunkedLoading>
-                    {costcoData.map((result, index) => (
-                      <Marker
-                        key={index}
-                        eventHandlers={{
-                          click: () => handleMarkerClick(result.store_id),
-                        }}
-                        position={[
-                          result.latitude as number,
-                          result.longitude as number,
-                        ]}
-                        icon={customIconCostco}
-                      ></Marker>
-                    ))}
-                  </MarkerClusterGroup>
-                </LayerGroup>
-              </LayersControl.Overlay>
-
-              <LayersControl.Overlay checked name="Publix">
-                <LayerGroup>
-                  <MarkerClusterGroup chunkedLoading>
-                    {publixData.map((result, index) => (
-                      <Marker
-                        key={index}
-                        eventHandlers={{
-                          click: () => handleMarkerClick(result.store_id),
-                        }}
-                        position={[
-                          result.latitude as number,
-                          result.longitude as number,
-                        ]}
-                        icon={customIconPublix}
-                      ></Marker>
-                    ))}
-                  </MarkerClusterGroup>
-                </LayerGroup>
-              </LayersControl.Overlay>
-
-              <LayersControl.Overlay checked name="Sprouts">
-                <LayerGroup>
-                  <MarkerClusterGroup chunkedLoading>
-                    {sproutsData.map((result, index) => (
-                      <Marker
-                        key={index}
-                        eventHandlers={{
-                          click: () => handleMarkerClick(result.store_id),
-                        }}
-                        position={[
-                          result.latitude as number,
-                          result.longitude as number,
-                        ]}
-                        icon={customIconSprouts}
-                      ></Marker>
-                    ))}
-                  </MarkerClusterGroup>
-                </LayerGroup>
-              </LayersControl.Overlay>
-
-              <LayersControl.Overlay checked name="Target">
-                <LayerGroup>
-                  <MarkerClusterGroup chunkedLoading>
-                    {targetData.map((result, index) => (
-                      <Marker
-                        key={index}
-                        eventHandlers={{
-                          click: () => handleMarkerClick(result.store_id),
-                        }}
-                        position={[
-                          result.latitude as number,
-                          result.longitude as number,
-                        ]}
-                        icon={customIconTarget}
-                      ></Marker>
-                    ))}
-                  </MarkerClusterGroup>
-                </LayerGroup>
-              </LayersControl.Overlay>
-
-              <LayersControl.Overlay checked name="Walmart">
-                <LayerGroup>
-                  <MarkerClusterGroup chunkedLoading>
-                    {walmartData.map((result, index) => (
-                      <Marker
-                        key={index}
-                        eventHandlers={{
-                          click: () => handleMarkerClick(result.store_id),
-                        }}
-                        position={[
-                          result.latitude as number,
-                          result.longitude as number,
-                        ]}
-                        icon={customIconWalmart}
-                      ></Marker>
-                    ))}
-                  </MarkerClusterGroup>
-                </LayerGroup>
-              </LayersControl.Overlay>
-            </LayersControl>
-          </div>
+          {visibility["Aldi"] && (
+            <MarkerClusterGroup chunkedLoading>
+              {aldiData.map((result, index) => (
+                <Marker
+                  key={index}
+                  eventHandlers={{
+                    click: () => handleMarkerClick(result.store_id),
+                  }}
+                  position={[
+                    result.latitude as number,
+                    result.longitude as number,
+                  ]}
+                  icon={customIconAldi}
+                ></Marker>
+              ))}
+            </MarkerClusterGroup>
+          )}
+          {visibility["Bravo"] && (
+            <MarkerClusterGroup chunkedLoading>
+              {bravoData.map((result, index) => (
+                <Marker
+                  key={index}
+                  eventHandlers={{
+                    click: () => handleMarkerClick(result.store_id),
+                  }}
+                  position={[
+                    result.latitude as number,
+                    result.longitude as number,
+                  ]}
+                  icon={customIconBravo}
+                ></Marker>
+              ))}
+            </MarkerClusterGroup>
+          )}
+          {visibility["Costco"] && (
+            <MarkerClusterGroup chunkedLoading>
+              {costcoData.map((result, index) => (
+                <Marker
+                  key={index}
+                  eventHandlers={{
+                    click: () => handleMarkerClick(result.store_id),
+                  }}
+                  position={[
+                    result.latitude as number,
+                    result.longitude as number,
+                  ]}
+                  icon={customIconCostco}
+                ></Marker>
+              ))}
+            </MarkerClusterGroup>
+          )}
+          {visibility["Farmer's Market"] && (
+            <MarkerClusterGroup chunkedLoading>
+              {resultsFarmersMarket.map((result, index) => (
+                <Marker
+                  key={index}
+                  eventHandlers={{
+                    click: () => handleMarkerClickFarm(index),
+                  }}
+                  position={[
+                    result.location_y as number,
+                    result.location_x as number,
+                  ]}
+                  icon={customIconFarmersMarket}
+                ></Marker>
+              ))}
+            </MarkerClusterGroup>
+          )}
+          {visibility["Publix"] && (
+            <MarkerClusterGroup chunkedLoading>
+              {publixData.map((result, index) => (
+                <Marker
+                  key={index}
+                  eventHandlers={{
+                    click: () => handleMarkerClick(result.store_id),
+                  }}
+                  position={[
+                    result.latitude as number,
+                    result.longitude as number,
+                  ]}
+                  icon={customIconPublix}
+                ></Marker>
+              ))}
+            </MarkerClusterGroup>
+          )}
+          {visibility["Sprouts"] && (
+            <MarkerClusterGroup chunkedLoading>
+              {sproutsData.map((result, index) => (
+                <Marker
+                  key={index}
+                  eventHandlers={{
+                    click: () => handleMarkerClick(result.store_id),
+                  }}
+                  position={[
+                    result.latitude as number,
+                    result.longitude as number,
+                  ]}
+                  icon={customIconSprouts}
+                ></Marker>
+              ))}
+            </MarkerClusterGroup>
+          )}
+          {visibility["Target"] && (
+            <MarkerClusterGroup chunkedLoading>
+              {targetData.map((result, index) => (
+                <Marker
+                  key={index}
+                  eventHandlers={{
+                    click: () => handleMarkerClick(result.store_id),
+                  }}
+                  position={[
+                    result.latitude as number,
+                    result.longitude as number,
+                  ]}
+                  icon={customIconTarget}
+                ></Marker>
+              ))}
+            </MarkerClusterGroup>
+          )}
+          {visibility["Walmart"] && (
+            <MarkerClusterGroup chunkedLoading>
+              {walmartData.map((result, index) => (
+                <Marker
+                  key={index}
+                  eventHandlers={{
+                    click: () => handleMarkerClick(result.store_id),
+                  }}
+                  position={[
+                    result.latitude as number,
+                    result.longitude as number,
+                  ]}
+                  icon={customIconWalmart}
+                ></Marker>
+              ))}
+            </MarkerClusterGroup>
+          )}
         </MapContainer>
 
         <Drawer anchor="left" open={drawerOpen} onClose={handleDrawerClose}>
