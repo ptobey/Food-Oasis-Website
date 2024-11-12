@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Typography, Card, CardContent, Grid, Paper } from '@mui/material'; 
 import "./NutritionPage.css";
 
+
 const NutritionPage: React.FC = () => {
 
   return (
@@ -16,14 +17,16 @@ const NutritionPage: React.FC = () => {
 <Typography variant = "h6" align='center'>  by Kristin Bartholomew, Registered Dietitian/Nutritionist and Valencia Nutrition Professor.
 </Typography>
 
-              
 
               <iframe 
+              
     src="https://bit.ly/4eal1kJ"
-    allow="autoplay; fullscreen; "
-  allowFullScreen = "true" 
-    
-  ></iframe>
+    allow="autoplay; fullscreen; encrypted-media;"
+      width = "20px"
+  ></iframe> 
+
+
+
 
 
 <Typography variant="body1">
