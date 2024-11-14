@@ -154,9 +154,6 @@ Grab a friend to go with and make it a fun event, especially if you need a ride 
 
 
 </Typography>
-
-
-           <Typography    variant='caption' >I live here. and no one notices...</Typography>
               </Typography>
     </Container>
   );
