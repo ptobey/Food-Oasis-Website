@@ -2,7 +2,6 @@ import React from 'react';
 import { Container, Typography, Card, CardContent, Grid, Paper } from '@mui/material'; 
 import "./NutritionPage.css";
 
-
 const NutritionPage: React.FC = () => {
 
   return (
@@ -14,21 +13,20 @@ const NutritionPage: React.FC = () => {
      
               <Typography variant="h4" align='center'>-Healthy Eating On A Budget-</Typography>
 
-<Typography variant = "h6" align='center'>  by Kristin Bartholomew, Registered Dietitian/Nutritionist and Valencia Nutrition Professor.
-</Typography>
 
-
-              <iframe 
-              
+<div  style={{justifyContent: "center", display:"flex" }}>
+<div   style=  {{overflow:"Hidden", maxWidth :  "635px", maxHeight:"350px", borderRadius: "25px"}}>
+    <iframe 
     src="https://bit.ly/4eal1kJ"
     allow="autoplay; fullscreen; encrypted-media;"
       width = "20px"
   ></iframe> 
+</div>
+</div>
 
 
-
-
-
+<Typography variant = "h6" align='center'>  by Kristin Bartholomew, Registered Dietitian/Nutritionist and Valencia Nutrition Professor.
+</Typography>
 <Typography variant="body1">
 <Typography fontWeight={"bold"}>In the United States, </Typography>
 we have an abundance of food. However, many individuals find it challenging to access healthy foods.
@@ -152,8 +150,6 @@ are not available, you can rinse them.
 •	Shop at local farmer's markets. <br/>
 Grab a friend to go with and make it a fun event, especially if you need a ride there.
 </Card>
-
-
  <br/>
 
 
