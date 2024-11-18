@@ -1,6 +1,10 @@
 import React from 'react';
-import { Container, Typography, Card, CardContent, Grid, Paper } from '@mui/material'; 
+import { Container, Typography, Card } from '@mui/material'; 
 import "./NutritionPage.css";
+
+
+
+
 
 const NutritionPage: React.FC = () => {
 
@@ -11,11 +15,11 @@ const NutritionPage: React.FC = () => {
         Why eat Healthy?
       </Typography>
      
-              <Typography variant="h4" align='center'>-Healthy Eating On A Budget-</Typography>
+             
 
 
 <div  style={{justifyContent: "center", display:"flex" }}>
-<div   style=  {{overflow:"Hidden", maxWidth :  "635px", maxHeight:"350px", borderRadius: "25px"}}>
+<div   style=  {{overflow:"Hidden", maxWidth :  "635px", maxHeight:"330px", borderRadius: "25px"}}>
     <iframe 
     src="https://bit.ly/4eal1kJ"
     allow="autoplay; fullscreen; encrypted-media;"
@@ -23,7 +27,7 @@ const NutritionPage: React.FC = () => {
   ></iframe> 
 </div>
 </div>
-
+<Typography variant="h4" align='center'>-Healthy Eating On A Budget-</Typography>
 
 <Typography variant = "h6" align='center'>  by Kristin Bartholomew, Registered Dietitian/Nutritionist and Valencia Nutrition Professor.
 </Typography>
@@ -84,17 +88,24 @@ to find and adhere to the best advice while {" "}
 and dealing with limited access to fresh produce is a stark reality for many. 
 Healthcare professionals advocate for MyPlate and the Mediterranean-pattern diet because both promote balanced, nutritious eating that supports overall health. 
 
+<div id = "header"></div>
+
 <br/> 
+
+
+
 MyPlate is a visual guide to help individuals understand portion sizes and the importance of including various food groups—fruits, 
 vegetables, grains, protein, and dairy—in their meals. Every food group contains vital nutrients. Diets that suggest eliminating 
 entire food groups are a red flag for poor nutrition. When portion-controlled, whole, nutrient-dense food choices are consumed in 
 each food group, MyPlate encourages healthy eating habits that prevent diet-related diseases.
 <br/> <br/>
+<img src = " ./MyPlate_blue.png" alt = ""  width={"350px"}   />
+<br/> 
+<Typography variant='caption'>image source: https://www.myplate.gov/resources/graphics/myplate-graphics</Typography>
 
-
+<br/> 
+<br/> 
 <Typography fontWeight={"bold"}>The Mediterranean-pattern diet, </Typography>
-
-
 
 characterized by a high intake of fruits, vegetables, whole grains, legumes, healthy fats (like olive oil), 
 and moderate consumption of fish and poultry, has been linked to numerous health benefits. One of the problems with the "Mediterranean Diet" is 
@@ -104,6 +115,29 @@ the pattern of whole, fresh fruits, vegetables, grains, and healthy fats with th
 such as heart disease, diabetes, and certain cancers. Its emphasis on fresh, seasonal ingredients and a balanced approach to meals aligns with promoting 
 longevity and well-being. <br/><br/>
 
+<div  >
+<img src = " .\Meditarranean_Diet.jpg" alt = ""  width={"900px"}   />
+<br/>
+
+
+<Typography variant='caption'>
+  image source: 
+  <a
+                  href={
+                    "https://www.unisa.edu.au/media-centre/Releases/2023/the-mediterranean-diet-good-for-your-health-and-your-hip-pocket/"
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                https://www.unisa.edu.au/media-centre/Releases/2023/the-mediterranean-diet-good-for-your-health-and-your-hip-pocket/
+                </a>
+  
+  </Typography>
+
+
+
+</div>
+<br/>
 <Typography fontWeight={"bold"}>When considering diet trends  </Typography>
 promoted by social media, staying cautious and recognizing potential red flags is essential. The Mayo Clinic advises against 
 diets that promise rapid weight loss, particularly those claiming more than 2 pounds lost per week, as these can be unrealistic and unhealthy. It is also important to be wary of diets that advocate eliminating food groups, 
