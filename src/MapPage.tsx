@@ -136,7 +136,7 @@ function MapPage() {
   };
 
   //Usefx-AXios++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  useEffect(() => {
+ useEffect(() => {
     axios.get(url).then((response: any) => {
       setResults(response.data.data);
     });
