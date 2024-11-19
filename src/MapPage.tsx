@@ -6,7 +6,7 @@ import {
   MapContainer,
   TileLayer,
   Marker,
-  Popup,
+  useMap
 } from "react-leaflet";
 import L, { Icon } from "leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
@@ -36,6 +36,31 @@ type VisibilityState = {
 interface MapLegendProps {
   visibility: VisibilityState;
   toggleLayer: (layer: string) => void;
+}
+
+function LocationMarker() {
+  const map = useMap();
+
+  useEffect(() => {
+    map.locate({
+      setView: true,
+      maxZoom: 16,
+    });
+
+    const handleOnLocationFound = (event: L.LocationEvent) => {
+      const radius = event.accuracy;
+      const circle = L.circle(event.latlng, { radius });
+      circle.addTo(map);
+    };
+
+    map.on("locationfound", handleOnLocationFound);
+
+    return () => {
+      map.off("locationfound", handleOnLocationFound);
+    };
+  }, [map]);
+
+  return null;
 }
 
 const MapLegend: React.FC<MapLegendProps> = ({ visibility, toggleLayer }) => {
@@ -84,8 +109,8 @@ function MapPage() {
   const [value, setValue] = useState(0);
 
   // URLs and Data
-  const dbUrl = "http://97.101.31.48:5000/getLocations";
-  const dbUrlDetail = "http://97.101.31.48:5000/getStoreDetails/";
+  const dbUrl = "https://foodoasis.duckdns.org/api/getLocations";
+  const dbUrlDetail = "https://foodoasis.duckdns.org/api/getStoreDetails/";
   const [resultsDB, setDBResults] = useState<any[]>([]);
   const [drawerData, setDrawerData] = useState<any>({});
   const [selectedFarmersMarket, setSelectedFarmersMarket] = useState(-1);
@@ -265,6 +290,7 @@ function MapPage() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
+          <LocationMarker />
 
            {/* Marker Groups */}
            {visibility["Aldi"] && (

@@ -84,7 +84,6 @@ const NutritionPage: React.FC = () => {
       </AppBar>
 
 
-  return (
     <Container sx ={{bgcolor: "rgba(255, 255, 255, 0.5)", marginTop: "90px", flexGrow:1, padding: "50px", }}>
      
     <Typography

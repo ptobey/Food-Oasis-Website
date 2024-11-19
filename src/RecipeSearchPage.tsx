@@ -85,7 +85,7 @@ const RecipeSearchPage = () => {
 
     axios
       .post(
-        `http://97.101.31.48:5000/recipes/search/v3?format=json&search_expression=${value}&page_number=${
+        `https://foodoasis.duckdns.org/api/recipes/search/v3?format=json&search_expression=${value}&page_number=${
           pageNumber - 1
         }&max_results=${resultsPerPage}${filterString}`
       )
