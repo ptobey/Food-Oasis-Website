@@ -8,15 +8,17 @@ import RecipeDetailPage from "./RecipeDetailPage";
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LaunchPage />} />
-        <Route path="/map" element={<MapPage />} />
-        <Route path="/nutrition" element={<NutritionPage />} />
-        <Route path="/recipes" element={<RecipePage />} />
-        <Route path="/recipe/:recipeId" element={<RecipeDetailPage />} />
-      </Routes>
-    </Router>
+    <div style= {{margin: -8}}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LaunchPage />} />
+          <Route path="/map" element={<MapPage />} />
+          <Route path="/nutrition" element={<NutritionPage />} />
+          <Route path="/recipes" element={<RecipePage />} />
+          <Route path="/recipe/:recipeId" element={<RecipeDetailPage />} />
+        </Routes>
+      </Router>
+    </div>
   );
 };
 

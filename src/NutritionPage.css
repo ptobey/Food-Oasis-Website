@@ -1,8 +1,11 @@
-
-
-body{
-    background-color: darkslategrey;
+body {
+  background-color: darkslategrey;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: black; /* Ensures text contrasts well on the dark background */
 }
+
 
 iframe {
     position: relative;
