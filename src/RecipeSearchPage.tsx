@@ -17,6 +17,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import Header from './UIRecipeSearch'; 
+
 
 const RecipeSearchPage = () => {
   const [recipes, setRecipes] = useState([] as unknown as any[]);
@@ -46,6 +48,10 @@ const RecipeSearchPage = () => {
   const navigate = useNavigate();
 
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const handleHomeClick = () => navigate("/");
+  const handleRecipeClick = () => navigate("/map");
+  const handleNewButtonClick = () => navigate("/nutrition");
 
   const getRecipes = () => {
     let filters = [];
@@ -170,6 +176,7 @@ const RecipeSearchPage = () => {
     useCarbFilter,
   ]);
 
+
   const applyDietPreset = (preset: string) => {
     setDrawerOpen(true);
     switch (preset) {
@@ -225,8 +232,14 @@ const RecipeSearchPage = () => {
     setPageNumber(1);
   };
 
+
   return (
-    <div style={{ padding: "24px" }}>
+    <div style={{ padding: "140px" }}>
+      <Header
+        handleHomeClick={handleHomeClick}
+        handleRecipeClick={handleRecipeClick}
+        handleNewButtonClick={handleNewButtonClick}
+      />
       <Typography
         variant="h4"
         style={{ marginBottom: "16px", textAlign: "center" }}

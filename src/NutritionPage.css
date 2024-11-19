@@ -1,17 +1,21 @@
-
-
-body{
-    background-color: darkslategrey;
+body {
+  background: rgba(0, 0, 0, 0.1); /* Transparent black background */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: black; /* Ensures text contrasts well on the dark background */
 }
+
 
 iframe {
-    position: relative;
-   
-    width: 800px; 
-    height: 450px;
-    top:-68px;
-    left: -75;
-   
-   
+  position: relative;
+  width: 800px; 
+  height: 450px;
+  top: -68px;
+  left: -75px;
 }
+
+  
+
+
 
