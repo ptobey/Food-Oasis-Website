@@ -16,6 +16,7 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import GroupsIcon from "@mui/icons-material/Groups";
 import { useNavigate } from "react-router-dom";
 import "./NutritionPage.css";
+import { AlignHorizontalCenter } from "@mui/icons-material";
 
 
 const NutritionPage: React.FC = () => {
@@ -115,20 +116,10 @@ const NutritionPage: React.FC = () => {
   Healthy Eating on a Budget
 </Typography>
 
-
-
-
-
-<div  style={{justifyContent: "center", display:"flex", marginTop: "30px" }}>
-<div   style=  {{overflow:"Hidden", maxWidth :  "635px", maxHeight:"350px", borderRadius: "25px"}}>
-    <iframe 
-    src="https://bit.ly/4eal1kJ"
-    allow="autoplay; fullscreen; encrypted-media;"
-      width = "20px"
-  ></iframe> 
+<div className= "Victory" style={{justifySelf:"center" }}  >
+<img src = " ./woman_victory.png" alt = ""  width={"300px"} />
+<img src = " ./man_victory.png" alt = ""  width={"325px"}   />
 </div>
-</div>
-
 
 <Typography
   variant="subtitle1"
@@ -229,6 +220,24 @@ can apply the principles of this diet to improve their health. This is why we te
 the pattern of whole, fresh fruits, vegetables, grains, and healthy fats with their own regional flare. Research shows it can reduce the risk of chronic diseases 
 such as heart disease, diabetes, and certain cancers. Its emphasis on fresh, seasonal ingredients and a balanced approach to meals aligns with promoting 
 longevity and well-being. <br/><br/>
+
+<div  >
+<img src = " .\Meditarranean_Diet.jpg" alt = ""  width={"900px"}   />
+<br/>
+<Typography variant='caption'>
+  image source: 
+  <a
+                  href={
+                    "https://www.unisa.edu.au/media-centre/Releases/2023/the-mediterranean-diet-good-for-your-health-and-your-hip-pocket/"
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                https://www.unisa.edu.au/media-centre/Releases/2023/the-mediterranean-diet-good-for-your-health-and-your-hip-pocket/
+                </a>
+  
+  </Typography>
+</div>
 
 <Typography fontWeight={"bold"} sx={{ marginTop: "16px"}}>
 When considering diet trends  </Typography>
