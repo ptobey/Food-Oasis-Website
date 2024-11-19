@@ -1,5 +1,5 @@
 body {
-  background: rgba(0, 0, 0, 0.1); /* Transparent black background */
+  background-color: darkslategrey;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -8,14 +8,13 @@ body {
 
 
 iframe {
-  position: relative;
-  width: 800px; 
-  height: 450px;
-  top: -68px;
-  left: -75px;
+    position: relative;
+   
+    width: 800px; 
+    height: 425px;
+    top:-45px;
+    left: -75;
+   
+   
 }
-
-  
-
-
 

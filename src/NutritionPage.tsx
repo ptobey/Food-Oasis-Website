@@ -203,12 +203,20 @@ to find and adhere to the best advice while {" "}
 and dealing with limited access to fresh produce is a stark reality for many. 
 Healthcare professionals advocate for MyPlate and the Mediterranean-pattern diet because both promote balanced, nutritious eating that supports overall health. 
 
+<div id = "header"></div>
+
 <br/> 
+
+
+
 MyPlate is a visual guide to help individuals understand portion sizes and the importance of including various food groups—fruits, 
 vegetables, grains, protein, and dairy—in their meals. Every food group contains vital nutrients. Diets that suggest eliminating 
 entire food groups are a red flag for poor nutrition. When portion-controlled, whole, nutrient-dense food choices are consumed in 
 each food group, MyPlate encourages healthy eating habits that prevent diet-related diseases.
 <br/> <br/>
+<img src = " ./MyPlate_blue.png" alt = ""  width={"350px"}   />
+<br/> 
+<Typography variant='caption'>image source: https://www.myplate.gov/resources/graphics/myplate-graphics</Typography>
 
 
 <Typography fontWeight={"bold"} sx={{ marginTop: "16px" }}>
