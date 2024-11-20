@@ -28,7 +28,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post('/**', (req, res) => {
+app.post('/api/**', (req, res) => {
   const tokenOptions = {
     url: TOKEN_URL,
     method: 'POST',
@@ -51,7 +51,7 @@ app.post('/**', (req, res) => {
     let token = JSON.parse(body).access_token;
 
     const apiOptions = {
-      url: API_URL + req.url,
+      url: API_URL + req.url.replace('/api', ''),
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -67,13 +67,13 @@ app.post('/**', (req, res) => {
   });
 });
 });
-app.get('/getLocations', async (req, res) => {
+app.get('/api/getLocations', async (req, res) => {
     client.query('SELECT store_id, type, longitude, latitude FROM Food_Sources').then((response)=>{
       res.json(response.rows)
   })
  
 });
-app.get('/getStoreDetails/:id', async (req, res) => {
+app.get('/api/getStoreDetails/:id', async (req, res) => {
   client.query(`SELECT street_address, city, state, zip, hours, phone_number, image_url, website FROM Food_Sources WHERE store_id = ${req.params.id}`).then((response)=>{
     res.json(response.rows)
 })
