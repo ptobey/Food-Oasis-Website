@@ -75,7 +75,7 @@ const RecipeDetailPage = () => {
   };
 
   const handleNewButtonClick = () => {
-    handleNavigate("/nutrition-guide");
+    handleNavigate("/nutrition");
   };
 
   if (!recipe) {
