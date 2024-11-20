@@ -17,8 +17,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import Header from './UIRecipeSearch'; 
-
+import Header from "./UIRecipeSearch";
 
 const RecipeSearchPage = () => {
   const [recipes, setRecipes] = useState([] as unknown as any[]);
@@ -26,7 +25,7 @@ const RecipeSearchPage = () => {
   const [calories, setCalories] = useState<number | null>(null);
   const [protein, setProtein] = useState<number | null>(null);
   const [fat, setFat] = useState<number | null>(null);
-  const [carbs, setCarbs] = useState<number | null>(null);
+  const [carb, setCarb] = useState<number | null>(null);
 
   const [caloriePreference, setCaloriePreference] = useState<"more" | "less">(
     "less"
@@ -49,9 +48,9 @@ const RecipeSearchPage = () => {
 
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const handleHomeClick = () => navigate("/");
-  const handleRecipeClick = () => navigate("/map");
-  const handleNewButtonClick = () => navigate("/nutrition");
+  const handleHomeClick = () => handleNavigate("/");
+  const handleRecipeClick = () => handleNavigate("/map");
+  const handleNewButtonClick = () => handleNavigate("/nutrition");
 
   const getRecipes = () => {
     let filters = [];
@@ -73,11 +72,9 @@ const RecipeSearchPage = () => {
         `fat_percentage${fatPreference === "more" ? ".from=" : ".to="}${fat}`
       );
     }
-    if (useCarbFilter && carbs !== null) {
+    if (useCarbFilter && carb !== null) {
       filters.push(
-        `carbs_percentage${
-          carbPreference === "more" ? ".from=" : ".to="
-        }${carbs}`
+        `carb_percentage${carbPreference === "more" ? ".from=" : ".to="}${carb}`
       );
     }
 
@@ -98,15 +95,40 @@ const RecipeSearchPage = () => {
       });
   };
 
+  const handleNavigate = (url: string) => {
+    console.log(url.substring(0, 7));
+
+    if (url.substring(0, 8) === "/recipe/") {
+      const savedFilters = {
+        value,
+        calories,
+        protein,
+        fat,
+        carb,
+        proteinPreference,
+        fatPreference,
+        carbPreference,
+        useCalorieFilter,
+        useProteinFilter,
+        useFatFilter,
+        useCarbFilter,
+      };
+      sessionStorage.setItem("recipeFilters", JSON.stringify(savedFilters));
+    } else {
+      sessionStorage.removeItem("recipeFilters");
+    }
+    navigate(url);
+  };
+
   useEffect(() => {
-    const savedFilters = localStorage.getItem("recipeFilters");
+    const savedFilters = sessionStorage.getItem("recipeFilters");
     if (savedFilters) {
       const {
         value,
         calories,
         protein,
         fat,
-        carbs,
+        carb,
         proteinPreference,
         fatPreference,
         carbPreference,
@@ -119,7 +141,7 @@ const RecipeSearchPage = () => {
       setCalories(calories);
       setProtein(protein);
       setFat(fat);
-      setCarbs(carbs);
+      setCarb(carb);
       setProteinPreference(proteinPreference);
       setFatPreference(fatPreference);
       setCarbPreference(carbPreference);
@@ -129,6 +151,16 @@ const RecipeSearchPage = () => {
       setUseCarbFilter(useCarbFilter);
       setCaloriePreference;
     }
+
+    const handleUnload = () => {
+      sessionStorage.removeItem("recipeFilters");
+    };
+
+    window.addEventListener("beforeunload", handleUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleUnload);
+    };
   }, []);
 
   useEffect(() => {
@@ -137,24 +169,9 @@ const RecipeSearchPage = () => {
       (useCalorieFilter && calories !== null) ||
       (useProteinFilter && protein !== null) ||
       (useFatFilter && fat !== null) ||
-      (useCarbFilter && carbs !== null)
+      (useCarbFilter && carb !== null)
     ) {
       getRecipes();
-      const savedFilters = {
-        value,
-        calories,
-        protein,
-        fat,
-        carbs,
-        proteinPreference,
-        fatPreference,
-        carbPreference,
-        useCalorieFilter,
-        useProteinFilter,
-        useFatFilter,
-        useCarbFilter,
-      };
-      localStorage.setItem("recipeFilters", JSON.stringify(savedFilters));
     } else {
       setRecipes([]);
       setTotalResults(0);
@@ -165,7 +182,7 @@ const RecipeSearchPage = () => {
     calories,
     protein,
     fat,
-    carbs,
+    carb,
     caloriePreference,
     proteinPreference,
     fatPreference,
@@ -176,7 +193,6 @@ const RecipeSearchPage = () => {
     useCarbFilter,
   ]);
 
-
   const applyDietPreset = (preset: string) => {
     setDrawerOpen(true);
     switch (preset) {
@@ -184,7 +200,7 @@ const RecipeSearchPage = () => {
         setCalories(500);
         setProtein(20);
         setFat(70);
-        setCarbs(10);
+        setCarb(10);
         setCaloriePreference("less");
         setProteinPreference("more");
         setFatPreference("more");
@@ -199,7 +215,7 @@ const RecipeSearchPage = () => {
         setCalories(600);
         setProtein(35);
         setFat(40);
-        setCarbs(25);
+        setCarb(25);
         setCaloriePreference("less");
         setProteinPreference("more");
         setFatPreference("more");
@@ -214,7 +230,7 @@ const RecipeSearchPage = () => {
         setCalories(700);
         setProtein(30);
         setFat(35);
-        setCarbs(35);
+        setCarb(35);
         setCaloriePreference("less");
         setProteinPreference("more");
         setFatPreference("more");
@@ -231,7 +247,6 @@ const RecipeSearchPage = () => {
 
     setPageNumber(1);
   };
-
 
   return (
     <div style={{ padding: "140px" }}>
@@ -253,7 +268,7 @@ const RecipeSearchPage = () => {
         fullWidth
         value={value}
         onChange={(event) => {
-          setValue(event.target.value.replace(/ /g, "%20"));
+          setValue(event.target.value);
           setPageNumber(1);
         }}
         style={{ marginBottom: "16px" }}
@@ -478,7 +493,7 @@ const RecipeSearchPage = () => {
                   onChange={(event) => {
                     setUseCarbFilter(event.target.checked);
                     if (!event.target.checked) {
-                      setCarbs(null);
+                      setCarb(null);
                     }
                   }}
                 />
@@ -489,12 +504,12 @@ const RecipeSearchPage = () => {
               <Box style={{ marginBottom: "16px" }}>
                 <TextField
                   type="number"
-                  label="Carbs %"
+                  label="Carb %"
                   variant="outlined"
-                  value={carbs || ""}
+                  value={carb || ""}
                   onChange={(event) => {
                     const value = event.target.value;
-                    setCarbs(value ? parseInt(value) : null);
+                    setCarb(value ? parseInt(value) : null);
                     setPageNumber(1);
                   }}
                   style={{ marginBottom: "8px", width: "100%" }}
@@ -538,7 +553,7 @@ const RecipeSearchPage = () => {
           recipes.map((recipe, index) => (
             <div
               key={index}
-              onClick={() => navigate(`/recipe/${recipe.recipe_id}`)}
+              onClick={() => handleNavigate(`/recipe/${recipe.recipe_id}`)}
               style={{ cursor: "pointer" }}
             >
               <Paper
