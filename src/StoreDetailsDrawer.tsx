@@ -17,6 +17,7 @@ interface StoreDetailsDrawerProps {
   isFarmersMarket: boolean;
 }
 
+
 const StoreDetailsDrawer: React.FC<StoreDetailsDrawerProps> = ({ open, onClose, data, isFarmersMarket }) => {
   return (
     <Drawer anchor="left" open={open} onClose={onClose}>
@@ -67,7 +68,7 @@ const StoreDetailsDrawer: React.FC<StoreDetailsDrawerProps> = ({ open, onClose, 
         {/* Directions*/}
           <Button
           variant="outlined"
-          href={isFarmersMarket ? "https://www.google.com/maps/place/" + data.location_y+"," + data.location_x: "https://www.google.com/maps/place/" + data.latitude+ "," + data.longitude}
+          href={isFarmersMarket ? "https://www.google.com/maps/place/" + data.location_y + "," + data.location_x : "https://www.google.com/maps/place/" + data.latitude + "," + data.longitude}
           target="_blank"
           rel="noopener noreferrer"
           sx={{
