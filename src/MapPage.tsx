@@ -33,6 +33,13 @@ type VisibilityState = {
   [layer: string]: boolean;
 };
 
+interface Location  {
+store_id: string ;
+type: string;
+latitude: string;
+longitude: string;
+}
+
 interface MapLegendProps {
   visibility: VisibilityState;
   toggleLayer: (layer: string) => void;
@@ -117,7 +124,7 @@ function MapPage() {
   const isFarmersMarket = selectedFarmersMarket >= 0;
   const farmersMarketInfo = resultsFarmersMarket[selectedFarmersMarket];
   const [drawerOpen, setDrawerOpen] = useState(false);
-
+console.log(drawerData)
   const [visibility, setVisibility] = useState<VisibilityState>({
     Aldi: true,
     Bravo: true,
@@ -147,9 +154,13 @@ function MapPage() {
     setDrawerOpen(true);
   };
 
-  const handleMarkerClick = (id: string) => {
+  const handleMarkerClick = (location: Location) => {
     setSelectedFarmersMarket(-1);
-    axios.get(dbUrlDetail + id).then((response: any) => {
+    axios.get(dbUrlDetail + location.store_id).then((response: any) => {
+
+      response.data[0].longitude = location.longitude
+      response.data[0].latitude = location.latitude
+
       setDrawerData(response.data[0]);
     });
     setDrawerOpen(true);
@@ -298,7 +309,7 @@ function MapPage() {
               {aldiData.map((result, index) => (
                 <Marker
                   key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result.store_id) }}
+                  eventHandlers={{ click: () => handleMarkerClick(result) }}
                   position={[result.latitude as number, result.longitude as number]}
                   icon={customIconAldi}
                 />
@@ -310,7 +321,7 @@ function MapPage() {
               {bravoData.map((result, index) => (
                 <Marker
                   key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result.store_id) }}
+                  eventHandlers={{ click: () => handleMarkerClick(result) }}
                   position={[result.latitude as number, result.longitude as number]}
                   icon={customIconBravo}
                 />
@@ -322,7 +333,7 @@ function MapPage() {
               {costcoData.map((result, index) => (
                 <Marker
                   key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result.store_id) }}
+                  eventHandlers={{ click: () => handleMarkerClick(result) }}
                   position={[result.latitude as number, result.longitude as number]}
                   icon={customIconCostco}
                 />
@@ -346,7 +357,7 @@ function MapPage() {
               {publixData.map((result, index) => (
                 <Marker
                   key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result.store_id) }}
+                  eventHandlers={{ click: () => handleMarkerClick(result) }}
                   position={[result.latitude as number, result.longitude as number]}
                   icon={customIconPublix}
                 />
@@ -358,7 +369,7 @@ function MapPage() {
               {sproutsData.map((result, index) => (
                 <Marker
                   key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result.store_id) }}
+                  eventHandlers={{ click: () => handleMarkerClick(result) }}
                   position={[result.latitude as number, result.longitude as number]}
                   icon={customIconSprouts}
                 />
@@ -370,7 +381,7 @@ function MapPage() {
               {targetData.map((result, index) => (
                 <Marker
                   key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result.store_id) }}
+                  eventHandlers={{ click: () => handleMarkerClick(result) }}
                   position={[result.latitude as number, result.longitude as number]}
                   icon={customIconTarget}
                 />
@@ -382,7 +393,7 @@ function MapPage() {
               {walmartData.map((result, index) => (
                 <Marker
                   key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result.store_id) }}
+                  eventHandlers={{ click: () => handleMarkerClick(result) }}
                   position={[result.latitude as number, result.longitude as number]}
                   icon={customIconWalmart}
                 />

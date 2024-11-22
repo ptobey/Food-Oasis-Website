@@ -62,7 +62,7 @@ const StoreDetailsDrawer: React.FC<StoreDetailsDrawerProps> = ({ open, onClose, 
 
         {/* Contact Information */}
         <Typography variant="body2" sx={{ color: "#545454", mb: 2 }}>
-          {isFarmersMarket ? data.contact_phone : data.phone_number}
+          {isFarmersMarket ? data.contact_phone : data.phone_number + data.latitude }
         </Typography>
 
         {/* Directions*/}
