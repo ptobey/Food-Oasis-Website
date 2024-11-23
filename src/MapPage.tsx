@@ -124,7 +124,6 @@ function MapPage() {
   const isFarmersMarket = selectedFarmersMarket >= 0;
   const farmersMarketInfo = resultsFarmersMarket[selectedFarmersMarket];
   const [drawerOpen, setDrawerOpen] = useState(false);
-console.log(drawerData)
   const [visibility, setVisibility] = useState<VisibilityState>({
     Aldi: true,
     Bravo: true,
