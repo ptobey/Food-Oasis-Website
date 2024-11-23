@@ -17,6 +17,7 @@ interface StoreDetailsDrawerProps {
   isFarmersMarket: boolean;
 }
 
+
 const StoreDetailsDrawer: React.FC<StoreDetailsDrawerProps> = ({ open, onClose, data, isFarmersMarket }) => {
   return (
     <Drawer anchor="left" open={open} onClose={onClose}>
@@ -61,8 +62,39 @@ const StoreDetailsDrawer: React.FC<StoreDetailsDrawerProps> = ({ open, onClose, 
 
         {/* Contact Information */}
         <Typography variant="body2" sx={{ color: "#545454", mb: 2 }}>
-          {isFarmersMarket ? data.contact_phone : data.phone_number}
+          {isFarmersMarket ? data.contact_phone : data.phone_number + data.latitude }
         </Typography>
+
+        {/* Directions*/}
+          <Button
+          variant="outlined"
+          href={isFarmersMarket ? "https://www.google.com/maps/place/" + data.location_y + "," + data.location_x : "https://www.google.com/maps/place/" + data.latitude + "," + data.longitude}
+          target="_blank"
+          rel="noopener noreferrer"
+          sx={{
+            mb: 2,
+            borderColor: "#080808", 
+            color: "#080808", 
+            backgroundColor: "#FFFFFF", 
+            padding: "8px 20px", 
+            //borderRadius: "8px", 
+            fontWeight: "500", 
+            
+            transition: "all 0.3s ease", 
+            "&:hover": {
+              backgroundColor: "#080808", 
+              color: "#ffffff", 
+              borderColor: "080808", 
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.5)", 
+            },
+            "&:active": {
+              transform: "scale(0.98)", 
+            },
+          }}
+        >
+          Map Directions
+        </Button>
+        
 
         {/* Website Link */}
         {data.website && (
