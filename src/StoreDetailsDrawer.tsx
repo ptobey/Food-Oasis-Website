@@ -168,6 +168,12 @@ const StoreDetailsDrawer: React.FC<StoreDetailsDrawerProps> = ({ open, onClose, 
           </Box>
         )}
 
+         {/*last_updated*/}
+         <Typography variant="body2" sx={{ color: "#545454", mb: 2 }}>
+          Last updated: 
+          {isFarmersMarket ? "unknown" : data.last_updated.slice(5,10) + "-" + data.last_updated.slice(0,4)}
+        </Typography>
+
         {/* Fallback Text */}
         {isFarmersMarket && (
           <Typography variant="body2" sx={{ mt: 2, color: "#888" }}>
