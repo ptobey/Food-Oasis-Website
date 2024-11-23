@@ -74,7 +74,7 @@ app.get('/api/getLocations', async (req, res) => {
  
 });
 app.get('/api/getStoreDetails/:id', async (req, res) => {
-  client.query(`SELECT street_address, city, state, zip, hours, phone_number, image_url, website FROM Food_Sources WHERE store_id = ${req.params.id}`).then((response)=>{
+  client.query(`SELECT street_address, city, state, zip, hours, phone_number, image_url, website, last_updated FROM Food_Sources WHERE store_id = ${req.params.id}`).then((response)=>{
     res.json(response.rows)
 })
 
