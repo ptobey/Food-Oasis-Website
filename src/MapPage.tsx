@@ -159,6 +159,7 @@ function MapPage() {
 
       response.data[0].longitude = location.longitude
       response.data[0].latitude = location.latitude
+      response.data[0].type = location.type
 
       setDrawerData(response.data[0]);
     });
