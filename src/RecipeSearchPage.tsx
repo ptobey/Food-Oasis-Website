@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import Header from "./UIRecipeSearch";
 
@@ -249,21 +250,23 @@ const RecipeSearchPage = () => {
   };
 
   return (
-    <div style={{ padding: "140px" }}>
+    <div style={{ padding: "140px",
+      backgroundImage:
+      "linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.9)), url(/recipesearch1.jpg)",
+      backgroundSize: "cover", 
+      backgroundRepeat: "no-repeat", 
+      backgroundPosition: "center", 
+      minHeight: "100vh", 
+      }}
+    >
       <Header
         handleHomeClick={handleHomeClick}
         handleRecipeClick={handleRecipeClick}
         handleNewButtonClick={handleNewButtonClick}
       />
-      <Typography
-        variant="h4"
-        style={{ marginBottom: "16px", textAlign: "center" }}
-      >
-        Search Recipes
-      </Typography>
       <TextField
         id="outlined-basic"
-        label="Search for recipes"
+        placeholder="Find a recipe or ingredient"
         variant="outlined"
         fullWidth
         value={value}
@@ -272,6 +275,26 @@ const RecipeSearchPage = () => {
           setPageNumber(1);
         }}
         style={{ marginBottom: "16px" }}
+        InputProps={{
+          endAdornment: (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "4px",
+              }}
+            >
+              <SearchIcon style={{ color: "#4a4a4a" }} /> 
+            </div>
+          ),
+        }}
+        inputProps={{
+          style: {
+            color: "#000000", 
+            fontWeight: "500", 
+          },
+        }}
       />
 
       <Box
