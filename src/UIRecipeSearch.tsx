@@ -77,7 +77,7 @@ const Header: React.FC<HeaderProps> = ({
                 onClick={handleNewButtonClick}
                 sx={{ color: "#FFFFFF", fontSize: "14px" }}
               >
-                Nutrition
+                Nutrition Guide
               </Button>
             </ButtonGroup>
           </Box>
