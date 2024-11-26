@@ -133,6 +133,8 @@ function MapPage() {
     Sprouts: true,
     Target: true,
     Walmart: true,
+    FoodPantry: true,
+    Unique: true,
   });
 
   const toggleLayer = (layer: string) => {
@@ -179,6 +181,8 @@ function MapPage() {
   const customIconPublix = new Icon({ iconUrl: "/publix.png", iconSize: [38, 38] });
   const customIconSprouts = new Icon({ iconUrl: "/sprouts.png", iconSize: [65, 40] });
   const customIconTarget = new Icon({ iconUrl: "/target.png", iconSize: [38, 38] });
+  const customIconFoodPantry = new Icon({ iconUrl: "/food pantry.png", iconSize: [38, 38] });
+  const customIconUnique = new Icon({ iconUrl: "/unique.png", iconSize: [38, 38] });
 
   const aldiData = resultsDB.filter((resultsDB) => resultsDB.type === "Aldi");
   const bravoData = resultsDB.filter((resultsDB) => resultsDB.type === "Bravo");
@@ -187,6 +191,8 @@ function MapPage() {
   const sproutsData = resultsDB.filter((resultsDB) => resultsDB.type === "Sprouts");
   const targetData = resultsDB.filter((resultsDB) => resultsDB.type === "Target");
   const walmartData = resultsDB.filter((resultsDB) => resultsDB.type === "Walmart");
+  const foodpantryData = resultsDB.filter((resultsDB) => resultsDB.type === "Walmart");
+  const uniqueData = resultsDB.filter((resultsDB) => resultsDB.type === "Walmart");
 
   const handleHomeClick = () => navigate("/");
   const handleRecipeClick = () => navigate("/recipes");
@@ -352,6 +358,7 @@ function MapPage() {
               ))}
             </MarkerClusterGroup>
           )}
+          
           {visibility["Publix"] && (
             <MarkerClusterGroup chunkedLoading>
               {publixData.map((result, index) => (
