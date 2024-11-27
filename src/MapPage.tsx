@@ -26,6 +26,7 @@ import SpaIcon from "@mui/icons-material/Spa";
 import PhoneIcon from "@mui/icons-material/Phone";
 import GroupsIcon from "@mui/icons-material/Groups";
 import StoreDetailsDrawer from "./StoreDetailsDrawer";
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline'; 
 import "./MapPage.css";
 import React from "react";
 
@@ -459,42 +460,52 @@ function MapPage() {
           sx={{ backgroundColor: "transparent" }}
         >
           <BottomNavigationAction
-            label="Healthy Living"
-            icon={<SpaIcon />}
-            sx={{
-              color: "#FFFFFF",
-              "&.Mui-selected": { color: "#FFFFFF" },
-              transition: "all 0.3s ease-in-out",
-              "&:hover": {
-                backgroundColor: "#ffffff22",
-                boxShadow: "0 4px 8px rgba(255, 255, 255, 0.5)",
-                color: "#FFFFAA",
-              },
-            }}
-          />
-          <BottomNavigationAction
-            label="Contact Us gquirk@valenciacollege.edu"
-            icon={<PhoneIcon />}
-            sx={{
-              color: "#FFFFFF",
-              transition: "all 0.3s ease-in-out",
-              "&:hover": {
-                backgroundColor: "#ffffff22",
-                boxShadow: "0 4px 8px rgba(255, 255, 255, 0.5)",
-                color: "#FFFFAA",
-              },
-            }}
-          />
-          <BottomNavigationAction
-            label="About Us"
+  label="Need Help?" 
+  icon={
+    <Tooltip
+      title="Email us at guirirk@valenciacollege.edu"
+      arrow
+      
+    >
+      <HelpOutlineIcon />
+    </Tooltip>
+  }
+  sx={{
+    color: '#FFFFFF',
+    '&.Mui-selected': {
+      color: '#FFFFFF',
+    },
+    transition: 'all 0.3s ease-in-out',
+    '&:hover': {
+      backgroundColor: '#ffffff22',
+      boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)',
+      color: '#FFFFAA',
+    },
+  }}
+/>
+<BottomNavigationAction
+            label="Placeholder for Translator"
             icon={<GroupsIcon />}
             sx={{
-              color: "#FFFFFF",
-              transition: "all 0.3s ease-in-out",
-              "&:hover": {
-                backgroundColor: "#ffffff22",
-                boxShadow: "0 4px 8px rgba(255, 255, 255, 0.5)",
-                color: "#FFFFAA",
+              color: '#FFFFFF',
+              transition: 'all 0.3s ease-in-out', 
+              '&:hover': {
+                backgroundColor: '#ffffff22', 
+                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', 
+                color: '#FFFFAA', 
+              },
+            }}
+          />
+<BottomNavigationAction
+            label="Contact Us (407) 299-5000"
+            icon={<PhoneIcon />}
+            sx={{
+              color: '#FFFFFF',
+              transition: 'all 0.3s ease-in-out', 
+              '&:hover': {
+                backgroundColor: '#ffffff22', 
+                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', 
+                color: '#FFFFAA', 
               },
             }}
           />
