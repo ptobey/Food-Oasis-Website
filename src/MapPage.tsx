@@ -75,7 +75,7 @@ const MapLegend: React.FC<MapLegendProps> = ({ visibility, toggleLayer }) => {
     <div
       style={{
         position: "absolute",
-        top: "600px",
+        top: "400px",
         right: "10px",
         backgroundColor: "rgba(0, 0, 0, 0.7)",
         padding: "20px",
@@ -133,8 +133,8 @@ function MapPage() {
     Sprouts: true,
     Target: true,
     Walmart: true,
-    FoodPantry: true,
-    Unique: true,
+    "Food Pantry": true,
+    Specialty: true,
   });
 
   const toggleLayer = (layer: string) => {
@@ -181,8 +181,8 @@ function MapPage() {
   const customIconPublix = new Icon({ iconUrl: "/publix.png", iconSize: [38, 38] });
   const customIconSprouts = new Icon({ iconUrl: "/sprouts.png", iconSize: [65, 40] });
   const customIconTarget = new Icon({ iconUrl: "/target.png", iconSize: [38, 38] });
-  const customIconFoodPantry = new Icon({ iconUrl: "/food pantry.png", iconSize: [38, 38] });
-  const customIconUnique = new Icon({ iconUrl: "/unique.png", iconSize: [38, 38] });
+  const customIconFoodPantry = new Icon({ iconUrl: "/food pantry.png", iconSize: [30, 30] });
+  const customIconSpecialty = new Icon({ iconUrl: "/Specialty.png", iconSize: [30, 30] });
 
   const aldiData = resultsDB.filter((resultsDB) => resultsDB.type === "Aldi");
   const bravoData = resultsDB.filter((resultsDB) => resultsDB.type === "Bravo");
@@ -191,8 +191,8 @@ function MapPage() {
   const sproutsData = resultsDB.filter((resultsDB) => resultsDB.type === "Sprouts");
   const targetData = resultsDB.filter((resultsDB) => resultsDB.type === "Target");
   const walmartData = resultsDB.filter((resultsDB) => resultsDB.type === "Walmart");
-  const foodpantryData = resultsDB.filter((resultsDB) => resultsDB.type === "Walmart");
-  const uniqueData = resultsDB.filter((resultsDB) => resultsDB.type === "Walmart");
+  const foodpantryData = resultsDB.filter((resultsDB) => resultsDB.type === "Food Pantry");
+  const specialtyData = resultsDB.filter((resultsDB) => resultsDB.type === "Specialty");
 
   const handleHomeClick = () => navigate("/");
   const handleRecipeClick = () => navigate("/recipes");
@@ -358,7 +358,18 @@ function MapPage() {
               ))}
             </MarkerClusterGroup>
           )}
-          
+          {visibility["Food Pantry"] && (
+            <MarkerClusterGroup chunkedLoading>
+              {foodpantryData.map((result, index) => (
+                <Marker
+                  key={index}
+                  eventHandlers={{ click: () => handleMarkerClick(result) }}
+                position={[result.latitude as number, result.longitude as number]}
+                  icon={customIconFoodPantry}
+                />
+              ))}
+            </MarkerClusterGroup>
+          )} 
           {visibility["Publix"] && (
             <MarkerClusterGroup chunkedLoading>
               {publixData.map((result, index) => (
@@ -395,6 +406,18 @@ function MapPage() {
               ))}
             </MarkerClusterGroup>
           )}
+           {visibility["Specialty"] && (
+            <MarkerClusterGroup chunkedLoading>
+              {specialtyData.map((result, index) => (
+                <Marker
+                  key={index}
+                  eventHandlers={{ click: () => handleMarkerClick(result) }}
+                  position={[result.latitude as number, result.longitude as number]}
+                  icon={customIconSpecialty}
+                />
+              ))}
+            </MarkerClusterGroup>
+          )}   
           {visibility["Walmart"] && (
             <MarkerClusterGroup chunkedLoading>
               {walmartData.map((result, index) => (
