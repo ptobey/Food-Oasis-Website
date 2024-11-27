@@ -1,6 +1,8 @@
 const {Client} = require('pg');
 const fs = require('fs');
 
+require('dotenv').config();
+
 const dbConfig = {
   user: process.env.user,
   password: process.env.password,
@@ -11,7 +13,6 @@ const dbConfig = {
 
 const client = new Client(dbConfig);
 
-require('dotenv').config();
 
 client.connect()
   .then(() => console.log("Connected to PostgreSQL"))
