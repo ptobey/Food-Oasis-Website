@@ -11,12 +11,12 @@ import {
   Typography,
   Card,
 } from "@mui/material";
-import SpaIcon from "@mui/icons-material/Spa";
 import PhoneIcon from "@mui/icons-material/Phone";
 import GroupsIcon from "@mui/icons-material/Groups";
 import { useNavigate } from "react-router-dom";
 import "./NutritionPage.css";
-import { AlignHorizontalCenter } from "@mui/icons-material";
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline'; 
+import Tooltip from '@mui/material/Tooltip';
 
 
 const NutritionPage: React.FC = () => {
@@ -326,42 +326,52 @@ The result is more muscle loss, which affects your health and body composition i
           sx={{ backgroundColor: "transparent", height: "50px", display: "flex", alignItems: "center", }}
         >
           <BottomNavigationAction
-            label="Healthy Living"
-            icon={<SpaIcon />}
-            sx={{
-              color: "#FFFFFF",
-              "&.Mui-selected": { color: "#FFFFFF" },
-              transition: "all 0.3s ease-in-out",
-              "&:hover": {
-                backgroundColor: "#ffffff22",
-                boxShadow: "0 4px 8px rgba(255, 255, 255, 0.5)",
-                color: "#FFFFAA",
-              },
-            }}
-          />
-          <BottomNavigationAction
-            label="Contact Us gquirk@valenciacollege.edu"
-            icon={<PhoneIcon />}
-            sx={{
-              color: "#FFFFFF",
-              transition: "all 0.3s ease-in-out",
-              "&:hover": {
-                backgroundColor: "#ffffff22",
-                boxShadow: "0 4px 8px rgba(255, 255, 255, 0.5)",
-                color: "#FFFFAA",
-              },
-            }}
-          />
-          <BottomNavigationAction
-            label="About Us"
+  label="Need Help?" 
+  icon={
+    <Tooltip
+      title="Email us at guirirk@valenciacollege.edu"
+      arrow
+      
+    >
+      <HelpOutlineIcon />
+    </Tooltip>
+  }
+  sx={{
+    color: '#FFFFFF',
+    '&.Mui-selected': {
+      color: '#FFFFFF',
+    },
+    transition: 'all 0.3s ease-in-out',
+    '&:hover': {
+      backgroundColor: '#ffffff22',
+      boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)',
+      color: '#FFFFAA',
+    },
+  }}
+/>
+<BottomNavigationAction
+            label="Placeholder for Translator"
             icon={<GroupsIcon />}
             sx={{
-              color: "#FFFFFF",
-              transition: "all 0.3s ease-in-out",
-              "&:hover": {
-                backgroundColor: "#ffffff22",
-                boxShadow: "0 4px 8px rgba(255, 255, 255, 0.5)",
-                color: "#FFFFAA",
+              color: '#FFFFFF',
+              transition: 'all 0.3s ease-in-out', 
+              '&:hover': {
+                backgroundColor: '#ffffff22', 
+                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', 
+                color: '#FFFFAA', 
+              },
+            }}
+          />
+          <BottomNavigationAction
+            label="Contact Us (407) 299-5000"
+            icon={<PhoneIcon />}
+            sx={{
+              color: '#FFFFFF',
+              transition: 'all 0.3s ease-in-out', 
+              '&:hover': {
+                backgroundColor: '#ffffff22', 
+                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', 
+                color: '#FFFFAA', 
               },
             }}
           />
