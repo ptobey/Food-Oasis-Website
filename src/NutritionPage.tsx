@@ -16,7 +16,6 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import GroupsIcon from "@mui/icons-material/Groups";
 import { useNavigate } from "react-router-dom";
 import "./NutritionPage.css";
-import { AlignHorizontalCenter } from "@mui/icons-material";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'; 
 import Tooltip from '@mui/material/Tooltip';
 
