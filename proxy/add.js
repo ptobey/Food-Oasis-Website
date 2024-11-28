@@ -1,6 +1,8 @@
 const {Client} = require('pg');
 const fs = require('fs');
 
+require('dotenv').config();
+
 const dbConfig = {
   user: process.env.user,
   password: process.env.password,
@@ -11,11 +13,12 @@ const dbConfig = {
 
 const client = new Client(dbConfig);
 
+
 client.connect()
   .then(() => console.log("Connected to PostgreSQL"))
   .catch(err => console.error("Connection error", err.stack));
 
-fs.readFile('./target.json', 'utf8', (err, data) => {
+fs.readFile('./test.json', 'utf8', (err, data) => {
   if (err) {
     console.error("Error reading JSON file:", err);
     return;

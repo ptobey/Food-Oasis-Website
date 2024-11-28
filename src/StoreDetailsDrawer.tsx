@@ -17,6 +17,7 @@ interface StoreDetailsDrawerProps {
   isFarmersMarket: boolean;
 }
 
+const is_closed = false;
 
 const StoreDetailsDrawer: React.FC<StoreDetailsDrawerProps> = ({ open, onClose, data, isFarmersMarket }) => {
   return (
@@ -157,7 +158,7 @@ const StoreDetailsDrawer: React.FC<StoreDetailsDrawerProps> = ({ open, onClose, 
                   <ListItem key={day} sx={{ p: 0 }}>
                     <ListItemText
                       primary={`${day}:`}
-                      secondary={`${hours.open} - ${hours.close}`}
+                      secondary= {is_closed|| !hours.open ? "Closed" : `${hours.open} - ${hours.close}`}
                       primaryTypographyProps={{ variant: "body2", fontWeight: "bold", color: "#333" }}
                       secondaryTypographyProps={{ variant: "body2", color: "text.secondary" }}
                     />
