@@ -7,9 +7,9 @@ import {
   TileLayer,
   Marker,
   Popup,
+  useMap,
 } from "react-leaflet";
 import L, { Icon } from "leaflet";
-import MarkerClusterGroup from "react-leaflet-cluster";
 import {
   AppBar,
   Toolbar,
@@ -25,132 +25,65 @@ import InfoIcon from "@mui/icons-material/Info";
 import SpaIcon from "@mui/icons-material/Spa";
 import PhoneIcon from "@mui/icons-material/Phone";
 import GroupsIcon from "@mui/icons-material/Groups";
-import StoreDetailsDrawer from "./StoreDetailsDrawer";
+import { useTranslation } from "react-i18next";
 import "./MapPage.css";
 import React from "react";
 
-type VisibilityState = {
-  [layer: string]: boolean;
-};
+function LocationMarker() {
+  const map = useMap();
 
-interface MapLegendProps {
-  visibility: VisibilityState;
-  toggleLayer: (layer: string) => void;
+  useEffect(() => {
+    if (window.location.protocol === "https:") {
+      map.locate({
+        setView: true,
+        maxZoom: 16,
+      });
+
+      const handleOnLocationFound = (event: L.LocationEvent) => {
+        const radius = event.accuracy;
+        const circle = L.circle(event.latlng, { radius });
+        circle.addTo(map);
+      };
+
+      const handleOnLocationError = (error: L.ErrorEvent) => {
+        alert(`Unable to determine location: ${error.message}`);
+      };
+
+      map.on("locationfound", handleOnLocationFound);
+      map.on("locationerror", handleOnLocationError);
+
+      return () => {
+        map.off("locationfound", handleOnLocationFound);
+        map.off("locationerror", handleOnLocationError);
+      };
+    } else {
+      alert("Geolocation is only available over secure origins (HTTPS).");
+    }
+  }, [map]);
+
+  return null;
 }
 
-const MapLegend: React.FC<MapLegendProps> = ({ visibility, toggleLayer }) => {
-  return (
-    <div
-      style={{
-        position: "absolute",
-        top: "600px",
-        right: "10px",
-        backgroundColor: "rgba(0, 0, 0, 0.7)",
-        padding: "20px",
-        borderRadius: "8px",
-        boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
-        zIndex: 1000,
-        color: "white",
-      }}
-    >
-      <Typography variant="h6" style={{ marginBottom: "7px", color: "white" }}>Map Legend</Typography>
-      <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-        {Object.keys(visibility).map((layer) => (
-          <li key={layer}>
-            <input
-              type="checkbox"
-              checked={visibility[layer]}
-              onChange={() => toggleLayer(layer)}
-              style={{
-                marginRight: "7px", 
-                cursor: "pointer", 
-              }}
-            />
-            <Typography style={{ marginLeft: "5px", display: "inline" }}>
-              {layer}
-            </Typography>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-
 function MapPage() {
-  const url =
-    "https://www.usdalocalfoodportal.com/api/farmersmarket/?apikey=U0lsUI6Xi9&state=fl";
-  const [resultsFarmersMarket, setResults] = useState<any[]>([]);
+  const { t } = useTranslation(); // Initialize useTranslation hook
   const navigate = useNavigate();
   const [value, setValue] = useState(0);
 
-  // URLs and Data
-  const dbUrl = "http://97.101.31.48:5000/getLocations";
-  const dbUrlDetail = "http://97.101.31.48:5000/getStoreDetails/";
+  // Example Data URL (Replace with your data endpoint)
+  const dbUrl = "http://example.com/getLocations";
   const [resultsDB, setDBResults] = useState<any[]>([]);
-  const [drawerData, setDrawerData] = useState<any>({});
-  const [selectedFarmersMarket, setSelectedFarmersMarket] = useState(-1);
-  const isFarmersMarket = selectedFarmersMarket >= 0;
-  const farmersMarketInfo = resultsFarmersMarket[selectedFarmersMarket];
-  const [drawerOpen, setDrawerOpen] = useState(false);
-
-  const [visibility, setVisibility] = useState<VisibilityState>({
-    Aldi: true,
-    Bravo: true,
-    Costco: true,
-    "Farmer's Market": true,
-    Publix: true,
-    Sprouts: true,
-    Target: true,
-    Walmart: true,
-  });
-
-  const toggleLayer = (layer: string) => {
-    setVisibility((prev) => ({ ...prev, [layer]: !prev[layer] }));
-  };
 
   useEffect(() => {
-    axios.get(url).then((response: any) => {
-      setResults(response.data.data);
-    });
     axios.get(dbUrl).then((response: any) => {
       setDBResults(response.data);
     });
   }, []);
 
-  const handleMarkerClickFarm = (listing_id: number) => {
-    setSelectedFarmersMarket(listing_id);
-    setDrawerOpen(true);
-  };
-
-  const handleMarkerClick = (id: string) => {
-    setSelectedFarmersMarket(-1);
-    axios.get(dbUrlDetail + id).then((response: any) => {
-      setDrawerData(response.data[0]);
-    });
-    setDrawerOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setDrawerOpen(false);
-  };
-
-  // Icon definitions
-  const customIconAldi = new Icon({ iconUrl: "/aldi.png", iconSize: [65, 40] });
-  const customIconBravo = new Icon({ iconUrl: "/bravo.png", iconSize: [50, 25] });
-  const customIconCostco = new Icon({ iconUrl: "/costco.png", iconSize: [65, 40] });
-  const customIconFarmersMarket = new Icon({ iconUrl: "/farmersmarket.png", iconSize: [38, 38] });
-  const customIconWalmart = new Icon({ iconUrl: "/walmart.png", iconSize: [38, 38] });
-  const customIconPublix = new Icon({ iconUrl: "/publix.png", iconSize: [38, 38] });
-  const customIconSprouts = new Icon({ iconUrl: "/sprouts.png", iconSize: [65, 40] });
-  const customIconTarget = new Icon({ iconUrl: "/target.png", iconSize: [38, 38] });
-
-  const aldiData = resultsDB.filter((resultsDB) => resultsDB.type === "Aldi");
-  const bravoData = resultsDB.filter((resultsDB) => resultsDB.type === "Bravo");
-  const costcoData = resultsDB.filter((resultsDB) => resultsDB.type === "Costco");
-  const publixData = resultsDB.filter((resultsDB) => resultsDB.type === "Publix");
-  const sproutsData = resultsDB.filter((resultsDB) => resultsDB.type === "Sprouts");
-  const targetData = resultsDB.filter((resultsDB) => resultsDB.type === "Target");
-  const walmartData = resultsDB.filter((resultsDB) => resultsDB.type === "Walmart");
+  // Custom Icons
+  const customIconAldi = new Icon({
+    iconUrl: "/aldi.png",
+    iconSize: [65, 40],
+  });
 
   const handleHomeClick = () => navigate("/");
   const handleRecipeClick = () => navigate("/recipes");
@@ -169,7 +102,6 @@ function MapPage() {
         flexDirection: "column",
       }}
     >
-      <MapLegend visibility={visibility} toggleLayer={toggleLayer} />
       {/* Header: AppBar */}
       <AppBar
         position="fixed"
@@ -182,10 +114,11 @@ function MapPage() {
             alignItems: "center",
           }}
         >
+          {/* Left Side: Logo and Button Group */}
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <img
               src="/newLogo.png"
-              alt="Logo"
+              alt={t("logo_alt")} // Use translated alt text
               style={{ height: "90px", width: "auto", opacity: 0.85 }}
             />
             <ButtonGroup
@@ -204,17 +137,27 @@ function MapPage() {
                 },
               }}
             >
-              <Button onClick={handleHomeClick} sx={{ color: "#FFFFFF", fontSize: "14px" }}>
-                Home
+              <Button
+                onClick={handleHomeClick}
+                sx={{ color: "#FFFFFF", fontSize: "14px" }}
+              >
+                {t("home")} {/* Translate Home Button */}
               </Button>
-              <Button onClick={handleRecipeClick} sx={{ color: "#FFFFFF", fontSize: "14px" }}>
-                Search Recipes
+              <Button
+                onClick={handleRecipeClick}
+                sx={{ color: "#FFFFFF", fontSize: "14px" }}
+              >
+                {t("search_recipes")} {/* Translate Recipes Button */}
               </Button>
-              <Button onClick={handleNewButtonClick} sx={{ color: "#FFFFFF", fontSize: "14px" }}>
-                Nutrition Guide
+              <Button
+                onClick={handleNewButtonClick}
+                sx={{ color: "#FFFFFF", fontSize: "14px" }}
+              >
+                {t("nutrition_guide")} {/* Translate Nutrition Button */}
               </Button>
             </ButtonGroup>
           </Box>
+          {/* Info Icon */}
           <Box
             sx={{
               display: "flex",
@@ -226,22 +169,39 @@ function MapPage() {
             <Tooltip
               title={
                 <span style={{ color: "black" }}>
-                  The blue circle shows your location. Zoom out or click a marker to explore more places.
+                  {t("help_text")} {/* Translate Help Text */}
                 </span>
               }
               placement="bottom"
               arrow
               PopperProps={{
-                modifiers: [{ name: "arrow", options: { element: "[data-popper-arrow]" } }],
+                modifiers: [
+                  {
+                    name: "arrow",
+                    options: {
+                      element: "[data-popper-arrow]",
+                    },
+                  },
+                ],
               }}
               componentsProps={{
-                tooltip: { sx: { backgroundColor: "#FFFFFF", color: "black", fontSize: "0.85rem" } },
-                arrow: { sx: { color: "#FFFFFF" } },
+                tooltip: {
+                  sx: {
+                    backgroundColor: "#FFFFFF",
+                    color: "black",
+                    fontSize: "0.85rem",
+                  },
+                },
+                arrow: {
+                  sx: {
+                    color: "#FFFFFF",
+                  },
+                },
               }}
             >
               <InfoIcon sx={{ fontSize: "2rem", cursor: "pointer" }} />
             </Tooltip>
-            <Typography variant="caption">Help</Typography>
+            <Typography variant="caption">{t("help")}</Typography> {/* Translate Help */}
           </Box>
         </Toolbar>
       </AppBar>
@@ -265,113 +225,13 @@ function MapPage() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
-
-           {/* Marker Groups */}
-           {visibility["Aldi"] && (
-            <MarkerClusterGroup chunkedLoading>
-              {aldiData.map((result, index) => (
-                <Marker
-                  key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result.store_id) }}
-                  position={[result.latitude as number, result.longitude as number]}
-                  icon={customIconAldi}
-                />
-              ))}
-            </MarkerClusterGroup>
-          )}
-          {visibility["Bravo"] && (
-            <MarkerClusterGroup chunkedLoading>
-              {bravoData.map((result, index) => (
-                <Marker
-                  key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result.store_id) }}
-                  position={[result.latitude as number, result.longitude as number]}
-                  icon={customIconBravo}
-                />
-              ))}
-            </MarkerClusterGroup>
-          )}
-          {visibility["Costco"] && (
-            <MarkerClusterGroup chunkedLoading>
-              {costcoData.map((result, index) => (
-                <Marker
-                  key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result.store_id) }}
-                  position={[result.latitude as number, result.longitude as number]}
-                  icon={customIconCostco}
-                />
-              ))}
-            </MarkerClusterGroup>
-          )}
-          {visibility["Farmer's Market"] && (
-            <MarkerClusterGroup chunkedLoading>
-              {resultsFarmersMarket.map((result, index) => (
-                <Marker
-                  key={index}
-                  eventHandlers={{ click: () => handleMarkerClickFarm(index) }}
-                  position={[result.location_y as number, result.location_x as number]}
-                  icon={customIconFarmersMarket}
-                />
-              ))}
-            </MarkerClusterGroup>
-          )}
-          {visibility["Publix"] && (
-            <MarkerClusterGroup chunkedLoading>
-              {publixData.map((result, index) => (
-                <Marker
-                  key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result.store_id) }}
-                  position={[result.latitude as number, result.longitude as number]}
-                  icon={customIconPublix}
-                />
-              ))}
-            </MarkerClusterGroup>
-          )}
-          {visibility["Sprouts"] && (
-            <MarkerClusterGroup chunkedLoading>
-              {sproutsData.map((result, index) => (
-                <Marker
-                  key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result.store_id) }}
-                  position={[result.latitude as number, result.longitude as number]}
-                  icon={customIconSprouts}
-                />
-              ))}
-            </MarkerClusterGroup>
-          )}
-          {visibility["Target"] && (
-            <MarkerClusterGroup chunkedLoading>
-              {targetData.map((result, index) => (
-                <Marker
-                  key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result.store_id) }}
-                  position={[result.latitude as number, result.longitude as number]}
-                  icon={customIconTarget}
-                />
-              ))}
-            </MarkerClusterGroup>
-          )}
-          {visibility["Walmart"] && (
-            <MarkerClusterGroup chunkedLoading>
-              {walmartData.map((result, index) => (
-                <Marker
-                  key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result.store_id) }}
-                  position={[result.latitude as number, result.longitude as number]}
-                  icon={customIconWalmart}
-                />
-              ))}
-            </MarkerClusterGroup>
-          )}
-
+          <Marker position={[28.5384, -81.3789]} icon={customIconAldi}>
+            <Popup>
+              <Typography variant="body1">{t("aldi_store")}</Typography> {/* Translate Aldi Marker Label */}
+            </Popup>
+          </Marker>
+          <LocationMarker />
         </MapContainer>
-
-        <StoreDetailsDrawer
-          open={drawerOpen}
-          onClose={handleDrawerClose}
-          data={isFarmersMarket ? farmersMarketInfo : drawerData}
-          isFarmersMarket={isFarmersMarket}
-        />
       </div>
 
       {/* Footer: BottomNavigation */}
@@ -388,15 +248,21 @@ function MapPage() {
         <BottomNavigation
           showLabels
           value={value}
-          onChange={(event, newValue) => setValue(newValue)}
-          sx={{ backgroundColor: "transparent" }}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+          sx={{
+            backgroundColor: "transparent",
+          }}
         >
           <BottomNavigationAction
-            label="Healthy Living"
+            label={t("healthy_living")} // Translate Healthy Living
             icon={<SpaIcon />}
             sx={{
               color: "#FFFFFF",
-              "&.Mui-selected": { color: "#FFFFFF" },
+              "&.Mui-selected": {
+                color: "#FFFFFF",
+              },
               transition: "all 0.3s ease-in-out",
               "&:hover": {
                 backgroundColor: "#ffffff22",
@@ -406,7 +272,7 @@ function MapPage() {
             }}
           />
           <BottomNavigationAction
-            label="Contact Us gquirk@valenciacollege.edu"
+            label={t("contact_us")} // Translate Contact Us
             icon={<PhoneIcon />}
             sx={{
               color: "#FFFFFF",
@@ -419,7 +285,7 @@ function MapPage() {
             }}
           />
           <BottomNavigationAction
-            label="About Us"
+            label={t("about_us")} // Translate About Us
             icon={<GroupsIcon />}
             sx={{
               color: "#FFFFFF",
@@ -438,8 +304,3 @@ function MapPage() {
 }
 
 export default MapPage;
-
-
-function setDrawerOpen(arg0: boolean) {
-  throw new Error("Function not implemented.");
-}

@@ -8,21 +8,31 @@ import {
   BottomNavigation,
   BottomNavigationAction,
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import SpaIcon from '@mui/icons-material/Spa';
 import PhoneIcon from '@mui/icons-material/Phone';
 import GroupsIcon from '@mui/icons-material/Groups';
 
 const LaunchPage: React.FC = () => {
+  // Translation hook for managing language
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  const [value, setValue] = useState(0); 
+  const [value, setValue] = useState(0);
 
+  // Function to toggle between English and Spanish
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'en' ? 'es' : 'en';
+    i18n.changeLanguage(newLang);
+  };
+
+  // Functions to handle button clicks for navigation
   const handleMapClick = () => {
-    navigate("/map");
+    navigate('/map');
   };
 
   const handleRecipeClick = () => {
-    navigate("/recipes");
+    navigate('/recipes');
   };
 
   const handleNewButtonClick = () => {
@@ -44,12 +54,12 @@ const LaunchPage: React.FC = () => {
         padding: 0,
       }}
     >
-      {/* Header with Logo */}
+      {/* Header with Logo and Translation Button */}
       <AppBar
-        position="fixed" 
+        position="fixed"
         sx={{
-          bgcolor: 'rgba(0, 0, 0, 0.7)', 
-          padding: '0', 
+          bgcolor: 'rgba(0, 0, 0, 0.7)',
+          padding: '0',
           display: 'flex',
           justifyContent: 'center',
           width: '100%',
@@ -59,8 +69,8 @@ const LaunchPage: React.FC = () => {
         <Toolbar
           sx={{
             display: 'flex',
-            flexDirection: 'column', 
-            alignItems: 'center', 
+            flexDirection: 'column',
+            alignItems: 'center',
             width: '100%',
             margin: 0,
             padding: 0,
@@ -69,9 +79,9 @@ const LaunchPage: React.FC = () => {
           {/* Centered Logo */}
           <Box>
             <img
-              src="/newLogo.png" 
-              alt="Logo"
-              style={{ height: '210px', width: 'auto', opacity: 0.81 }} 
+              src="/newLogo.png"
+              alt={t('logo_alt')}
+              style={{ height: '210px', width: 'auto', opacity: 0.81 }}
             />
           </Box>
 
@@ -83,39 +93,51 @@ const LaunchPage: React.FC = () => {
               color: '#FFFFFF',
               marginTop: '16px',
               '& .MuiButton-root': {
-                transition: 'all 0.3s ease-in-out', 
+                transition: 'all 0.3s ease-in-out',
               },
               '& .MuiButton-root:hover': {
-                backgroundColor: '#ffffff22', 
-                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', 
-                color: '#FFFFAA', 
+                backgroundColor: '#ffffff22',
+                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)',
+                color: '#FFFFAA',
               },
             }}
           >
             <Button onClick={handleMapClick} sx={{ color: '#FFFFFF', fontSize: '20px' }}>
-              Explore Map
+              {t('explore_map')}
             </Button>
             <Button onClick={handleRecipeClick} sx={{ color: '#FFFFFF', fontSize: '20px' }}>
-              Search Recipes
+              {t('search_recipes')}
             </Button>
             <Button onClick={handleNewButtonClick} sx={{ color: '#FFFFFF', fontSize: '20px' }}>
-              Nutrition Guide
+              {t('nutrition_guide')}
             </Button>
           </ButtonGroup>
+
+          {/* Translation Button */}
+          <Button
+            variant="contained"
+            onClick={toggleLanguage}
+            sx={{
+              bgcolor: '#ffffff',
+              color: '#000',
+              marginTop: '16px',
+              zIndex: 1300,
+            }}
+          >
+            {i18n.language === 'en' ? 'Switch to Spanish' : 'Cambiar a Inglés'}
+          </Button>
         </Toolbar>
       </AppBar>
-
-      
 
       {/* Footer: BottomNavigation */}
       <Box
         sx={{
-          position: 'fixed', 
+          position: 'fixed',
           bottom: 0,
           left: 0,
           right: 0,
           zIndex: 2,
-          bgcolor: 'rgba(0, 0, 0, 0.6)', 
+          bgcolor: 'rgba(0, 0, 0, 0.6)',
         }}
       >
         <BottomNavigation
@@ -125,48 +147,48 @@ const LaunchPage: React.FC = () => {
             setValue(newValue);
           }}
           sx={{
-            backgroundColor: 'transparent', 
+            backgroundColor: 'transparent',
           }}
         >
           <BottomNavigationAction
-            label="Healthy Living"
+            label={t('healthy_living')}
             icon={<SpaIcon />}
             sx={{
-              color: '#FFFFFF', 
+              color: '#FFFFFF',
               '&.Mui-selected': {
-                color: '#FFFFFF', 
+                color: '#FFFFFF',
               },
-              transition: 'all 0.3s ease-in-out', 
+              transition: 'all 0.3s ease-in-out',
               '&:hover': {
-                backgroundColor: '#ffffff22', 
-                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', 
-                color: '#FFFFAA', 
+                backgroundColor: '#ffffff22',
+                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)',
+                color: '#FFFFAA',
               },
             }}
           />
           <BottomNavigationAction
-            label="Contact Us gquirk@valenciacollege.edu"
+            label={t('contact_us')}
             icon={<PhoneIcon />}
             sx={{
               color: '#FFFFFF',
-              transition: 'all 0.3s ease-in-out', 
+              transition: 'all 0.3s ease-in-out',
               '&:hover': {
-                backgroundColor: '#ffffff22', 
-                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', 
-                color: '#FFFFAA', 
+                backgroundColor: '#ffffff22',
+                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)',
+                color: '#FFFFAA',
               },
             }}
           />
           <BottomNavigationAction
-            label="About Us"
+            label={t('about_us')}
             icon={<GroupsIcon />}
             sx={{
               color: '#FFFFFF',
-              transition: 'all 0.3s ease-in-out', 
+              transition: 'all 0.3s ease-in-out',
               '&:hover': {
-                backgroundColor: '#ffffff22', 
-                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', 
-                color: '#FFFFAA', 
+                backgroundColor: '#ffffff22',
+                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)',
+                color: '#FFFFAA',
               },
             }}
           />
