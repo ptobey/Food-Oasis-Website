@@ -9,9 +9,7 @@ import {
   BottomNavigationAction,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import SpaIcon from '@mui/icons-material/Spa';
 import PhoneIcon from '@mui/icons-material/Phone';
-import GroupsIcon from '@mui/icons-material/Groups';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'; 
 import Tooltip from '@mui/material/Tooltip';
 
@@ -172,19 +170,7 @@ const LaunchPage: React.FC = () => {
     },
   }}
 />
-<BottomNavigationAction
-            label="Placeholder for Translator"
-            icon={<GroupsIcon />}
-            sx={{
-              color: '#FFFFFF',
-              transition: 'all 0.3s ease-in-out', 
-              '&:hover': {
-                backgroundColor: '#ffffff22', 
-                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', 
-                color: '#FFFFAA', 
-              },
-            }}
-          />
+
           <BottomNavigationAction
             label="Contact Us (407) 299-5000"
             icon={<PhoneIcon />}
