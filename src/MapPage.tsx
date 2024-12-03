@@ -238,15 +238,14 @@ function MapPage() {
     <div
       className="container"
       style={{
-        backgroundImage: "url(/backgroundMap.jpg)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: "100vh",
+        height: "100%",
         overflow: "hidden",
         display: "flex",
         flexDirection: "column",
       }}
     >
+      {/* Map Container */}
+
       <MapLegend visibility={visibility} toggleLayer={toggleLayer} />
       {/* Header: AppBar */}
       <AppBar
@@ -345,187 +344,177 @@ function MapPage() {
         </Toolbar>
       </AppBar>
 
-      {/* Map Container */}
-      <div
-        style={{
-          paddingTop: "100px",
-          height: "calc(100vh - 165px)",
-          overflow: "hidden",
-          position: "relative",
-          zIndex: 1,
-        }}
+      <MapContainer
+        center={[28.5384, -81.3789]}
+        zoom={13}
+        zoomControl={false}
+        style={{ height: "100vh", width: "100vw", zIndex: 1 }}
       >
-        <MapContainer
-          center={[28.5384, -81.3789]}
-          zoom={13}
-          style={{ height: "89vh", width: "100vw", margin: -8 }}
-        >
-          <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          />
-          <LocationMarker />
-
-          {/* Marker Groups */}
-          {visibility["Aldi"] && (
-            <MarkerClusterGroup chunkedLoading>
-              {aldiData.map((result, index) => (
-                <Marker
-                  key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result) }}
-                  position={[
-                    result.latitude as number,
-                    result.longitude as number,
-                  ]}
-                  icon={customIconAldi}
-                />
-              ))}
-            </MarkerClusterGroup>
-          )}
-          {visibility["Bravo"] && (
-            <MarkerClusterGroup chunkedLoading>
-              {bravoData.map((result, index) => (
-                <Marker
-                  key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result) }}
-                  position={[
-                    result.latitude as number,
-                    result.longitude as number,
-                  ]}
-                  icon={customIconBravo}
-                />
-              ))}
-            </MarkerClusterGroup>
-          )}
-          {visibility["Costco"] && (
-            <MarkerClusterGroup chunkedLoading>
-              {costcoData.map((result, index) => (
-                <Marker
-                  key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result) }}
-                  position={[
-                    result.latitude as number,
-                    result.longitude as number,
-                  ]}
-                  icon={customIconCostco}
-                />
-              ))}
-            </MarkerClusterGroup>
-          )}
-          {visibility["Farmer's Market"] && (
-            <MarkerClusterGroup chunkedLoading>
-              {resultsFarmersMarket.map((result, index) => (
-                <Marker
-                  key={index}
-                  eventHandlers={{ click: () => handleMarkerClickFarm(index) }}
-                  position={[
-                    result.location_y as number,
-                    result.location_x as number,
-                  ]}
-                  icon={customIconFarmersMarket}
-                />
-              ))}
-            </MarkerClusterGroup>
-          )}
-          {visibility["Food Pantry"] && (
-            <MarkerClusterGroup chunkedLoading>
-              {foodpantryData.map((result, index) => (
-                <Marker
-                  key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result) }}
-                  position={[
-                    result.latitude as number,
-                    result.longitude as number,
-                  ]}
-                  icon={customIconFoodPantry}
-                />
-              ))}
-            </MarkerClusterGroup>
-          )}
-          {visibility["Publix"] && (
-            <MarkerClusterGroup chunkedLoading>
-              {publixData.map((result, index) => (
-                <Marker
-                  key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result) }}
-                  position={[
-                    result.latitude as number,
-                    result.longitude as number,
-                  ]}
-                  icon={customIconPublix}
-                />
-              ))}
-            </MarkerClusterGroup>
-          )}
-          {visibility["Sprouts"] && (
-            <MarkerClusterGroup chunkedLoading>
-              {sproutsData.map((result, index) => (
-                <Marker
-                  key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result) }}
-                  position={[
-                    result.latitude as number,
-                    result.longitude as number,
-                  ]}
-                  icon={customIconSprouts}
-                />
-              ))}
-            </MarkerClusterGroup>
-          )}
-          {visibility["Target"] && (
-            <MarkerClusterGroup chunkedLoading>
-              {targetData.map((result, index) => (
-                <Marker
-                  key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result) }}
-                  position={[
-                    result.latitude as number,
-                    result.longitude as number,
-                  ]}
-                  icon={customIconTarget}
-                />
-              ))}
-            </MarkerClusterGroup>
-          )}
-          {visibility["Specialty"] && (
-            <MarkerClusterGroup chunkedLoading>
-              {specialtyData.map((result, index) => (
-                <Marker
-                  key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result) }}
-                  position={[
-                    result.latitude as number,
-                    result.longitude as number,
-                  ]}
-                  icon={customIconSpecialty}
-                />
-              ))}
-            </MarkerClusterGroup>
-          )}
-          {visibility["Walmart"] && (
-            <MarkerClusterGroup chunkedLoading>
-              {walmartData.map((result, index) => (
-                <Marker
-                  key={index}
-                  eventHandlers={{ click: () => handleMarkerClick(result) }}
-                  position={[
-                    result.latitude as number,
-                    result.longitude as number,
-                  ]}
-                  icon={customIconWalmart}
-                />
-              ))}
-            </MarkerClusterGroup>
-          )}
-        </MapContainer>
-
-        <StoreDetailsDrawer
-          open={drawerOpen}
-          onClose={handleDrawerClose}
-          data={isFarmersMarket ? farmersMarketInfo : drawerData}
-          isFarmersMarket={isFarmersMarket}
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-      </div>
+        <LocationMarker />
+
+        {/* Marker Groups */}
+        {visibility["Aldi"] && (
+          <MarkerClusterGroup chunkedLoading>
+            {aldiData.map((result, index) => (
+              <Marker
+                key={index}
+                eventHandlers={{ click: () => handleMarkerClick(result) }}
+                position={[
+                  result.latitude as number,
+                  result.longitude as number,
+                ]}
+                icon={customIconAldi}
+              />
+            ))}
+          </MarkerClusterGroup>
+        )}
+        {visibility["Bravo"] && (
+          <MarkerClusterGroup chunkedLoading>
+            {bravoData.map((result, index) => (
+              <Marker
+                key={index}
+                eventHandlers={{ click: () => handleMarkerClick(result) }}
+                position={[
+                  result.latitude as number,
+                  result.longitude as number,
+                ]}
+                icon={customIconBravo}
+              />
+            ))}
+          </MarkerClusterGroup>
+        )}
+        {visibility["Costco"] && (
+          <MarkerClusterGroup chunkedLoading>
+            {costcoData.map((result, index) => (
+              <Marker
+                key={index}
+                eventHandlers={{ click: () => handleMarkerClick(result) }}
+                position={[
+                  result.latitude as number,
+                  result.longitude as number,
+                ]}
+                icon={customIconCostco}
+              />
+            ))}
+          </MarkerClusterGroup>
+        )}
+        {visibility["Farmer's Market"] && (
+          <MarkerClusterGroup chunkedLoading>
+            {resultsFarmersMarket.map((result, index) => (
+              <Marker
+                key={index}
+                eventHandlers={{ click: () => handleMarkerClickFarm(index) }}
+                position={[
+                  result.location_y as number,
+                  result.location_x as number,
+                ]}
+                icon={customIconFarmersMarket}
+              />
+            ))}
+          </MarkerClusterGroup>
+        )}
+        {visibility["Food Pantry"] && (
+          <MarkerClusterGroup chunkedLoading>
+            {foodpantryData.map((result, index) => (
+              <Marker
+                key={index}
+                eventHandlers={{ click: () => handleMarkerClick(result) }}
+                position={[
+                  result.latitude as number,
+                  result.longitude as number,
+                ]}
+                icon={customIconFoodPantry}
+              />
+            ))}
+          </MarkerClusterGroup>
+        )}
+        {visibility["Publix"] && (
+          <MarkerClusterGroup chunkedLoading>
+            {publixData.map((result, index) => (
+              <Marker
+                key={index}
+                eventHandlers={{ click: () => handleMarkerClick(result) }}
+                position={[
+                  result.latitude as number,
+                  result.longitude as number,
+                ]}
+                icon={customIconPublix}
+              />
+            ))}
+          </MarkerClusterGroup>
+        )}
+        {visibility["Sprouts"] && (
+          <MarkerClusterGroup chunkedLoading>
+            {sproutsData.map((result, index) => (
+              <Marker
+                key={index}
+                eventHandlers={{ click: () => handleMarkerClick(result) }}
+                position={[
+                  result.latitude as number,
+                  result.longitude as number,
+                ]}
+                icon={customIconSprouts}
+              />
+            ))}
+          </MarkerClusterGroup>
+        )}
+        {visibility["Target"] && (
+          <MarkerClusterGroup chunkedLoading>
+            {targetData.map((result, index) => (
+              <Marker
+                key={index}
+                eventHandlers={{ click: () => handleMarkerClick(result) }}
+                position={[
+                  result.latitude as number,
+                  result.longitude as number,
+                ]}
+                icon={customIconTarget}
+              />
+            ))}
+          </MarkerClusterGroup>
+        )}
+        {visibility["Specialty"] && (
+          <MarkerClusterGroup chunkedLoading>
+            {specialtyData.map((result, index) => (
+              <Marker
+                key={index}
+                eventHandlers={{ click: () => handleMarkerClick(result) }}
+                position={[
+                  result.latitude as number,
+                  result.longitude as number,
+                ]}
+                icon={customIconSpecialty}
+              />
+            ))}
+          </MarkerClusterGroup>
+        )}
+        {visibility["Walmart"] && (
+          <MarkerClusterGroup chunkedLoading>
+            {walmartData.map((result, index) => (
+              <Marker
+                key={index}
+                eventHandlers={{ click: () => handleMarkerClick(result) }}
+                position={[
+                  result.latitude as number,
+                  result.longitude as number,
+                ]}
+                icon={customIconWalmart}
+              />
+            ))}
+          </MarkerClusterGroup>
+        )}
+      </MapContainer>
+
+      <StoreDetailsDrawer
+        open={drawerOpen}
+        onClose={handleDrawerClose}
+        data={isFarmersMarket ? farmersMarketInfo : drawerData}
+        isFarmersMarket={isFarmersMarket}
+      />
 
       {/* Footer: BottomNavigation */}
       <Box
