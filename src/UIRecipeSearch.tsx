@@ -9,8 +9,8 @@ import {
   BottomNavigationAction,
 } from "@mui/material";
 import PhoneIcon from "@mui/icons-material/Phone";
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline'; 
-import Tooltip from '@mui/material/Tooltip';
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import Tooltip from "@mui/material/Tooltip";
 
 type HeaderProps = {
   handleHomeClick: () => void;
@@ -88,82 +88,82 @@ const Header: React.FC<HeaderProps> = ({
               alignItems: "center",
               color: "#FFFFFF",
             }}
-          >
-          </Box>
+          ></Box>
         </Toolbar>
       </AppBar>
 
       {/* Footer: BottomNavigation */}
-<Box
-  sx={{
-    position: "fixed",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    zIndex: 3,
-    bgcolor: "rgba(0, 0, 0, 0.6)",
-  }}
->
-  <BottomNavigation
-    showLabels
-    value={value}
-    onChange={(event, newValue) => setValue(newValue)}
-    sx={{ backgroundColor: "transparent" }}
-  >
-   <BottomNavigationAction
-  label="Need Help?" 
-  icon={
-    <Tooltip
-      title="Email us at guirirk@valenciacollege.edu"
-      arrow
-      
-    >
-      <HelpOutlineIcon />
-    </Tooltip>
-  }
-  sx={{
-    color: '#FFFFFF',
-    '&.Mui-selected': {
-      color: '#FFFFFF',
-    },
-    transition: 'all 0.3s ease-in-out',
-    '&:hover': {
-      backgroundColor: '#ffffff22',
-      boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)',
-      color: '#FFFFAA',
-    },
-  }}
-/>
-    
-    <BottomNavigationAction
-            label="Contact Us (407) 299-5000"
-            icon={<PhoneIcon />}
+      <Box
+        sx={{
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: 3,
+          bgcolor: "rgba(0, 0, 0, 0.6)",
+        }}
+      >
+        <BottomNavigation
+          showLabels
+          value={value}
+          onChange={(event, newValue) => setValue(newValue)}
+          sx={{ backgroundColor: "transparent" }}
+        >
+          <BottomNavigationAction
+            label="Need Help?"
+            icon={
+              <Tooltip title="Email us at guirirk@valenciacollege.edu" arrow>
+                <HelpOutlineIcon />
+              </Tooltip>
+            }
             sx={{
-              color: '#FFFFFF',
-              transition: 'all 0.3s ease-in-out', 
-              '&:hover': {
-                backgroundColor: '#ffffff22', 
-                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', 
-                color: '#FFFFAA', 
+              color: "#FFFFFF",
+              "&.Mui-selected": {
+                color: "#FFFFFF",
+              },
+              transition: "all 0.3s ease-in-out",
+              "&:hover": {
+                backgroundColor: "#ffffff22",
+                boxShadow: "0 4px 8px rgba(255, 255, 255, 0.5)",
+                color: "#FFFFAA",
               },
             }}
           />
-  </BottomNavigation>
-  {/* Credit Badge Section */}
-  <div style={{ textAlign: "right", marginTop: "-20px", paddingRight: "16px" }}>
-    <a href="https://www.fatsecret.com">
-      <img
-        src="https://platform.fatsecret.com/api/static/images/powered_by_fatsecret.png"
-        srcSet="https://platform.fatsecret.com/api/static/images/powered_by_fatsecret_2x.png 2x, https://platform.fatsecret.com/api/static/images/powered_by_fatsecret_3x.png 3x"
-        alt="Powered by FatSecret"
-        style={{ width: "110px" }}
-      />
-    </a>
-  </div>
-</Box>
+
+          <BottomNavigationAction
+            label="Contact Us (407) 299-5000"
+            icon={<PhoneIcon />}
+            sx={{
+              color: "#FFFFFF",
+              transition: "all 0.3s ease-in-out",
+              "&:hover": {
+                backgroundColor: "#ffffff22",
+                boxShadow: "0 4px 8px rgba(255, 255, 255, 0.5)",
+                color: "#FFFFAA",
+              },
+            }}
+          />
+        </BottomNavigation>
+        {/* Credit Badge Section */}
+        <div
+          style={{
+            textAlign: "right",
+            marginTop: "-20px",
+            paddingRight: "16px",
+          }}
+        >
+          <a href="https://www.fatsecret.com">
+            <img
+              src="https://platform.fatsecret.com/api/static/images/powered_by_fatsecret.png"
+              srcSet="https://platform.fatsecret.com/api/static/images/powered_by_fatsecret_2x.png 2x, https://platform.fatsecret.com/api/static/images/powered_by_fatsecret_3x.png 3x"
+              alt="Powered by FatSecret"
+              style={{ width: "110px" }}
+            />
+          </a>
+        </div>
+      </Box>
     </>
   );
 };
 
 export default Header;
-

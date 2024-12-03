@@ -2,12 +2,7 @@ import axios from "axios";
 import "leaflet/dist/leaflet.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  useMap
-} from "react-leaflet";
+import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import L, { Icon } from "leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import {
@@ -24,7 +19,7 @@ import {
 import InfoIcon from "@mui/icons-material/Info";
 import PhoneIcon from "@mui/icons-material/Phone";
 import StoreDetailsDrawer from "./StoreDetailsDrawer";
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline'; 
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import "./MapPage.css";
 import React from "react";
 
@@ -32,11 +27,11 @@ type VisibilityState = {
   [layer: string]: boolean;
 };
 
-interface Location  {
-store_id: string ;
-type: string;
-latitude: string;
-longitude: string;
+interface Location {
+  store_id: string;
+  type: string;
+  latitude: string;
+  longitude: string;
 }
 
 interface MapLegendProps {
@@ -84,7 +79,9 @@ const MapLegend: React.FC<MapLegendProps> = ({ visibility, toggleLayer }) => {
         color: "white",
       }}
     >
-      <Typography variant="h6" style={{ marginBottom: "7px", color: "white" }}>Map Legend</Typography>
+      <Typography variant="h6" style={{ marginBottom: "7px", color: "white" }}>
+        Map Legend
+      </Typography>
       <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
         {Object.keys(visibility).map((layer) => (
           <li key={layer}>
@@ -93,8 +90,8 @@ const MapLegend: React.FC<MapLegendProps> = ({ visibility, toggleLayer }) => {
               checked={visibility[layer]}
               onChange={() => toggleLayer(layer)}
               style={{
-                marginRight: "7px", 
-                cursor: "pointer", 
+                marginRight: "7px",
+                cursor: "pointer",
               }}
             />
             <Typography style={{ marginLeft: "5px", display: "inline" }}>
@@ -157,10 +154,9 @@ function MapPage() {
   const handleMarkerClick = (location: Location) => {
     setSelectedFarmersMarket(-1);
     axios.get(dbUrlDetail + location.store_id).then((response: any) => {
-
-      response.data[0].longitude = location.longitude
-      response.data[0].latitude = location.latitude
-      response.data[0].type = location.type
+      response.data[0].longitude = location.longitude;
+      response.data[0].latitude = location.latitude;
+      response.data[0].type = location.type;
 
       setDrawerData(response.data[0]);
     });
@@ -173,25 +169,66 @@ function MapPage() {
 
   // Icon definitions
   const customIconAldi = new Icon({ iconUrl: "/aldi.png", iconSize: [65, 40] });
-  const customIconBravo = new Icon({ iconUrl: "/bravo.png", iconSize: [50, 25] });
-  const customIconCostco = new Icon({ iconUrl: "/costco.png", iconSize: [65, 40] });
-  const customIconFarmersMarket = new Icon({ iconUrl: "/farmersmarket.png", iconSize: [38, 38] });
-  const customIconWalmart = new Icon({ iconUrl: "/walmart.png", iconSize: [38, 38] });
-  const customIconPublix = new Icon({ iconUrl: "/publix.png", iconSize: [38, 38] });
-  const customIconSprouts = new Icon({ iconUrl: "/sprouts.png", iconSize: [65, 40] });
-  const customIconTarget = new Icon({ iconUrl: "/target.png", iconSize: [38, 38] });
-  const customIconFoodPantry = new Icon({ iconUrl: "/food pantry.png", iconSize: [30, 30] });
-  const customIconSpecialty = new Icon({ iconUrl: "/Specialty.png", iconSize: [30, 30] });
+  const customIconBravo = new Icon({
+    iconUrl: "/bravo.png",
+    iconSize: [50, 25],
+  });
+  const customIconCostco = new Icon({
+    iconUrl: "/costco.png",
+    iconSize: [65, 40],
+  });
+  const customIconFarmersMarket = new Icon({
+    iconUrl: "/farmersmarket.png",
+    iconSize: [38, 38],
+  });
+  const customIconWalmart = new Icon({
+    iconUrl: "/walmart.png",
+    iconSize: [38, 38],
+  });
+  const customIconPublix = new Icon({
+    iconUrl: "/publix.png",
+    iconSize: [38, 38],
+  });
+  const customIconSprouts = new Icon({
+    iconUrl: "/sprouts.png",
+    iconSize: [65, 40],
+  });
+  const customIconTarget = new Icon({
+    iconUrl: "/target.png",
+    iconSize: [38, 38],
+  });
+  const customIconFoodPantry = new Icon({
+    iconUrl: "/food pantry.png",
+    iconSize: [30, 30],
+  });
+  const customIconSpecialty = new Icon({
+    iconUrl: "/Specialty.png",
+    iconSize: [30, 30],
+  });
 
   const aldiData = resultsDB.filter((resultsDB) => resultsDB.type === "Aldi");
   const bravoData = resultsDB.filter((resultsDB) => resultsDB.type === "Bravo");
-  const costcoData = resultsDB.filter((resultsDB) => resultsDB.type === "Costco");
-  const publixData = resultsDB.filter((resultsDB) => resultsDB.type === "Publix");
-  const sproutsData = resultsDB.filter((resultsDB) => resultsDB.type === "Sprouts");
-  const targetData = resultsDB.filter((resultsDB) => resultsDB.type === "Target");
-  const walmartData = resultsDB.filter((resultsDB) => resultsDB.type === "Walmart");
-  const foodpantryData = resultsDB.filter((resultsDB) => resultsDB.type === "Food Pantry");
-  const specialtyData = resultsDB.filter((resultsDB) => resultsDB.type === "Specialty");
+  const costcoData = resultsDB.filter(
+    (resultsDB) => resultsDB.type === "Costco"
+  );
+  const publixData = resultsDB.filter(
+    (resultsDB) => resultsDB.type === "Publix"
+  );
+  const sproutsData = resultsDB.filter(
+    (resultsDB) => resultsDB.type === "Sprouts"
+  );
+  const targetData = resultsDB.filter(
+    (resultsDB) => resultsDB.type === "Target"
+  );
+  const walmartData = resultsDB.filter(
+    (resultsDB) => resultsDB.type === "Walmart"
+  );
+  const foodpantryData = resultsDB.filter(
+    (resultsDB) => resultsDB.type === "Food Pantry"
+  );
+  const specialtyData = resultsDB.filter(
+    (resultsDB) => resultsDB.type === "Specialty"
+  );
 
   const handleHomeClick = () => navigate("/");
   const handleRecipeClick = () => navigate("/recipes");
@@ -245,13 +282,22 @@ function MapPage() {
                 },
               }}
             >
-              <Button onClick={handleHomeClick} sx={{ color: "#FFFFFF", fontSize: "14px" }}>
+              <Button
+                onClick={handleHomeClick}
+                sx={{ color: "#FFFFFF", fontSize: "14px" }}
+              >
                 Home
               </Button>
-              <Button onClick={handleRecipeClick} sx={{ color: "#FFFFFF", fontSize: "14px" }}>
+              <Button
+                onClick={handleRecipeClick}
+                sx={{ color: "#FFFFFF", fontSize: "14px" }}
+              >
                 Search Recipes
               </Button>
-              <Button onClick={handleNewButtonClick} sx={{ color: "#FFFFFF", fontSize: "14px" }}>
+              <Button
+                onClick={handleNewButtonClick}
+                sx={{ color: "#FFFFFF", fontSize: "14px" }}
+              >
                 Nutrition Guide
               </Button>
             </ButtonGroup>
@@ -267,16 +313,28 @@ function MapPage() {
             <Tooltip
               title={
                 <span style={{ color: "black" }}>
-                  The blue circle shows your location. Zoom out or click a marker to explore more places.
+                  The blue circle shows your location. Zoom out or click a
+                  marker to explore more places.
                 </span>
               }
               placement="bottom"
               arrow
               PopperProps={{
-                modifiers: [{ name: "arrow", options: { element: "[data-popper-arrow]" } }],
+                modifiers: [
+                  {
+                    name: "arrow",
+                    options: { element: "[data-popper-arrow]" },
+                  },
+                ],
               }}
-              componentsProps={{
-                tooltip: { sx: { backgroundColor: "#FFFFFF", color: "black", fontSize: "0.85rem" } },
+              slotProps={{
+                tooltip: {
+                  sx: {
+                    backgroundColor: "#FFFFFF",
+                    color: "black",
+                    fontSize: "0.85rem",
+                  },
+                },
                 arrow: { sx: { color: "#FFFFFF" } },
               }}
             >
@@ -308,14 +366,17 @@ function MapPage() {
           />
           <LocationMarker />
 
-           {/* Marker Groups */}
-           {visibility["Aldi"] && (
+          {/* Marker Groups */}
+          {visibility["Aldi"] && (
             <MarkerClusterGroup chunkedLoading>
               {aldiData.map((result, index) => (
                 <Marker
                   key={index}
                   eventHandlers={{ click: () => handleMarkerClick(result) }}
-                  position={[result.latitude as number, result.longitude as number]}
+                  position={[
+                    result.latitude as number,
+                    result.longitude as number,
+                  ]}
                   icon={customIconAldi}
                 />
               ))}
@@ -327,7 +388,10 @@ function MapPage() {
                 <Marker
                   key={index}
                   eventHandlers={{ click: () => handleMarkerClick(result) }}
-                  position={[result.latitude as number, result.longitude as number]}
+                  position={[
+                    result.latitude as number,
+                    result.longitude as number,
+                  ]}
                   icon={customIconBravo}
                 />
               ))}
@@ -339,7 +403,10 @@ function MapPage() {
                 <Marker
                   key={index}
                   eventHandlers={{ click: () => handleMarkerClick(result) }}
-                  position={[result.latitude as number, result.longitude as number]}
+                  position={[
+                    result.latitude as number,
+                    result.longitude as number,
+                  ]}
                   icon={customIconCostco}
                 />
               ))}
@@ -351,7 +418,10 @@ function MapPage() {
                 <Marker
                   key={index}
                   eventHandlers={{ click: () => handleMarkerClickFarm(index) }}
-                  position={[result.location_y as number, result.location_x as number]}
+                  position={[
+                    result.location_y as number,
+                    result.location_x as number,
+                  ]}
                   icon={customIconFarmersMarket}
                 />
               ))}
@@ -363,19 +433,25 @@ function MapPage() {
                 <Marker
                   key={index}
                   eventHandlers={{ click: () => handleMarkerClick(result) }}
-                position={[result.latitude as number, result.longitude as number]}
+                  position={[
+                    result.latitude as number,
+                    result.longitude as number,
+                  ]}
                   icon={customIconFoodPantry}
                 />
               ))}
             </MarkerClusterGroup>
-          )} 
+          )}
           {visibility["Publix"] && (
             <MarkerClusterGroup chunkedLoading>
               {publixData.map((result, index) => (
                 <Marker
                   key={index}
                   eventHandlers={{ click: () => handleMarkerClick(result) }}
-                  position={[result.latitude as number, result.longitude as number]}
+                  position={[
+                    result.latitude as number,
+                    result.longitude as number,
+                  ]}
                   icon={customIconPublix}
                 />
               ))}
@@ -387,7 +463,10 @@ function MapPage() {
                 <Marker
                   key={index}
                   eventHandlers={{ click: () => handleMarkerClick(result) }}
-                  position={[result.latitude as number, result.longitude as number]}
+                  position={[
+                    result.latitude as number,
+                    result.longitude as number,
+                  ]}
                   icon={customIconSprouts}
                 />
               ))}
@@ -399,37 +478,45 @@ function MapPage() {
                 <Marker
                   key={index}
                   eventHandlers={{ click: () => handleMarkerClick(result) }}
-                  position={[result.latitude as number, result.longitude as number]}
+                  position={[
+                    result.latitude as number,
+                    result.longitude as number,
+                  ]}
                   icon={customIconTarget}
                 />
               ))}
             </MarkerClusterGroup>
           )}
-           {visibility["Specialty"] && (
+          {visibility["Specialty"] && (
             <MarkerClusterGroup chunkedLoading>
               {specialtyData.map((result, index) => (
                 <Marker
                   key={index}
                   eventHandlers={{ click: () => handleMarkerClick(result) }}
-                  position={[result.latitude as number, result.longitude as number]}
+                  position={[
+                    result.latitude as number,
+                    result.longitude as number,
+                  ]}
                   icon={customIconSpecialty}
                 />
               ))}
             </MarkerClusterGroup>
-          )}   
+          )}
           {visibility["Walmart"] && (
             <MarkerClusterGroup chunkedLoading>
               {walmartData.map((result, index) => (
                 <Marker
                   key={index}
                   eventHandlers={{ click: () => handleMarkerClick(result) }}
-                  position={[result.latitude as number, result.longitude as number]}
+                  position={[
+                    result.latitude as number,
+                    result.longitude as number,
+                  ]}
                   icon={customIconWalmart}
                 />
               ))}
             </MarkerClusterGroup>
           )}
-
         </MapContainer>
 
         <StoreDetailsDrawer
@@ -458,40 +545,36 @@ function MapPage() {
           sx={{ backgroundColor: "transparent" }}
         >
           <BottomNavigationAction
-  label="Need Help?" 
-  icon={
-    <Tooltip
-      title="Email us at guirirk@valenciacollege.edu"
-      arrow
-      
-    >
-      <HelpOutlineIcon />
-    </Tooltip>
-  }
-  sx={{
-    color: '#FFFFFF',
-    '&.Mui-selected': {
-      color: '#FFFFFF',
-    },
-    transition: 'all 0.3s ease-in-out',
-    '&:hover': {
-      backgroundColor: '#ffffff22',
-      boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)',
-      color: '#FFFFAA',
-    },
-  }}
-/>
+            label="Need Help?"
+            icon={
+              <Tooltip title="Email us at guirirk@valenciacollege.edu" arrow>
+                <HelpOutlineIcon />
+              </Tooltip>
+            }
+            sx={{
+              color: "#FFFFFF",
+              "&.Mui-selected": {
+                color: "#FFFFFF",
+              },
+              transition: "all 0.3s ease-in-out",
+              "&:hover": {
+                backgroundColor: "#ffffff22",
+                boxShadow: "0 4px 8px rgba(255, 255, 255, 0.5)",
+                color: "#FFFFAA",
+              },
+            }}
+          />
 
-<BottomNavigationAction
+          <BottomNavigationAction
             label="Contact Us (407) 299-5000"
             icon={<PhoneIcon />}
             sx={{
-              color: '#FFFFFF',
-              transition: 'all 0.3s ease-in-out', 
-              '&:hover': {
-                backgroundColor: '#ffffff22', 
-                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', 
-                color: '#FFFFAA', 
+              color: "#FFFFFF",
+              transition: "all 0.3s ease-in-out",
+              "&:hover": {
+                backgroundColor: "#ffffff22",
+                boxShadow: "0 4px 8px rgba(255, 255, 255, 0.5)",
+                color: "#FFFFAA",
               },
             }}
           />
@@ -502,8 +585,3 @@ function MapPage() {
 }
 
 export default MapPage;
-
-
-function setDrawerOpen(arg0: boolean) {
-  throw new Error("Function not implemented.");
-}

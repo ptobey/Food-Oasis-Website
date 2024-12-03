@@ -250,13 +250,15 @@ const RecipeSearchPage = () => {
   };
 
   return (
-    <div style={{ padding: "140px",
-      backgroundImage:
-      "linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.9)), url(/recipesearch1.jpg)",
-      backgroundSize: "cover", 
-      backgroundRepeat: "no-repeat", 
-      backgroundPosition: "center", 
-      minHeight: "100vh", 
+    <div
+      style={{
+        padding: "140px",
+        backgroundImage:
+          "linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.9)), url(/recipesearch1.jpg)",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        minHeight: "100vh",
       }}
     >
       <Header
@@ -285,14 +287,14 @@ const RecipeSearchPage = () => {
                 padding: "4px",
               }}
             >
-              <SearchIcon style={{ color: "#4a4a4a" }} /> 
+              <SearchIcon style={{ color: "#4a4a4a" }} />
             </div>
           ),
         }}
         inputProps={{
           style: {
-            color: "#000000", 
-            fontWeight: "500", 
+            color: "#000000",
+            fontWeight: "500",
           },
         }}
       />

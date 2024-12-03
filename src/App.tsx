@@ -8,7 +8,7 @@ import RecipeDetailPage from "./RecipeDetailPage";
 
 const App: React.FC = () => {
   return (
-    <div style= {{margin: -8}}>
+    <div style={{ margin: -8 }}>
       <Router>
         <Routes>
           <Route path="/" element={<LaunchPage />} />

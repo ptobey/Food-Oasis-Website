@@ -19,36 +19,44 @@ interface StoreDetailsDrawerProps {
 
 const is_closed = false;
 
-const StoreDetailsDrawer: React.FC<StoreDetailsDrawerProps> = ({ open, onClose, data, isFarmersMarket }) => {
+const StoreDetailsDrawer: React.FC<StoreDetailsDrawerProps> = ({
+  open,
+  onClose,
+  data,
+  isFarmersMarket,
+}) => {
   return (
     <Drawer anchor="left" open={open} onClose={onClose}>
       <Box
         p={3}
         width="350px"
         sx={{
-            bgcolor: "#f5f5f5", 
-            color: "#333", 
-            borderLeft: "5px solid #000000", 
-            boxShadow: "0 2px 6px rgba(0, 0, 0, 0.5)", 
+          bgcolor: "#f5f5f5",
+          color: "#333",
+          borderLeft: "5px solid #000000",
+          boxShadow: "0 2px 6px rgba(0, 0, 0, 0.5)",
         }}
       >
         {/* Title */}
         <Typography
-  variant="h4"
-  sx={{
-    fontFamily: '"Poppins", sans-serif', 
-    fontWeight: 600, 
-    color: "#333333", 
-    mb: 2, 
-  }}
->
-  Store Details
-</Typography>
+          variant="h4"
+          sx={{
+            fontFamily: '"Poppins", sans-serif',
+            fontWeight: 600,
+            color: "#333333",
+            mb: 2,
+          }}
+        >
+          Store Details
+        </Typography>
 
         <Divider sx={{ mb: 2 }} />
 
         {/* Store Name */}
-        <Typography variant="h5" sx={{ mb: 1, fontWeight: "bold", color: "#333" }}>
+        <Typography
+          variant="h5"
+          sx={{ mb: 1, fontWeight: "bold", color: "#333" }}
+        >
           {isFarmersMarket ? data.listing_name : data.type}
         </Typography>
 
@@ -56,7 +64,8 @@ const StoreDetailsDrawer: React.FC<StoreDetailsDrawerProps> = ({ open, onClose, 
         <Typography variant="body1" sx={{ mb: 1, color: "#424242" }}>
           {isFarmersMarket ? data.location_street : data.street_address}
           <br />
-          {isFarmersMarket ? data.location_city : data.city}, {isFarmersMarket ? data.location_state : data.state}
+          {isFarmersMarket ? data.location_city : data.city},{" "}
+          {isFarmersMarket ? data.location_state : data.state}
           <br />
           {isFarmersMarket ? data.location_zipcode : data.zip}
         </Typography>
@@ -67,67 +76,74 @@ const StoreDetailsDrawer: React.FC<StoreDetailsDrawerProps> = ({ open, onClose, 
         </Typography>
 
         {/* Directions*/}
-          <Button
+        <Button
           variant="outlined"
-          href={isFarmersMarket ? "https://www.google.com/maps/place/" + data.location_y + "," + data.location_x : "https://www.google.com/maps/place/" + data.latitude + "," + data.longitude}
+          href={
+            isFarmersMarket
+              ? "https://www.google.com/maps/place/" +
+                data.location_y +
+                "," +
+                data.location_x
+              : "https://www.google.com/maps/place/" +
+                data.latitude +
+                "," +
+                data.longitude
+          }
           target="_blank"
           rel="noopener noreferrer"
           sx={{
             mb: 2,
-            borderColor: "#080808", 
-            color: "#080808", 
-            backgroundColor: "#FFFFFF", 
-            padding: "8px 20px", 
-            //borderRadius: "8px", 
-            fontWeight: "500", 
-            
-            transition: "all 0.3s ease", 
+            borderColor: "#080808",
+            color: "#080808",
+            backgroundColor: "#FFFFFF",
+            padding: "8px 20px",
+            //borderRadius: "8px",
+            fontWeight: "500",
+
+            transition: "all 0.3s ease",
             "&:hover": {
-              backgroundColor: "#080808", 
-              color: "#ffffff", 
-              borderColor: "080808", 
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.5)", 
+              backgroundColor: "#080808",
+              color: "#ffffff",
+              borderColor: "080808",
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.5)",
             },
             "&:active": {
-              transform: "scale(0.98)", 
+              transform: "scale(0.98)",
             },
           }}
         >
           Map Directions
         </Button>
-        
 
         {/* Website Link */}
         {data.website && (
           <Button
-          variant="outlined"
-          href={isFarmersMarket ? data.media_website : data.website}
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{
-            mb: 2,
-            borderColor: "#080808", 
-            color: "#080808", 
-            backgroundColor: "#FFFFFF", 
-            padding: "8px 20px", 
-            //borderRadius: "8px", 
-            fontWeight: "500", 
-            
-            transition: "all 0.3s ease", 
-            "&:hover": {
-              backgroundColor: "#080808", 
-              color: "#ffffff", 
-              borderColor: "080808", 
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.5)", 
-            },
-            "&:active": {
-              transform: "scale(0.98)", 
-            },
-          }}
-        >
-          Visit Website
-        </Button>
-        
+            variant="outlined"
+            href={isFarmersMarket ? data.media_website : data.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              mb: 2,
+              borderColor: "#080808",
+              color: "#080808",
+              backgroundColor: "#FFFFFF",
+              padding: "8px 20px",
+              fontWeight: "500",
+
+              transition: "all 0.3s ease",
+              "&:hover": {
+                backgroundColor: "#080808",
+                color: "#ffffff",
+                borderColor: "080808",
+                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.5)",
+              },
+              "&:active": {
+                transform: "scale(0.98)",
+              },
+            }}
+          >
+            Visit Website
+          </Button>
         )}
 
         {/* Store Image */}
@@ -148,7 +164,10 @@ const StoreDetailsDrawer: React.FC<StoreDetailsDrawerProps> = ({ open, onClose, 
         {/* Operating Hours */}
         {!isFarmersMarket && data.hours && (
           <Box>
-            <Typography variant="h6" sx={{ fontWeight: "bold", mb: 1, color: "#333" }}>
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: "bold", mb: 1, color: "#333" }}
+            >
               Hours
             </Typography>
             <List>
@@ -158,9 +177,20 @@ const StoreDetailsDrawer: React.FC<StoreDetailsDrawerProps> = ({ open, onClose, 
                   <ListItem key={day} sx={{ p: 0 }}>
                     <ListItemText
                       primary={`${day}:`}
-                      secondary= {is_closed|| !hours.open ? "Closed" : `${hours.open} - ${hours.close}`}
-                      primaryTypographyProps={{ variant: "body2", fontWeight: "bold", color: "#333" }}
-                      secondaryTypographyProps={{ variant: "body2", color: "text.secondary" }}
+                      secondary={
+                        is_closed || !hours.open
+                          ? "Closed"
+                          : `${hours.open} - ${hours.close}`
+                      }
+                      primaryTypographyProps={{
+                        variant: "body2",
+                        fontWeight: "bold",
+                        color: "#333",
+                      }}
+                      secondaryTypographyProps={{
+                        variant: "body2",
+                        color: "text.secondary",
+                      }}
                     />
                   </ListItem>
                 );
@@ -169,10 +199,14 @@ const StoreDetailsDrawer: React.FC<StoreDetailsDrawerProps> = ({ open, onClose, 
           </Box>
         )}
 
-         {/*last_updated*/}
-         <Typography variant="body2" sx={{ color: "#545454", mb: 2 }}>
+        {/*last_updated*/}
+        <Typography variant="body2" sx={{ color: "#545454", mb: 2 }}>
           {"Last updated: "}
-          {isFarmersMarket || !data.last_updated ? "unknown" : data.last_updated.slice(5,10) + "-" + data.last_updated.slice(0,4)}
+          {isFarmersMarket || !data.last_updated
+            ? "unknown"
+            : data.last_updated.slice(5, 10) +
+              "-" +
+              data.last_updated.slice(0, 4)}
         </Typography>
 
         {/* Fallback Text */}
@@ -187,5 +221,3 @@ const StoreDetailsDrawer: React.FC<StoreDetailsDrawerProps> = ({ open, onClose, 
 };
 
 export default StoreDetailsDrawer;
-
-

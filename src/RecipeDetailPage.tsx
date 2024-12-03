@@ -18,8 +18,8 @@ import {
   BottomNavigationAction,
 } from "@mui/material";
 import PhoneIcon from "@mui/icons-material/Phone";
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline'; 
-import Tooltip from '@mui/material/Tooltip';
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import Tooltip from "@mui/material/Tooltip";
 
 const RecipeDetailPage = () => {
   const { recipeId } = useParams();
@@ -359,40 +359,36 @@ const RecipeDetailPage = () => {
           }}
         >
           <BottomNavigationAction
-  label="Need Help?" 
-  icon={
-    <Tooltip
-      title="Email us at guirirk@valenciacollege.edu"
-      arrow
-      
-    >
-      <HelpOutlineIcon />
-    </Tooltip>
-  }
-  sx={{
-    color: '#FFFFFF',
-    '&.Mui-selected': {
-      color: '#FFFFFF',
-    },
-    transition: 'all 0.3s ease-in-out',
-    '&:hover': {
-      backgroundColor: '#ffffff22',
-      boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)',
-      color: '#FFFFAA',
-    },
-  }}
-/>
+            label="Need Help?"
+            icon={
+              <Tooltip title="Email us at guirirk@valenciacollege.edu" arrow>
+                <HelpOutlineIcon />
+              </Tooltip>
+            }
+            sx={{
+              color: "#FFFFFF",
+              "&.Mui-selected": {
+                color: "#FFFFFF",
+              },
+              transition: "all 0.3s ease-in-out",
+              "&:hover": {
+                backgroundColor: "#ffffff22",
+                boxShadow: "0 4px 8px rgba(255, 255, 255, 0.5)",
+                color: "#FFFFAA",
+              },
+            }}
+          />
 
           <BottomNavigationAction
             label="Contact Us (407) 299-5000"
             icon={<PhoneIcon />}
             sx={{
-              color: '#FFFFFF',
-              transition: 'all 0.3s ease-in-out', 
-              '&:hover': {
-                backgroundColor: '#ffffff22', 
-                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', 
-                color: '#FFFFAA', 
+              color: "#FFFFFF",
+              transition: "all 0.3s ease-in-out",
+              "&:hover": {
+                backgroundColor: "#ffffff22",
+                boxShadow: "0 4px 8px rgba(255, 255, 255, 0.5)",
+                color: "#FFFFAA",
               },
             }}
           />

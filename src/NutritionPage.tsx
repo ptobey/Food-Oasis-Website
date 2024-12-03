@@ -106,7 +106,6 @@ const NutritionPage: React.FC = () => {
             fontWeight: "500",
             letterSpacing: "1px",
             color: "#000000",
-            //fontFamily: "'Roboto', sans-serif",
           }}
         >
           Why Eat Healthy?
@@ -373,7 +372,7 @@ const NutritionPage: React.FC = () => {
               },
             }}
           />
-          
+
           <BottomNavigationAction
             label="Contact Us (407) 299-5000"
             icon={<PhoneIcon />}
