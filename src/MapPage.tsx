@@ -22,9 +22,7 @@ import {
   BottomNavigationAction,
 } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
-import SpaIcon from "@mui/icons-material/Spa";
 import PhoneIcon from "@mui/icons-material/Phone";
-import GroupsIcon from "@mui/icons-material/Groups";
 import StoreDetailsDrawer from "./StoreDetailsDrawer";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'; 
 import "./MapPage.css";
@@ -483,19 +481,7 @@ function MapPage() {
     },
   }}
 />
-<BottomNavigationAction
-            label="Placeholder for Translator"
-            icon={<GroupsIcon />}
-            sx={{
-              color: '#FFFFFF',
-              transition: 'all 0.3s ease-in-out', 
-              '&:hover': {
-                backgroundColor: '#ffffff22', 
-                boxShadow: '0 4px 8px rgba(255, 255, 255, 0.5)', 
-                color: '#FFFFAA', 
-              },
-            }}
-          />
+
 <BottomNavigationAction
             label="Contact Us (407) 299-5000"
             icon={<PhoneIcon />}
